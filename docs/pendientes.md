@@ -27,6 +27,7 @@ Actualización: 2026-10-08. **Tareas propuestas**, excepto la documentación sol
 
 ## Completado en esta preparación
 
+- [x] Configurar `android.overridePathCheck=true` en `gradle.properties` para permitir la sincronización y compilación en rutas con caracteres no ASCII en Windows.
 - [x] Analizar el árbol, código, configuración, pruebas y metadatos Git locales sin reescribir funcionalidades.
 - [x] Crear el sistema de contexto persistente y reglas de actualización en la raíz Git.
 - [x] Ampliar exclusiones de archivos locales/sensibles y fijar finales de línea para documentación y wrappers.

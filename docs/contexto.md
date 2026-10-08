@@ -19,7 +19,7 @@ La app es una base inicial: `MainActivity` → `MaderTimberTheme` → `Scaffold`
 
 Base de aplicación revisada en `3dcf635`; Git local en `main`, seguimiento `origin/main`, remoto configurado `Vicentep12/MaderaTimber`. No se verificó estado remoto ni se hizo commit/push. La nueva documentación/configuración está local: no estará en otros equipos hasta sincronizarla con autorización.
 
-Gradle se descargó; AGP rechazó la ruta Windows por tildes (`Móviles`). Un clon local independiente recuperó el código, pero su build falló al iniciar AAPT2; la causa del entorno sigue sin confirmar. Usar rutas sin tildes para proyecto/caché al diagnosticar. APK, prueba local, Lint, pruebas instrumentadas, ejecución visual y build Cloud no están acreditados. Detalle: `estado-actual.md`. La revisión básica de textos rastreados no detectó secretos; no fue una auditoría histórica.
+Gradle se descargó. El bloqueo por la ruta Windows con caracteres no ASCII (`Móviles`) se resolvió agregando `android.overridePathCheck=true` a `gradle.properties`, permitiendo la sincronización exitosa de Gradle y la compilación de `:app:assembleDebug`. APK, prueba local, Lint, pruebas instrumentadas, ejecución visual y build Cloud no están acreditados. Detalle: `estado-actual.md`. La revisión básica de textos rastreados no detectó secretos; no fue una auditoría histórica.
 
 **Inferencia:** parece una plantilla inicial Android/Compose por sus ejemplos. No consta versión original de Android Studio, requerimientos de negocio ni decisiones previas fuera de Git.
 
