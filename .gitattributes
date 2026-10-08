@@ -1,0 +1,4 @@
+# Archivos compartidos entre Windows y entornos POSIX/Cloud
+*.md text eol=lf
+gradlew text eol=lf
+gradlew.bat text eol=crlf

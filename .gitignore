@@ -13,3 +13,37 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Cachés adicionales de Kotlin/Gradle y resultados locales
+.kotlin/
+.gradle-user-home/
+**/build/
+*.hprof
+*.log
+*.apk
+*.aab
+
+# Configuración privada y secretos (ejemplos sin valores reales sí pueden versionarse)
+.env
+.env.*
+!.env.example
+!.env.*.example
+key.properties
+keystore.properties
+credentials.json
+service-account*.json
+google-services.json
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Configuración local de otros editores
+.vscode/
+.idea/*
+!.idea/.gitignore
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
