@@ -1,62 +1,38 @@
-# Registro de decisiones
+# Decisiones vigentes
 
-Las decisiones D-001 a D-004 son **observadas en el código** al 2026-10-08; la fecha de revisión no es la fecha histórica de adopción. No se recuperaron justificaciones del equipo desde conversaciones. Las alternativas indicadas son comparaciones posibles, no evidencia de una evaluación previa.
+Actualización: 2026-10-08. Las configuraciones observadas no implican una justificación histórica conocida. El historial detallado de reorganizaciones se conserva en Git; este registro mantiene las decisiones que afectan el trabajo actual.
 
-## D-001 — Android nativo con Kotlin y Compose
+## Arquitectura e identidad
 
-- **Estado:** observado, existente.
-- **Evidencia:** `MainActivity.kt`, `ui/theme/`, dependencias y `buildFeatures.compose` en `app/build.gradle.kts`.
-- **Decisión:** actividad Android y UI declarativa Compose con Material 3.
-- **Justificación histórica:** no documentada.
-- **Alternativas posibles:** Views/XML para UI; un framework multiplataforma. No consta que se hayan considerado.
-- **Consecuencias:** requiere herramientas Android; componentes Compose y tema se desarrollan en Kotlin. No existe aplicación iOS/web.
+| Referencia | Decisión y estado | Consecuencia |
+| --- | --- | --- |
+| D-001 | Android nativo con Kotlin y Compose/Material 3, observado en el código. | Usar las herramientas y UI existentes; no hay versión web/iOS. |
+| D-002 | Un módulo :app, observado. No se aprobó modularización adicional. | Implementar las responsabilidades MVVM dentro de la estructura existente antes de considerar más módulos. |
+| D-003 | Wrapper, catálogo de versiones y toolchain del daemon, observados. | Versiones/comandos en README y Gradle; no confundir JDK del daemon con source/target Java. |
+| D-004 | Mantener identidad com.duoc.madertimber y nombres actuales MaderaTimber/MaderTimber. | No renombrar paquete, proyecto o app sin instrucción explícita. |
+| D-006 | MaderaTimber es el panel CENAMAD y la asignatura exige MVVM, confirmado por el usuario. | View Compose, estado/eventos en ViewModel y datos/cálculos en Model/Repository. Implementación pendiente. |
 
-## D-002 — Un módulo de aplicación
+## Documentación y tutoría
 
-- **Estado:** observado, existente.
-- **Evidencia:** `include(":app")` en `settings.gradle.kts` y contenido de `app/src`.
-- **Decisión:** concentrar la aplicación en `:app` y los archivos de UI/tema actuales.
-- **Justificación histórica:** no documentada. Que sea suficiente para una base pequeña es una inferencia, no una intención atribuida al equipo.
-- **Alternativas posibles:** módulos por características/capas; MVVM dentro del mismo módulo. Ninguna está implementada ni aprobada.
-- **Consecuencias:** estructura pequeña; separar responsabilidades futuras requerirá una decisión según requisitos, no una refactorización automática.
+Las decisiones D-005, D-007 y D-008 se consolidan en la política siguiente, confirmada por el usuario:
 
-## D-003 — Wrapper, catálogo y toolchain del daemon
+- Mantener los planes completos, requisitos y progreso dentro del repositorio para continuar desde distintos dispositivos.
+- Conservar una fuente por tema: especificación para contratos y plan técnico detallado; plan operativo para tareas/estado; aprendizaje para perfil/recorrido; progreso para evidencias del estudiante; estado técnico para validaciones; arquitectura para responsabilidades.
+- README contiene instalación y comandos, incluida la continuidad Cloud. AGENTS.md establece cómo trabajar y qué leer.
+- La raíz mantiene README y AGENTS; la documentación temática vive en docs/. El AGENTS de la carpeta superior solo dirige al repositorio.
+- Respetar la tutoría: una lección a la vez, código escrito por el usuario, revisión guiada y conceptos aplicados a Kotlin/Android.
+- Guardar un archivo local no lo sincroniza con otro dispositivo: Git transporta código y documentos una vez guardados y subidos con autorización.
 
-- **Estado:** observado, existente; compatibilidad completa pendiente de validación.
-- **Evidencia:** `gradle/wrapper/*`, `gradle/libs.versions.toml`, `gradle/gradle-daemon-jvm.properties`, scripts `.kts`.
-- **Decisión:** versiones centralizadas, distribución Gradle con checksum y daemon JDK 25. Versiones concretas en README.
-- **Justificación histórica:** no documentada.
-- **Alternativas posibles:** Gradle global y versiones inline; no adoptadas en el árbol actual.
-- **Consecuencias:** configuración transportable, pero primer uso necesita resolver descargas y SDK por equipo. Java source/target 11 no habilita ejecutar el build con JDK 11. No deducir la versión Kotlin integrada de la del plugin Compose.
+Esta política sustituye las versiones anteriores que dependían de documentos externos o síntesis incompletas. Los años 2022–2024 y la selección inicial 2024 se conservan; usar 2026 fue una sugerencia no adoptada.
 
-## D-004 — Identidad y configuración Android actuales
-
-- **Estado:** observado; no hay decisión de unificación de nombres.
-- **Evidencia:** manifiesto, `strings.xml`, `settings.gradle.kts`, `app/build.gradle.kts`.
-- **Decisión observada:** identificador `com.duoc.madertimber`, nombre visible/proyecto `MaderTimber`, SDK mínimo 24 y compilación/objetivo 37; release sin optimización. No hay configuración propia de firma release.
-- **Justificación histórica y alternativas evaluadas:** desconocidas.
-- **Consecuencias:** renombrar identificadores cambia identidad de instalación y prueba instrumentada; debe acordarse. Reglas de backup/firma/optimización necesitan revisión al implementar datos o preparar una entrega.
-
-## D-005 — Contexto persistente versionado
+## Consolidación de contenido — D-009
 
 - **Fecha:** 2026-10-08.
-- **Estado:** acordado por solicitud explícita del propietario; implementado en esta entrega local.
-- **Contexto:** continuar desde distintos equipos y sesiones sin depender del historial del chat.
-- **Decisión:** `AGENTS.md` como instrucciones y `docs/contexto.md` como entrada rápida; documentos separados para arquitectura, decisiones, estado y tareas; README para instalación y Cloud.
-- **Justificación:** los archivos dentro de la raíz Git viajan con el mismo código y pueden revisarse conjuntamente.
-- **Alternativas:** usar solo memoria/historial de chat (no cumple el requisito); documentación externa como única fuente (no acompaña necesariamente al clon).
-- **Consecuencias:** cada cambio significativo debe actualizar los documentos afectados. Git y su sincronización autorizada transportan el contexto; el estado guardado de una tarea Cloud no reemplaza Git. No se publican cambios remotos en esta entrega.
+- **Estado:** aplicada por solicitud del usuario.
+- **Decisión:** integrar contexto y pendientes en plan-implementacion.md; integrar las notas técnicas Cloud útiles en README; retirar sus archivos redundantes. Reducir los relatos de reorganización y conservar evidencias de aprendizaje y validación.
+- **Motivo:** evitar varias versiones del siguiente paso, del estado y de las mismas reglas.
+- **Consecuencia:** preservar los contratos y el recorrido completos, actualizar enlaces e instrucciones y mantener una ubicación por tema. No cambia alcance ni código.
 
-## Cómo registrar una nueva decisión
+## Nuevas decisiones
 
-Agregar un ID consecutivo con fecha, estado (`propuesta`, `aceptada`, `observada` o `sustituida`), contexto/evidencia, decisión, justificación, alternativas y consecuencias. No convertir propuestas en hechos. Si una decisión se reemplaza, conservar su registro y enlazar el nuevo ID; no crear un diario de cada cambio menor.
-
-## D-006 — Panel CENAMAD, MVVM y continuidad del aprendizaje
-
-- **Fecha:** 2026-10-08.
-- **Estado:** aceptada por instrucciones explícitas recuperadas de los chats locales; implementación del MVP pendiente.
-- **Contexto:** los documentos de la carpeta superior Windows no acompañaban al clon Cloud. El usuario confirmó que MaderaTimber es el panel CENAMAD y que la asignatura exige MVVM.
-- **Decisión:** reunir el plan común, tutoría, progreso y especificación recuperada dentro de la raíz Git; usar enlaces desde la carpeta MVP y directrices Cloud. Continuar la lección pequeña previamente acordada y alcanzar MVVM por etapas.
-- **Justificación:** conservar los acuerdos al cambiar de dispositivo sin sustituir la práctica del usuario.
-- **Alternativas:** mantener requisitos solo fuera del repositorio (pierde continuidad en clones); duplicar el plan completo (genera divergencia); elegir otra arquitectura (no cumple la asignatura).
-- **Consecuencias:** corrige el desconocimiento del propósito/relación entre nombres en el contexto anterior. D-001/D-002 siguen describiendo el código existente; MVVM todavía no está implementado. Los originales Windows requieren contraste; sincronizar Git y actualizar la configuración publicada de Cloud son pasos separados.
+Registrar solo decisiones que alteren alcance, arquitectura o forma de trabajar: fecha, estado, evidencia/motivo, decisión y consecuencia. Si reemplazan otra decisión, indicar cuál. Los movimientos menores y resultados de comandos pertenecen al diff o al estado técnico, no a un nuevo registro por cada edición.

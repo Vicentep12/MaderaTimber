@@ -1,18 +1,28 @@
 # Cenamad / MaderaTimber
 
-Base de una aplicación Android nativa. **Estado funcional actual:** pantalla `Hello Android!`, tema Compose y pruebas de ejemplo. MaderaTimber implementa el panel de indicadores de impacto CENAMAD; la asignatura exige MVVM, todavía pendiente de implementar. El [plan común](PLAN_IMPLEMENTACION.md) y la [especificación recuperada](MVP_Panel_Indicadores_Impacto_CENAMAD/README.md) conservan el alcance; falta contrastar los originales Windows.
+Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para la asignatura. Contratos y alcance en [especificacion.md](docs/especificacion.md); implementación y validación en [estado-actual.md](docs/estado-actual.md).
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
 ## Documentación y continuidad
 
-Leer [AGENTS.md](AGENTS.md), [plan común](PLAN_IMPLEMENTACION.md), [aprendizaje](APRENDIZAJE.md), [progreso](PROGRESO.md) y [contexto rápido](docs/contexto.md) para empezar con Codex. Priorizar la lección previamente acordada; directrices de arranque Cloud en [docs/directrices-nube.md](docs/directrices-nube.md). Complementos: [arquitectura](docs/arquitectura.md), [decisiones](docs/decisiones.md), [estado y verificaciones](docs/estado-actual.md), [pendientes](docs/pendientes.md).
+[AGENTS.md](AGENTS.md) establece cómo trabajar. Consultar cada tema en su fuente:
 
-Solicitud para una sesión nueva, abierta en la raíz del clon actualizado:
+| Documento | Contenido |
+| --- | --- |
+| [Especificación](docs/especificacion.md) | Contratos, modelos, cálculos, plan técnico completo, aceptación, pruebas y entregables. |
+| [Plan operativo](docs/plan-implementacion.md) | Etapas, tareas abiertas y próxima actividad. |
+| [Aprendizaje](docs/aprendizaje.md) | Perfil, método y recorrido pedagógico completo. |
+| [Progreso](docs/progreso.md) | Ejercicios y comprensión comprobada. |
+| [Arquitectura](docs/arquitectura.md) | Componentes actuales y responsabilidades objetivo. |
+| [Estado técnico](docs/estado-actual.md) | Implementación y evidencia de validación. |
+| [Decisiones](docs/decisiones.md) | Acuerdos que afectan arquitectura y mantenimiento. |
 
-> Lee AGENTS.md, PLAN_IMPLEMENTACION.md, APRENDIZAJE.md, PROGRESO.md y docs/contexto.md. En Cloud lee docs/directrices-nube.md. Retoma la próxima lección del panel CENAMAD con MVVM como objetivo: yo escribo el código y tú explicas y revisas paso a paso.
+Para un chat nuevo en el clon actualizado:
 
-El contexto viaja con los archivos versionados. Para que otro equipo o Codex Cloud reciba cambios locales, primero deben revisarse, confirmarse en Git y subirse con autorización. El historial de chats no reemplaza estos documentos.
+> Lee AGENTS.md y retoma la próxima actividad de docs/plan-implementacion.md después de consultar docs/progreso.md. Guíame paso a paso: yo escribo el código.
+
+Para continuar en otro equipo, sincronizar código y documentación por Git con autorización y comprobar el entorno Android. La instalación y la configuración Cloud se describen abajo.
 
 ## Tecnologías declaradas
 
@@ -90,7 +100,7 @@ Solo hay dos pruebas de plantilla: suma `2 + 2` e identidad del paquete. Las dep
 
 ## GitHub y archivos locales
 
-Git ya está inicializado. En esta revisión del 2026-10-08: rama Cloud `work`, HEAD `32bc0f2`; código de aplicación sin funcionalidad de negocio desde `3dcf635`; `origin` apunta al repositorio mostrado en el comando de clonación. No se ha consultado el remoto para certificar su estado actual o tus permisos.
+Git está inicializado; el estado observado de rama y cambios locales se registra en [estado-actual.md](docs/estado-actual.md). Comprobarlo de nuevo antes de editar o sincronizar.
 
 `.gitignore` excluye cachés, builds, configuración local del SDK, archivos privados del IDE, `.env`, credenciales habituales y firmas. No se detectaron nombres sensibles ni patrones de secretos en los archivos de texto rastreados revisados; es una comprobación básica del árbol actual, no una auditoría de todo el historial. El Wrapper JAR sí debe conservarse.
 
@@ -102,7 +112,7 @@ Entre equipos: guardar código **y documentación** en el mismo commit; hacer pu
 
 ## Codex Cloud: configuración y continuidad
 
-Guía verificada el 2026-10-08 en [Codex Cloud](https://learn.chatgpt.com/docs/cloud) y [entornos Cloud](https://learn.chatgpt.com/docs/environments/cloud-environments). La interfaz y el acceso dependen de tu cuenta. Esta tarea ya tiene un entorno conectado; los pasos siguientes sirven para configurar otro. Arranque del entorno existente y acuerdos de tutoría: [directrices de nube](docs/directrices-nube.md).
+Guía consultada en la revisión Cloud anterior del 2026-10-08: [Codex Cloud](https://learn.chatgpt.com/docs/cloud) y [entornos Cloud](https://learn.chatgpt.com/docs/environments/cloud-environments). La interfaz y el acceso dependen de tu cuenta. Esa revisión registró un entorno conectado; no se verificó su disponibilidad durante la unificación local Windows. Tutoría y siguiente actividad: [plan operativo](docs/plan-implementacion.md).
 
 1. Revisar los cambios locales y subirlos a GitHub cuando lo autorices; Cloud necesita la documentación en el repositorio remoto.
 2. Iniciar sesión en ChatGPT; en web/escritorio seleccionar **Work in > Cloud > Select environment > Create environment** (también desde Settings > Codex Cloud > Environments).
@@ -125,3 +135,17 @@ sdkmanager "platform-tools" "platforms;android-37.0" "build-tools;36.0.0"
 ```
 
 Android ahora documenta `android sdk` como sucesor de `sdkmanager`; los comandos anteriores corresponden a la herramienta tradicional todavía documentada. Ver [gestión oficial del SDK](https://developer.android.com/tools/sdkmanager). Aceptar las licencias al configurar tu entorno; no guardar SDK/licencias en Git.
+
+### Helpers del entorno Cloud previamente preparado
+
+La revisión Cloud anterior registró helpers externos al checkout en /workspace/.maderatimber-env. Solo si existen en el entorno donde se retoma el trabajo:
+
+    cd /workspace/MaderaTimber
+    bash /workspace/.maderatimber-env/configure-trust.sh
+    source /workspace/.maderatimber-env/activate.sh
+    bash ./gradlew --version --console=plain
+    bash ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --max-workers=4 --console=plain
+
+Estas rutas no pertenecen al repositorio ni garantizan que los helpers estén disponibles en otro entorno. Si faltan, preparar JDK/SDK conforme a la instalación anterior. Mantener el proxy, TLS y checksums del entorno. Registrar resultados reales en estado-actual.md; una tarea UP-TO-DATE reutiliza resultados.
+
+Configurar el inicio de las nuevas tareas para leer AGENTS.md desde la raíz Git. Editar estos documentos no modifica la configuración publicada del servicio. Las pruebas instrumentadas requieren un dispositivo/emulador disponible.

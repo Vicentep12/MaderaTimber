@@ -1,87 +1,40 @@
-# Arquitectura actual
+# Arquitectura: implementación actual y objetivo
 
-Revisión: 2026-10-08, código de aplicación en `3dcf635`. **Confirmado por el árbol y los archivos leídos**, no por ejecución en dispositivo.
+Revisión por lectura: 2026-10-08. Configuración y versiones en [README](../README.md); requisitos MVVM y estructura objetivo en la sección 6 de [especificacion.md](especificacion.md); validación en [estado-actual.md](estado-actual.md).
 
-## Estructura completa por responsabilidades
+## Estructura actual
 
-```text
-MaderaTimber/                      # raíz Git, proyecto Gradle MaderTimber
-├── AGENTS.md                      # instrucciones permanentes para Codex
-├── README.md                      # instalación, uso y traslado entre equipos
-├── PLAN_IMPLEMENTACION.md          # secuencia común acordada
-├── APRENDIZAJE.md / PROGRESO.md     # tutoría aplicada y progreso
-├── MVP_Panel_Indicadores_Impacto_CENAMAD/ # especificación recuperada y enlace al plan
-├── docs/                          # arquitectura, decisiones, estado, pendientes, contexto
-├── .gitignore / .gitattributes     # exclusiones y finales de línea portables
-├── .idea/.gitignore               # exclusiones del IDE; sin configuración compartida adicional
-├── settings.gradle.kts            # repositorios, Foojay, inclusión de :app
-├── build.gradle.kts               # aliases de plugins, apply false
-├── gradle.properties              # heap, UTF-8, Configuration Cache, estilo Kotlin
-├── gradlew / gradlew.bat           # ejecución Gradle POSIX/Windows
-├── gradle/
-│   ├── libs.versions.toml          # catálogo de dependencias/plugins
-│   ├── gradle-daemon-jvm.properties # JDK 25 y URLs por SO/arquitectura
-│   └── wrapper/                   # properties de distribución y gradle-wrapper.jar
-└── app/
-    ├── .gitignore                 # excluye /build del módulo
-    ├── build.gradle.kts           # aplicación Android, SDK, Compose, dependencias
-    └── src/
-        ├── main/
-        │   ├── AndroidManifest.xml
-        │   ├── java/com/duoc/madertimber/
-        │   │   ├── MainActivity.kt # actividad, Greeting y GreetingPreview
-        │   │   └── ui/theme/       # Theme.kt, Color.kt, Type.kt
-        │   ├── keepRules/rules.keep # plantilla de reglas R8 comentadas
-        │   └── res/
-        │       ├── drawable/      # vectores foreground/background del launcher
-        │       ├── mipmap-anydpi-v26/ # iconos adaptativos normal/redondo
-        │       ├── mipmap-{mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}/ # iconos WebP
-        │       ├── values/        # strings.xml, colors.xml, themes.xml
-        │       └── xml/           # backup_rules.xml, data_extraction_rules.xml
-        ├── test/java/com/duoc/madertimber/ExampleUnitTest.kt
-        └── androidTest/java/com/duoc/madertimber/ExampleInstrumentedTest.kt
-```
+Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 
-`.git/` es metadato local. Directorios de build/caché y `local.properties` se generan por equipo y no son componentes del producto. No hay otros módulos ni proyectos web/servidor en el árbol revisado.
-
-## Componentes y relaciones
-
-| Componente | Responsabilidad y relación |
+| Ubicación | Responsabilidad |
 | --- | --- |
-| `settings.gradle.kts` | Define Google/Maven Central/Plugin Portal según su ámbito, impide repositorios en módulos, incluye solo `:app` y configura Foojay. |
-| Build raíz y catálogo | Centralizan aliases y versiones. El módulo aplica Android Application y Kotlin Compose. No se aplica un plugin Kotlin Android separado. |
-| Build `app` | Configura identidad, SDK, versión 1.0/código 1, Java source/target 11, Compose y runner AndroidJUnitRunner. Optimización release desactivada. Versiones en README/catálogo. |
-| Manifiesto | Declara la aplicación y `MainActivity` exportada como launcher; `adjustResize`, soporte RTL y backup habilitado. No declara permisos ni servicios. |
-| `MainActivity` | En `onCreate`, activa edge-to-edge y monta contenido Compose: tema → Scaffold a tamaño completo → Greeting con padding del Scaffold. |
-| `Greeting` | Recibe `name` y `Modifier`; dibuja `Text("Hello $name!")`. La actividad pasa la constante `Android`. |
-| `GreetingPreview` | Vista previa estática en el IDE con el mismo tema y saludo; no es una prueba. |
-| `MaderTimberTheme` | Elige colores dinámicos en Android 12+ si están habilitados; de lo contrario paleta clara/oscura según el sistema. Aplica tipografía Material 3. |
-| `Color.kt` / `Type.kt` | Paletas estáticas y `bodyLarge` (16 sp, línea 24 sp). No representan una identidad visual Cenamad aprobada. |
-| Recursos XML | Etiqueta MaderTimber, tema de ventana sin ActionBar, colores de plantilla e iconos Android. El tema Compose se configura por separado. |
-| Reglas de backup/R8 | Plantillas sin reglas de negocio personalizadas. Revisarlas cuando aparezcan datos persistentes o configuración release. |
+| settings.gradle.kts | Incluye :app y configura repositorios y resolución de toolchains. |
+| build.gradle.kts y gradle/libs.versions.toml | Plugins y versiones compartidas. |
+| app/build.gradle.kts | Identidad, SDK, opciones de compilación y dependencias de la aplicación. |
+| app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
+| app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, Greeting y GreetingPreview. |
+| app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
+| app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
+| app/src/test/ y app/src/androidTest/ | Ejemplos de pruebas JVM e instrumentadas. |
 
-## Flujo de UI y datos
+La documentación vive en docs/. Builds, cachés y local.properties son locales por equipo.
 
-```mermaid
-flowchart TD
-    A[Launcher Android] --> B[MainActivity.onCreate]
-    B --> C[enableEdgeToEdge y setContent]
-    C --> D[MaderTimberTheme]
-    E[Modo oscuro del sistema y API Android] --> D
-    F[Paletas y Typography] --> D
-    D --> G[Scaffold: fillMaxSize]
-    G --> H[Greeting: name Android + padding]
-    H --> I[Text: Hello Android!]
-```
+## Flujo existente
 
-No hay entrada de usuario, estado de negocio, llamadas de red ni almacenamiento. El único dato explícito del saludo es un String constante; el tema lee configuración/contexto Android. No hay un flujo entre repositorios, casos de uso o backend que documentar.
+MainActivity activa edge-to-edge y monta el tema, un Scaffold a tamaño completo y Greeting con el padding del Scaffold. Greeting recibe un nombre y Modifier, construye un saludo y lo muestra con Text. GreetingPreview permite inspección estática en el IDE.
 
-## Patrones existentes y límites
+El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. UI de plantilla: no hay todavía estado de negocio, acceso a datos ni navegación entre pantallas.
 
-UI declarativa Compose, funciones composables reutilizables con `Modifier`, tema centralizado y catálogo Gradle. `ComponentActivity` aporta ciclo de vida, pero no hay ViewModel ni MVVM implementado. Tampoco hay Clean Architecture, repositorio de datos, DI, navegación o estrategia offline.
+## Responsabilidades objetivo
 
-La configuración sugiere una plantilla inicial Android/Compose (**inferencia** por saludo, recursos y pruebas de ejemplo); no consta la plantilla ni versión del IDE de origen. Separar capas o añadir módulos es una **propuesta futura**, sujeta a requisitos y una decisión registrada.
+| Componente | Responsabilidad |
+| --- | --- |
+| View Compose | Renderizar el estado, accesibilidad y eventos de usuario. |
+| DashboardViewModel y ViewModels de detalle según necesidad | Mantener estado observable y coordinar filtros/carga; comunicar resultados y errores. |
+| Model/Repository | Leer la fuente local, validar entidades y aplicar los cálculos definidos. |
+| JSON en assets | Entidades sintéticas y cobertura temporal declarada. |
+| Navegación | Transmitir IDs/año/tipo válidos y conservar el contexto del flujo. |
 
-## Arquitectura objetivo confirmada
+La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. Casos de uso, Hilt y Room se incorporan solo si su necesidad está justificada, de acuerdo con el alcance.
 
-La asignatura exige MVVM, según instrucción del usuario recuperada del chat local. Se incorporará Model/Repository con datos locales, View Compose y DashboardViewModel con estado observable y eventos. Está pendiente de implementación; seguir el [plan común](../PLAN_IMPLEMENTACION.md) y la [especificación recuperada](../MVP_Panel_Indicadores_Impacto_CENAMAD/README.md). No confundir arquitectura objetivo con los componentes actuales.
+MVVM se incorporará al añadir datos y filtros. La práctica inicial estática de Compose prepara la View; no acredita arquitectura completa. El código y las pruebas deben demostrar el flujo View → ViewModel → Repository y actualización del estado.

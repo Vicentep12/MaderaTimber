@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             MaderTimberTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Diego",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -32,8 +32,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    val saludo = "Hello $name!"
     Text(
-        text = "Hello $name!",
+        text = saludo,
         modifier = modifier
     )
 }
