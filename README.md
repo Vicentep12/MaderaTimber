@@ -1,16 +1,16 @@
 # Cenamad / MaderaTimber
 
-Base de una aplicación Android nativa. **Estado funcional actual:** pantalla `Hello Android!`, tema Compose y pruebas de ejemplo. Los objetivos de negocio, usuarios y funcionalidades de Cenamad aún no están especificados en este repositorio; no hay una aplicación de negocio terminada.
+Base de una aplicación Android nativa. **Estado funcional actual:** pantalla `Hello Android!`, tema Compose y pruebas de ejemplo. MaderaTimber implementa el panel de indicadores de impacto CENAMAD; la asignatura exige MVVM, todavía pendiente de implementar. El [plan común](PLAN_IMPLEMENTACION.md) y la [especificación recuperada](MVP_Panel_Indicadores_Impacto_CENAMAD/README.md) conservan el alcance; falta contrastar los originales Windows.
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
 ## Documentación y continuidad
 
-Leer [AGENTS.md](AGENTS.md) y [contexto rápido](docs/contexto.md) para empezar con Codex. Complementos: [arquitectura](docs/arquitectura.md), [decisiones](docs/decisiones.md), [estado y verificaciones](docs/estado-actual.md), [pendientes](docs/pendientes.md).
+Leer [AGENTS.md](AGENTS.md), [plan común](PLAN_IMPLEMENTACION.md), [aprendizaje](APRENDIZAJE.md), [progreso](PROGRESO.md) y [contexto rápido](docs/contexto.md) para empezar con Codex. Priorizar la lección previamente acordada; directrices de arranque Cloud en [docs/directrices-nube.md](docs/directrices-nube.md). Complementos: [arquitectura](docs/arquitectura.md), [decisiones](docs/decisiones.md), [estado y verificaciones](docs/estado-actual.md), [pendientes](docs/pendientes.md).
 
 Solicitud para una sesión nueva, abierta en la raíz del clon actualizado:
 
-> Revisa AGENTS.md y docs/contexto.md, comprende el estado actual de Cenamad y continuemos desarrollando el proyecto.
+> Lee AGENTS.md, PLAN_IMPLEMENTACION.md, APRENDIZAJE.md, PROGRESO.md y docs/contexto.md. En Cloud lee docs/directrices-nube.md. Retoma la próxima lección del panel CENAMAD con MVVM como objetivo: yo escribo el código y tú explicas y revisas paso a paso.
 
 El contexto viaja con los archivos versionados. Para que otro equipo o Codex Cloud reciba cambios locales, primero deben revisarse, confirmarse en Git y subirse con autorización. El historial de chats no reemplaza estos documentos.
 
@@ -38,7 +38,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
 ## Instalación en otro computador
 
 1. Instalar Git, un JDK 25 y Android Studio compatible con las versiones declaradas de AGP/SDK. La versión exacta de Android Studio usada originalmente no consta.
-2. En Windows elegir una ruta sin tildes u otros caracteres no ASCII, por ejemplo `C:/dev/MaderaTimber`: AGP rechaza la ruta original que contiene `Móviles`. Clonar el remoto configurado (requiere permiso si el repositorio es privado):
+2. En Windows elegir una ruta sin tildes u otros caracteres no ASCII, por ejemplo `C:/dev/MaderaTimber`: la comprobación de AGP se ha desactivado en este proyecto mediante `android.overridePathCheck=true`, pero una ruta ASCII simplifica el diagnóstico de herramientas. Clonar el remoto configurado (requiere permiso si el repositorio es privado):
 
    ```powershell
    git clone https://github.com/Vicentep12/MaderaTimber.git C:/dev/MaderaTimber
@@ -46,7 +46,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
    git status --short
    ```
 
-3. Abrir **esa carpeta** en Android Studio y Codex. En este equipo está dentro de la carpeta del proyecto semestral; esa carpeta superior no es un repositorio.
+3. Abrir **esa carpeta** en Android Studio y Codex. En Windows el usuario trabaja bajo `E:/AnalistaProgramador/Desarrollo app moviles`; la carpeta contenedora no es la raíz Git. Los documentos de continuidad de esta entrega se conservan dentro del repositorio.
 4. En SDK Manager instalar Android SDK Platform 37, Platform Tools y las Build Tools que requiera AGP (36.0.0 solicitadas durante esta revisión). Aceptar licencias. No usar API 24 como plataforma de compilación: es solo el mínimo para dispositivos.
 5. Configurar el JDK para Gradle y la ubicación local del SDK. Android Studio puede crear `local.properties`; debe permanecer ignorado. Alternativa de terminal (reemplazar rutas por las de tu equipo):
 
@@ -86,11 +86,11 @@ APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes de pruebas: 
 
 Solo hay dos pruebas de plantilla: suma `2 + 2` e identidad del paquete. Las dependencias Compose Test no significan que existan pruebas de la interfaz. Consultar [estado actual](docs/estado-actual.md) para los resultados realmente obtenidos.
 
-**Bloqueos observados en esta revisión:** AGP rechaza la ruta original Windows con tildes; además, el build desde un clon sin tildes falló al iniciar AAPT2. Gradle sugiere revisar Windows Universal C Runtime, pero la causa no se ha confirmado. Verificar el ejecutable/runtime y usar también una ubicación de caché Gradle sin tildes al diagnosticar. No se acredita APK, prueba local ni Lint exitosos hasta resolverlo; no se cambiaron dependencias ni código para ocultar el error.
+**Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí. En Cloud el registro de configuración y artefactos existentes acreditan APK, una prueba de plantilla sin fallos y Lint sin errores con 12 advertencias. Ejecución visual e instrumentada Cloud pendientes; detalle y procedencia en [estado actual](docs/estado-actual.md).
 
 ## GitHub y archivos locales
 
-Git ya está inicializado. En la revisión del 2026-10-08: rama `main`, seguimiento local `origin/main`, HEAD de aplicación `3dcf635`; `origin` apunta al repositorio mostrado en el comando de clonación. No se ha consultado el remoto para certificar su estado actual o tus permisos.
+Git ya está inicializado. En esta revisión del 2026-10-08: rama Cloud `work`, HEAD `32bc0f2`; código de aplicación sin funcionalidad de negocio desde `3dcf635`; `origin` apunta al repositorio mostrado en el comando de clonación. No se ha consultado el remoto para certificar su estado actual o tus permisos.
 
 `.gitignore` excluye cachés, builds, configuración local del SDK, archivos privados del IDE, `.env`, credenciales habituales y firmas. No se detectaron nombres sensibles ni patrones de secretos en los archivos de texto rastreados revisados; es una comprobación básica del árbol actual, no una auditoría de todo el historial. El Wrapper JAR sí debe conservarse.
 
@@ -100,9 +100,9 @@ Antes de compartir, revisar `git status --short`, `git diff`, `git diff --check`
 
 Entre equipos: guardar código **y documentación** en el mismo commit; hacer push solo cuando esté autorizado; en el siguiente equipo usar `git pull --ff-only` con el árbol limpio. Si hay ramas divergentes o cambios sin guardar, revisar antes de integrar; no usar reset forzado. No editar simultáneamente la misma rama desde dos equipos sin coordinar o utilizar ramas separadas.
 
-## Codex Cloud: pasos manuales
+## Codex Cloud: configuración y continuidad
 
-Guía verificada el 2026-10-08 en [Codex Cloud](https://learn.chatgpt.com/docs/cloud) y [entornos Cloud](https://learn.chatgpt.com/docs/environments/cloud-environments). La interfaz y el acceso dependen de tu cuenta; no se ha creado un entorno en esta tarea.
+Guía verificada el 2026-10-08 en [Codex Cloud](https://learn.chatgpt.com/docs/cloud) y [entornos Cloud](https://learn.chatgpt.com/docs/environments/cloud-environments). La interfaz y el acceso dependen de tu cuenta. Esta tarea ya tiene un entorno conectado; los pasos siguientes sirven para configurar otro. Arranque del entorno existente y acuerdos de tutoría: [directrices de nube](docs/directrices-nube.md).
 
 1. Revisar los cambios locales y subirlos a GitHub cuando lo autorices; Cloud necesita la documentación en el repositorio remoto.
 2. Iniciar sesión en ChatGPT; en web/escritorio seleccionar **Work in > Cloud > Select environment > Create environment** (también desde Settings > Codex Cloud > Environments).
@@ -113,14 +113,14 @@ Guía verificada el 2026-10-08 en [Codex Cloud](https://learn.chatgpt.com/docs/c
 7. Revisar resultados y configuración, guardar y seleccionar **Publish** del entorno Cloud. Esto lo haces manualmente; no equivale a publicar la app Android. Iniciar una nueva tarea con el mensaje de continuidad anterior.
 8. Revisar cambios/pruebas antes de cualquier commit o PR. Actualizar y volver a publicar la configuración del entorno si cambian herramientas/dependencias; la documentación versionada sigue siendo el contexto compartido entre equipos.
 
-**Compatibilidad condicionada:** el proyecto tiene Wrapper y scripts para Linux, pero no hay validación de una compilación en Cloud. Lectura/edición pueden realizarse; compilación, Lint y pruebas locales requieren provisionar JDK/SDK y acceso a dependencias. No asumir que la imagen Cloud trae Android SDK ni emulador. Las pruebas instrumentadas y la verificación visual necesitan un dispositivo/emulador; si Cloud no lo proporciona, realizarlas localmente y registrar el resultado.
+**Compatibilidad condicionada:** el proyecto tiene Wrapper y scripts para Linux. El registro y artefactos locales de configuración acreditan una compilación inicial en Cloud; restaurar otro entorno o usar otro equipo requiere verificar su instalación. Lectura/edición pueden realizarse; compilación, Lint y pruebas locales requieren provisionar JDK/SDK y acceso a dependencias. No asumir que la imagen Cloud trae Android SDK ni emulador. Las pruebas instrumentadas y la verificación visual necesitan un dispositivo/emulador; si Cloud no lo proporciona, realizarlas localmente y registrar el resultado.
 
-Para preparar paquetes desde Android SDK Command-Line Tools, si el entorno dispone de `sdkmanager`:
+Para preparar paquetes desde Android SDK Command-Line Tools, si el entorno dispone de `sdkmanager` (la instalación Cloud publica API 37 como `android-37.0`; verificar el identificador en la lista):
 
 ```bash
 sdkmanager --list
 sdkmanager --licenses
-sdkmanager "platform-tools" "platforms;android-37" "build-tools;36.0.0"
+sdkmanager "platform-tools" "platforms;android-37.0" "build-tools;36.0.0"
 # Revisar Build Tools si cambia AGP; 36.0.0 fue requerida en esta revisión.
 ```
 

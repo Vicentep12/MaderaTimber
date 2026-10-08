@@ -3,21 +3,25 @@
 ## Leer al comenzar
 
 1. Trabajar desde esta raíz Git (`MaderaTimber`), no desde su carpeta contenedora.
-2. Leer `docs/contexto.md`; consultar `docs/estado-actual.md` y `docs/pendientes.md` para recuperar el progreso.
+2. Priorizar `PLAN_IMPLEMENTACION.md`, `APRENDIZAJE.md` y `PROGRESO.md`; después leer `docs/contexto.md`, `docs/estado-actual.md` y `docs/pendientes.md`. En Cloud leer también `docs/directrices-nube.md`.
 3. Revisar `git status --short`, la rama y los cambios locales antes de editar. No sobrescribir trabajo ajeno.
 4. Antes de cambios importantes, leer `docs/arquitectura.md`, las decisiones relevantes de `docs/decisiones.md` y el código afectado.
 
 ## Proyecto y alcance confirmado
 
-Cenamad es el nombre indicado por el propietario para este proyecto Android. El repositorio se llama MaderaTimber; el código usa `MaderTimber` y el paquete `com.duoc.madertimber`. La relación funcional entre estos nombres y los objetivos de negocio todavía no están definidos en el repositorio. No inventar requisitos a partir del nombre.
+MaderaTimber es el proyecto Android que implementa el MVP del panel de indicadores de impacto CENAMAD. El código conserva `MaderTimber` y el paquete `com.duoc.madertimber`. La relación fue confirmada por el usuario en el chat local y recuperada el 2026-10-08. La especificación integrada está en `MVP_Panel_Indicadores_Impacto_CENAMAD/README.md`; es una síntesis pendiente de contraste con el original Windows, no una copia completa.
 
-El objetivo acordado de este sistema documental es conservar conocimiento técnico y progreso entre equipos y sesiones. La aplicación actual es una base inicial que muestra `Hello Android!`. Los requisitos del producto deben incorporarse cuando el propietario los confirme.
+**Prioridad:** respetar el plan acordado y la tutoría de Kotlin/Android aplicado. El usuario conoce fundamentos; sesiones de una hora, una lección a la vez y código escrito por el usuario, con revisión guiada. No implementar automáticamente todo el MVP como sustituto de la lección salvo instrucción explícita. Próxima actividad: título del panel, «Construcción sustentable», 2024, «Proyectos activos: 8» y etiqueta «Datos demostrativos».
+
+**MVVM es un requisito explícito de la asignatura.** Está planificado, no implementado: Model/Repository con datos locales inicialmente, View Compose y DashboardViewModel con estado observable y eventos. No volver a pedir que se elija una arquitectura o un primer caso de uso ya acordados. Ver el plan para aceptación detallada pendiente.
+
+El contexto compartido debe vivir dentro de esta raíz Git; no depender de documentos en la carpeta superior, unidades Windows o memoria de chats. Distinguir continuidad entre dispositivos de disponibilidad de la app: esta es Android nativa, sin versión web/iOS implementada.
 
 ## Arquitectura y convenciones
 
 - Aplicación Android nativa en Kotlin, un único módulo Gradle `:app`, una `ComponentActivity` y UI declarativa con Jetpack Compose / Material 3.
 - Entrada: `app/src/main/java/com/duoc/madertimber/MainActivity.kt`. Tema: `ui/theme/`. Recursos y manifiesto: `app/src/main/res/` y `app/src/main/AndroidManifest.xml`.
-- No existen actualmente capas de dominio/datos, ViewModel, navegación, API, base de datos ni inyección de dependencias. No describir MVVM o Clean Architecture como implementadas.
+- MVVM es la arquitectura objetivo obligatoria; introducirla por etapas al incorporar estado y datos. No existen actualmente capas de dominio/datos, ViewModel, navegación, API, base de datos ni inyección de dependencias. No describir MVVM o Clean Architecture como implementadas.
 - Mantener estilo oficial Kotlin, indentación de cuatro espacios, nombres existentes, funciones composables y parámetro `Modifier` donde corresponda. Los archivos `.kt` están en `src/.../java/`; no trasladarlos solo por su extensión.
 - Configuración con Gradle Kotlin DSL y catálogo `gradle/libs.versions.toml`; declarar allí nuevas versiones. Usar el Wrapper versionado, no un Gradle global.
 - AGP 9 usa soporte Kotlin integrado; no agregar `org.jetbrains.kotlin.android` por asumir que falta. La versión del plugin Compose y la del compilador integrado deben verificarse por separado.
@@ -61,6 +65,10 @@ Para cambios de código/build, ejecutar comprobaciones pertinentes. Para documen
 
 ## Documentación complementaria
 
+- `PLAN_IMPLEMENTACION.md`: secuencia común y criterios; el plan de la carpeta MVP enlaza aquí.
+- `APRENDIZAJE.md` / `PROGRESO.md`: tutoría y progreso del usuario.
+- `MVP_Panel_Indicadores_Impacto_CENAMAD/README.md`: alcance recuperado y arquitectura prevista.
+- `docs/directrices-nube.md`: arranque Cloud con acuerdos pedagógicos/técnicos.
 - `README.md`: instalación, uso desde otro equipo, GitHub y Codex Cloud.
 - `docs/arquitectura.md`: estructura y responsabilidades reales.
 - `docs/decisiones.md`: decisiones observadas y política documental acordada.
