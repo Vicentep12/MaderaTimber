@@ -8,6 +8,9 @@ Revisión: 2026-10-08, código de aplicación en `3dcf635`. **Confirmado por el 
 MaderaTimber/                      # raíz Git, proyecto Gradle MaderTimber
 ├── AGENTS.md                      # instrucciones permanentes para Codex
 ├── README.md                      # instalación, uso y traslado entre equipos
+├── PLAN_IMPLEMENTACION.md          # secuencia común acordada
+├── APRENDIZAJE.md / PROGRESO.md     # tutoría aplicada y progreso
+├── MVP_Panel_Indicadores_Impacto_CENAMAD/ # especificación recuperada y enlace al plan
 ├── docs/                          # arquitectura, decisiones, estado, pendientes, contexto
 ├── .gitignore / .gitattributes     # exclusiones y finales de línea portables
 ├── .idea/.gitignore               # exclusiones del IDE; sin configuración compartida adicional
@@ -78,3 +81,7 @@ No hay entrada de usuario, estado de negocio, llamadas de red ni almacenamiento.
 UI declarativa Compose, funciones composables reutilizables con `Modifier`, tema centralizado y catálogo Gradle. `ComponentActivity` aporta ciclo de vida, pero no hay ViewModel ni MVVM implementado. Tampoco hay Clean Architecture, repositorio de datos, DI, navegación o estrategia offline.
 
 La configuración sugiere una plantilla inicial Android/Compose (**inferencia** por saludo, recursos y pruebas de ejemplo); no consta la plantilla ni versión del IDE de origen. Separar capas o añadir módulos es una **propuesta futura**, sujeta a requisitos y una decisión registrada.
+
+## Arquitectura objetivo confirmada
+
+La asignatura exige MVVM, según instrucción del usuario recuperada del chat local. Se incorporará Model/Repository con datos locales, View Compose y DashboardViewModel con estado observable y eventos. Está pendiente de implementación; seguir el [plan común](../PLAN_IMPLEMENTACION.md) y la [especificación recuperada](../MVP_Panel_Indicadores_Impacto_CENAMAD/README.md). No confundir arquitectura objetivo con los componentes actuales.

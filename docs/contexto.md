@@ -1,34 +1,15 @@
-# Contexto rápido de Cenamad
+# Contexto rápido de CENAMAD
 
-Actualización: **2026-10-08**. Leer primero `../AGENTS.md`. Este resumen permite iniciar otra sesión sin historial de chats; verificarlo contra código y Git si han cambiado.
+Actualización: **2026-10-08**. Leer [AGENTS](../AGENTS.md) y priorizar [plan común](../PLAN_IMPLEMENTACION.md), [aprendizaje](../APRENDIZAJE.md) y [progreso](../PROGRESO.md).
 
-## Qué es y qué funciona
+**Confirmado por el usuario en chats locales recuperados:** MaderaTimber implementa el panel de indicadores de impacto CENAMAD; MVVM es obligatorio para la asignatura. La especificación estaba fuera del repositorio en la carpeta Windows `MVP_Panel_Indicadores_Impacto_CENAMAD`. Se incorporó una [síntesis del MVP](../MVP_Panel_Indicadores_Impacto_CENAMAD/README.md); falta contrastar el archivo original, que no está montado en Cloud.
 
-**Confirmado:** proyecto Android denominado Cenamad por el propietario, repositorio/carpeta `MaderaTimber`, nombre interno/visible `MaderTimber`, paquete `com.duoc.madertimber`. Su propósito de negocio y la relación entre los nombres no están especificados. No inventar catálogo, inventario, usuarios, pedidos u otras funciones a partir del nombre.
+**Código disponible:** Android nativo, módulo `:app`, paquete `com.duoc.madertimber`, Compose/Material 3; `MainActivity` muestra `Hello Android!`. Sin ViewModel, Repository, filtros, persistencia o backend. El chat de tutoría registra una Greeting modificada y ejecución inicial en Windows; esos cambios no aparecen en este checkout y deben conservarse al integrar allí.
 
-La app es una base inicial: `MainActivity` → `MaderTimberTheme` → `Scaffold` → `Greeting("Android")` → `Hello Android!`. Tema claro/oscuro y colores dinámicos en Android 12+. Dos pruebas de ejemplo; sin funciones de negocio, navegación, datos persistentes o backend.
+**Siguiente paso acordado:** una lección guiada para crear título del panel, «Construcción sustentable», año 2024, tarjeta «Proyectos activos: 8» y «Datos demostrativos». El usuario escribe el código. Después modelos/datos locales y MVVM para estado y filtros. Conoce fundamentos; enfocar la explicación en Kotlin/Android aplicado, una lección de una hora a la vez.
 
-## Mapa técnico y decisiones esenciales
+**Entorno:** JDK 25, SDK API 37; comandos/versiones en [README](../README.md). Cloud está conectado y preparado con helpers externos al checkout. Registro local y artefactos acreditan build base, una prueba de plantilla sin fallos y Lint sin errores con 12 advertencias; ejecución visual/instrumentada no realizadas en Cloud. Detalles en [estado](estado-actual.md) y [directrices Cloud](directrices-nube.md).
 
-- Un módulo Gradle `:app`. Código Kotlin en `app/src/main/java/com/duoc/madertimber/`; tema en `ui/theme/`. UI Jetpack Compose / Material 3. No hay MVVM/Clean Architecture implementadas.
-- Builds Kotlin DSL, catálogo `gradle/libs.versions.toml`, Wrapper versionado y daemon JDK 25. Java source/target 11 no es el JDK para ejecutar Gradle. SDK compilación/objetivo API 37 y mínimo API 24. Tabla de versiones/comandos: README.
-- Nombres/paquete y configuración de aplicación se conservan. Motivos históricos de elección de tecnologías/estructura desconocidos; decisiones observadas D-001 a D-004 en `decisiones.md`.
-- D-005: contexto persistente versionado, solicitado por el propietario. Documentación y progreso se actualizan con el código; no depender de memoria de Codex.
+**Compartir:** documentos preparados localmente en rama `work`, base Git `32bc0f2`. El usuario autorizó guardar esta integración en un commit local; la sincronización remota sigue pendiente. Para recibirlos desde otro dispositivo deben compartirse por Git con autorización; publicar el entorno no sincroniza código. No se modificaron los originales de `E:` ni la configuración publicada de Cloud. La continuidad del plan no implica una app web/iOS o datos sincronizados.
 
-## Progreso y límites
-
-Base de aplicación revisada en `3dcf635`; Git local en `main`, seguimiento `origin/main`, remoto configurado `Vicentep12/MaderaTimber`. No se verificó estado remoto ni se hizo commit/push. La nueva documentación/configuración está local: no estará en otros equipos hasta sincronizarla con autorización.
-
-Gradle se descargó. El bloqueo por la ruta Windows con caracteres no ASCII (`Móviles`) se resolvió agregando `android.overridePathCheck=true` a `gradle.properties`, permitiendo la sincronización exitosa de Gradle y la compilación de `:app:assembleDebug`. APK, prueba local, Lint, pruebas instrumentadas, ejecución visual y build Cloud no están acreditados. Detalle: `estado-actual.md`. La revisión básica de textos rastreados no detectó secretos; no fue una auditoría histórica.
-
-**Inferencia:** parece una plantilla inicial Android/Compose por sus ejemplos. No consta versión original de Android Studio, requerimientos de negocio ni decisiones previas fuera de Git.
-
-## Antes de continuar
-
-1. Abrir la raíz Git que contiene `settings.gradle.kts`, revisar rama y cambios locales; traer cambios compartidos solo con el árbol limpio y según autorización.
-2. Leer `estado-actual.md` y `pendientes.md`; validar JDK/SDK según README antes de prometer una compilación.
-3. Confirmar el primer caso de uso Cenamad y criterios de aceptación. La siguiente funcionalidad todavía no ha sido seleccionada.
-4. Para cambios importantes, consultar `arquitectura.md` y `decisiones.md`; preservar identidad y alcance autorizado.
-5. Al terminar, actualizar estado, tareas y decisiones afectadas; refrescar este resumen solo con cambios esenciales. Informar pruebas realizadas y lo que falta.
-
-Guías: [README](../README.md), [arquitectura](arquitectura.md), [decisiones](decisiones.md), [estado](estado-actual.md), [pendientes](pendientes.md). La compatibilidad Cloud es condicionada al entorno JDK/SDK/red; su conexión requiere pasos manuales del propietario.
+Antes de editar: revisar rama/cambios locales; seguir [pendientes](pendientes.md). Al cerrar: actualizar progreso, estado y decisiones; preservar la distinción entre requisito, implementación y prueba. Arquitectura real: [arquitectura](arquitectura.md); decisiones: [registro](decisiones.md).

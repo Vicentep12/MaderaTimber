@@ -50,3 +50,13 @@ Las decisiones D-001 a D-004 son **observadas en el código** al 2026-10-08; la 
 ## Cómo registrar una nueva decisión
 
 Agregar un ID consecutivo con fecha, estado (`propuesta`, `aceptada`, `observada` o `sustituida`), contexto/evidencia, decisión, justificación, alternativas y consecuencias. No convertir propuestas en hechos. Si una decisión se reemplaza, conservar su registro y enlazar el nuevo ID; no crear un diario de cada cambio menor.
+
+## D-006 — Panel CENAMAD, MVVM y continuidad del aprendizaje
+
+- **Fecha:** 2026-10-08.
+- **Estado:** aceptada por instrucciones explícitas recuperadas de los chats locales; implementación del MVP pendiente.
+- **Contexto:** los documentos de la carpeta superior Windows no acompañaban al clon Cloud. El usuario confirmó que MaderaTimber es el panel CENAMAD y que la asignatura exige MVVM.
+- **Decisión:** reunir el plan común, tutoría, progreso y especificación recuperada dentro de la raíz Git; usar enlaces desde la carpeta MVP y directrices Cloud. Continuar la lección pequeña previamente acordada y alcanzar MVVM por etapas.
+- **Justificación:** conservar los acuerdos al cambiar de dispositivo sin sustituir la práctica del usuario.
+- **Alternativas:** mantener requisitos solo fuera del repositorio (pierde continuidad en clones); duplicar el plan completo (genera divergencia); elegir otra arquitectura (no cumple la asignatura).
+- **Consecuencias:** corrige el desconocimiento del propósito/relación entre nombres en el contexto anterior. D-001/D-002 siguen describiendo el código existente; MVVM todavía no está implementado. Los originales Windows requieren contraste; sincronizar Git y actualizar la configuración publicada de Cloud son pasos separados.
