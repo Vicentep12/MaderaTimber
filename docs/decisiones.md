@@ -35,4 +35,12 @@ Esta política sustituye las versiones anteriores que dependían de documentos e
 
 ## Nuevas decisiones
 
+### D-010 — Estudiantes como público principal
+
+- **Fecha:** 2026-10-15.
+- **Estado:** confirmado por respuesta explícita del propietario.
+- **Decisión:** priorizar estudiantes al diseñar la exploración de investigación y sus indicadores temporales.
+- **Motivo:** ayudarles a descubrir y comprender investigaciones y encontrar contenidos útiles para estudiar.
+- **Consecuencia:** aplicar lenguaje claro, interpretación de indicadores y acceso a los contenidos relacionados. Pautas y vistas en las secciones 2.1–2.2 de `especificacion.md`; se conservan MVVM, datos locales, años 2022–2024, fórmulas y el recorrido de implementación existentes.
+
 Registrar solo decisiones que alteren alcance, arquitectura o forma de trabajar: fecha, estado, evidencia/motivo, decisión y consecuencia. Si reemplazan otra decisión, indicar cuál. Los movimientos menores y resultados de comandos pertenecen al diff o al estado técnico, no a un nuevo registro por cada edición.

@@ -19,6 +19,35 @@ El usuario podrá:
 - Revisar la evolución de un indicador mediante gráficos simples.
 - Ver una explicación breve de cada indicador.
 
+### 2.1 Público principal y comprensión
+
+Confirmado por el propietario el 2026-10-15: la aplicación debe ayudar principalmente a **estudiantes** a explorar investigaciones a lo largo de los años.
+
+Situación de uso propuesta: un estudiante prepara un trabajo académico, explora una línea, comprende su evolución y consulta proyectos, investigadores y publicaciones de esa línea y año. La interfaz debe explicar términos e indicadores en lenguaje claro y facilitar el acceso a los registros que justifican cada valor.
+
+Priorizar títulos comprensibles, descripciones breves de las líneas, año seleccionado siempre visible y explicaciones junto a los gráficos. Identificar el impacto estimado como índice demostrativo de actividad según la sección 8; no presentarlo como una medida validada de calidad científica.
+
+Para una futura validación con estudiantes, observar si pueden explicar qué estudia una línea, interpretar un indicador y encontrar una publicación relacionada. Esta actividad está propuesta; no se ha realizado una prueba de usabilidad.
+
+### 2.2 Referencia para los mockups
+
+Las diez vistas de referencia se organizan como estados y componentes de las pantallas de la sección 9, sin exigir diez destinos de navegación distintos:
+
+| N.º | Vista o estado visual | Función |
+| --- | --- | --- |
+| 1 | Dashboard | Selección de línea/año, cuatro tarjetas y comparación entre líneas. |
+| 2 | Selección de filtros | Selector o modal de línea y año; conserva la selección al regresar. |
+| 3 | Detalle de línea | Explicación, cinco indicadores y acceso a contenidos de la línea/año. |
+| 4 | Detalle de indicador | Valor, interpretación, variación e histórico. |
+| 5 | Relacionados: proyectos | Pestaña con proyectos activos contados en la selección. |
+| 6 | Ficha de proyecto | Información breve del proyecto seleccionado. |
+| 7 | Relacionados: investigadores | Pestaña con investigadores vinculados a la línea/año. |
+| 8 | Ficha de investigador | Nombre, especialidad y contexto de vinculación disponible. |
+| 9 | Relacionados: publicaciones | Pestaña con publicaciones de la línea/año. |
+| 10 | Ficha de publicación | Título, tipo y año; fuente solo si existe en los datos autorizados. |
+
+Los mockups deben respetar 2022–2024, la selección inicial 2024, las cinco métricas y sus reglas existentes. No sustituir proyectos activos por proyectos iniciados ni introducir relaciones directas proyecto–autor–publicación que el modelo inicial no contiene. Los bocetos exploratorios anteriores con otras cifras, períodos o relaciones requieren adaptación antes de usarse como diseño de implementación. Las fichas pueden ser diálogos y los listados reutilizar la pantalla de relacionados.
+
 ## 3. Alcance del MVP
 
 ### Incluido

@@ -12,6 +12,8 @@ Actualización: 2026-10-08. Esta es la única lista de etapas, tareas abiertas y
 
 ## Próxima actividad acordada
 
+El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las pantallas y sus textos, aplicar las pautas y la referencia de diez vistas de las secciones 2.1–2.2 de [especificacion.md](especificacion.md). Se mantienen el plan técnico, la muestra 2022–2024 y la actividad de tutoría siguiente.
+
 Crear la base visual del dashboard con título del panel, “Construcción sustentable”, año 2024, tarjeta “Proyectos activos: 8” y etiqueta “Datos demostrativos”. El usuario escribe el código; el tutor introduce composables, Column, Text, Card y Modifier según se necesiten.
 
 Cierre de la lección: código revisado, resultado visual comprobado en Android y comprensión registrada. Es un ejercicio estático inicial; los filtros interactivos se incorporan después con ViewModel y Repository. No acredita el dashboard completo ni MVVM.

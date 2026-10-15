@@ -2,6 +2,8 @@
 
 Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para la asignatura. Contratos y alcance en [especificacion.md](docs/especificacion.md); implementación y validación en [estado-actual.md](docs/estado-actual.md).
 
+Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
+
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
 ## Documentación y continuidad
