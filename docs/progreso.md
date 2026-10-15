@@ -12,7 +12,7 @@ Actualización: 2026-10-08. Registrar aquí evidencias del aprendizaje; el perfi
 | val y var | Explicó que val no permite reasignar y que var sí. Escribió val saludo y lo pasó a Text. | Código leído y respuesta correctos; ejecución de esa versión reportada por el usuario. |
 | Cambio del saludo | El código local pasa Diego y usa val saludo; el usuario reportó ver el nombre cambiado al ejecutar. | Código comprobado por lectura; ejecución de esa versión no verificada aquí. |
 | Ejercicio de enteros y multiplicación | Se retiró al aclarar que conoce fundamentos generales. | No realizado; no es requisito para continuar. |
-| Dashboard y MVVM | Todavía no hay práctica implementada ni evaluación de comprensión de Column, Card, estado, eventos o ViewModel. | Pendiente. |
+| Dashboard y MVVM | El 2026-10-15 Codex implementó la vista estática por solicitud explícita. Falta evaluar la comprensión del usuario de Column, Card, estado, eventos y ViewModel. | Implementación asistida; aprendizaje y MVVM pendientes. |
 
 ## Cómo continuar el registro
 

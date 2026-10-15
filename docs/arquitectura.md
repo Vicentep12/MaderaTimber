@@ -1,6 +1,6 @@
 # Arquitectura: implementación actual y objetivo
 
-Revisión por lectura: 2026-10-08. Configuración y versiones en [README](../README.md); requisitos MVVM y estructura objetivo en la sección 6 de [especificacion.md](especificacion.md); validación en [estado-actual.md](estado-actual.md).
+Revisión por lectura: 2026-10-15. Configuración y versiones en [README](../README.md); requisitos MVVM y estructura objetivo en la sección 6 de [especificacion.md](especificacion.md); validación en [estado-actual.md](estado-actual.md).
 
 ## Estructura actual
 
@@ -12,7 +12,8 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | build.gradle.kts y gradle/libs.versions.toml | Plugins y versiones compartidas. |
 | app/build.gradle.kts | Identidad, SDK, opciones de compilación y dependencias de la aplicación. |
 | app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
-| app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, Greeting y GreetingPreview. |
+| app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema, Scaffold y montaje del dashboard. |
+| app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt | Vista estática inicial, tarjetas, barras comparativas y preview. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
 | app/src/test/ y app/src/androidTest/ | Ejemplos de pruebas JVM e instrumentadas. |
@@ -21,9 +22,9 @@ La documentación vive en docs/. Builds, cachés y local.properties son locales 
 
 ## Flujo existente
 
-MainActivity activa edge-to-edge y monta el tema, un Scaffold a tamaño completo y Greeting con el padding del Scaffold. Greeting recibe un nombre y Modifier, construye un saludo y lo muestra con Text. GreetingPreview permite inspección estática en el IDE.
+MainActivity activa edge-to-edge y monta el tema, un Scaffold a tamaño completo y DashboardScreen con el padding del Scaffold. El dashboard utiliza una Column desplazable, cuatro tarjetas reutilizables y tres barras con las cifras de ejemplo del plan para 2024. DashboardPreview permite inspección estática en el IDE. Los valores son constantes de esta práctica visual; todavía no se calculan desde entidades.
 
-El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. UI de plantilla: no hay todavía estado de negocio, acceso a datos ni navegación entre pantallas.
+El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. No hay todavía estado de negocio, acceso a datos, filtros interactivos ni navegación entre pantallas.
 
 ## Responsabilidades objetivo
 

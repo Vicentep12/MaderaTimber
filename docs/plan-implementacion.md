@@ -1,6 +1,6 @@
 # Plan de implementación y continuidad
 
-Actualización: 2026-10-08. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
+Actualización: 2026-10-15. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
 
 ## Retomar una sesión
 
@@ -14,9 +14,9 @@ Actualización: 2026-10-08. Esta es la única lista de etapas, tareas abiertas y
 
 El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las pantallas y sus textos, aplicar las pautas y la referencia de diez vistas de las secciones 2.1–2.2 de [especificacion.md](especificacion.md). Se mantienen el plan técnico, la muestra 2022–2024 y la actividad de tutoría siguiente.
 
-Crear la base visual del dashboard con título del panel, “Construcción sustentable”, año 2024, tarjeta “Proyectos activos: 8” y etiqueta “Datos demostrativos”. El usuario escribe el código; el tutor introduce composables, Column, Text, Card y Modifier según se necesiten.
+Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
-Cierre de la lección: código revisado, resultado visual comprobado en Android y comprensión registrada. Es un ejercicio estático inicial; los filtros interactivos se incorporan después con ViewModel y Repository. No acredita el dashboard completo ni MVVM.
+Próximo paso: ejecutar la pantalla en el dispositivo del usuario y revisar DashboardScreen, Column, Card, Modifier y las funciones reutilizables. Registrar su comprensión solo después de un ejercicio o explicación. Luego introducir modelos, Repository y ViewModel antes de filtros interactivos. Esta práctica estática no acredita el dashboard completo ni MVVM.
 
 ## Etapas y tareas
 
@@ -31,7 +31,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Pendiente. Datos coherentes, funcionamiento offline y carga/éxito/vacío/error diferenciados. |
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | Pendiente. Definir rutas al preparar el flujo; completar conservación de filtros después del paso 7. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Pendiente. Incorporarlo antes de filtros interactivos; restaurar selección con SavedStateHandle. |
-| 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Pendiente. La práctica visual inicial es el primer incremento; el cierre cumple la sección 9.1. |
+| 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Parcial: primera vista estática implementada. Faltan datos desde Repository/ViewModel, selectores interactivos, métrica seleccionable, acceso al detalle y validación visual Android. |
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | Pendiente. Aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
 | 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Pendiente. Aplicar reglas de ausencia, base cero y puntos porcentuales de la sección 8. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
