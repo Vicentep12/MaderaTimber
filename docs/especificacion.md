@@ -31,6 +31,8 @@ Para una futura validación con estudiantes, observar si pueden explicar qué es
 
 ### 2.2 Referencia para los mockups
 
+Ver el [plano de diez vistas actualizado al plan](mockups/cenamad-plan-estudiantes.png). Es una propuesta visual de baja fidelidad para estudiantes, no una captura de funcionalidad implementada. Conserva las métricas, líneas y años definidos aquí. El histórico 4–6–8 proyectos y el avance de 60,0 % son ejemplos visuales sintéticos adicionales; no sustituyen los datos ni las reglas de generación de la sección 8.
+
 Las diez vistas de referencia se organizan como estados y componentes de las pantallas de la sección 9, sin exigir diez destinos de navegación distintos:
 
 | N.º | Vista o estado visual | Función |
