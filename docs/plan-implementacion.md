@@ -1,6 +1,6 @@
 # Plan de implementación y continuidad
 
-Actualización: 2026-10-15. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
+Actualización: 2026-10-18. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
 
 ## Retomar una sesión
 
@@ -9,6 +9,12 @@ Actualización: 2026-10-15. Esta es la única lista de etapas, tareas abiertas y
 3. Consultar las secciones relevantes de la especificación y adaptar la lección al aprendizaje comprobado.
 4. Al cerrar, actualizar el progreso del usuario, la evidencia técnica y el estado de la etapa afectada.
 5. Para continuar en otro dispositivo, guardar y sincronizar los cambios mediante Git con autorización. Instalación y comandos: [README](../README.md).
+
+## Pantallas de acceso solicitadas el 2026-10-18
+
+Implementadas las vistas de login y registro con validación local, contraseñas ocultables, navegación entre formularios y entrada al dashboard como invitado. Los envíos válidos muestran un aviso de demostración: no se crean cuentas ni se inicia una sesión real. No se añade backend ni almacenamiento de credenciales.
+
+Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, regreso y acceso como invitado. Esta implementación solicitada no acredita aprendizaje ni sustituye las etapas MVVM siguientes.
 
 ## Próxima actividad acordada
 
