@@ -10,6 +10,7 @@
 ## Alcance y forma de trabajar
 
 - MaderaTimber implementa el panel CENAMAD. La asignatura exige MVVM; seguir las responsabilidades definidas en la especificación.
+- Toda implementación nueva o modificación de funcionalidad debe respetar MVVM desde el inicio, incluidas las pantallas de demostración: las vistas Compose renderizan estado y emiten eventos; los ViewModels mantienen el estado observable y procesan las acciones; el modelo contiene las reglas de negocio y validación, y los Repository gestionan el acceso a datos cuando corresponda. No colocar validaciones de negocio ni acceso a datos en composables o actividades. Usar la separación de login y registro como referencia y consultar docs/arquitectura.md; el dashboard estático pendiente de migración no es un patrón para nuevas funcionalidades. Verificar esta separación y probar el comportamiento de la lógica implementada antes de dar el trabajo por terminado.
 - Mantener el paquete com.duoc.madertimber y las variantes de nombre actuales. No renombrar, refactorizar o añadir módulos/frameworks por iniciativa documental.
 - Responder en español y aplicar la tutoría de docs/aprendizaje.md: una lección a la vez, ejemplos breves, ejercicios verificables, código escrito por el usuario y revisión guiada.
 - Leer el perfil y progreso antes de preguntar por experiencia o entorno; preguntar únicamente lo que falte o cambie.

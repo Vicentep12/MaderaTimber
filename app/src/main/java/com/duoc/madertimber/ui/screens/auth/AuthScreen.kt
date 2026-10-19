@@ -1,6 +1,5 @@
 package com.duoc.madertimber.ui.screens.auth
 
-import android.util.Patterns
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,11 +18,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -34,35 +28,36 @@ import androidx.compose.ui.unit.dp
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 
 @Composable
-fun LoginScreen(onRegister: () -> Unit, onGuest: () -> Unit, modifier: Modifier = Modifier) {
-    AuthForm(false, onRegister, onGuest, modifier)
+fun LoginScreen(
+    state: AuthUiState,
+    onEvent: (AuthEvent) -> Unit,
+    onRegister: () -> Unit,
+    onGuest: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AuthForm(false, state, onEvent, onRegister, onGuest, modifier)
 }
 
 @Composable
-fun RegisterScreen(onLogin: () -> Unit, onGuest: () -> Unit, modifier: Modifier = Modifier) {
-    AuthForm(true, onLogin, onGuest, modifier)
+fun RegisterScreen(
+    state: AuthUiState,
+    onEvent: (AuthEvent) -> Unit,
+    onLogin: () -> Unit,
+    onGuest: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AuthForm(true, state, onEvent, onLogin, onGuest, modifier)
 }
 
 @Composable
 private fun AuthForm(
     registering: Boolean,
+    state: AuthUiState,
+    onEvent: (AuthEvent) -> Unit,
     onSwitch: () -> Unit,
     onGuest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var name by rememberSaveable { mutableStateOf("") }
-    var email by rememberSaveable { mutableStateOf("") }
-    // Las contraseñas permanecen solo en memoria, nunca en el estado guardado.
-    var password by remember { mutableStateOf("") }
-    var confirmation by remember { mutableStateOf("") }
-    var showPassword by remember { mutableStateOf(false) }
-    var submitted by remember { mutableStateOf(false) }
-    var showNotice by remember { mutableStateOf(false) }
-    val nameError = registering && name.isBlank()
-    val emailError = !Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
-    val passwordError = if (registering) password.length < 8 else password.isBlank()
-    val confirmationError = registering && confirmation != password
-
     Column(
         modifier = modifier.fillMaxSize().imePadding()
             .verticalScroll(rememberScrollState()).padding(24.dp),
@@ -83,43 +78,38 @@ private fun AuthForm(
                     style = MaterialTheme.typography.bodySmall)
                 if (registering) {
                     OutlinedTextField(
-                        value = name, onValueChange = { name = it },
+                        value = state.name, onValueChange = { onEvent(AuthEvent.NameChanged(it)) },
                         label = { Text("Nombre completo") }, singleLine = true,
-                        isError = submitted && nameError,
-                        supportingText = { if (submitted && nameError) Text("Ingresa tu nombre.") },
+                        isError = state.errors.name,
+                        supportingText = { if (state.errors.name) Text("Ingresa tu nombre.") },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
                 OutlinedTextField(
-                    value = email, onValueChange = { email = it },
+                    value = state.email, onValueChange = { onEvent(AuthEvent.EmailChanged(it)) },
                     label = { Text("Correo electrónico") }, singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    isError = submitted && emailError,
-                    supportingText = { if (submitted && emailError) Text("Ingresa un correo válido.") },
+                    isError = state.errors.email,
+                    supportingText = { if (state.errors.email) Text("Ingresa un correo válido.") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 PasswordField(
-                    value = password, onValueChange = { password = it }, label = "Contraseña",
-                    visible = showPassword, onToggle = { showPassword = !showPassword },
-                    error = submitted && passwordError,
+                    value = state.password, onValueChange = { onEvent(AuthEvent.PasswordChanged(it)) }, label = "Contraseña",
+                    visible = state.showPassword, onToggle = { onEvent(AuthEvent.TogglePassword) },
+                    error = state.errors.password,
                     message = if (registering) "Usa al menos 8 caracteres." else "Ingresa tu contraseña."
                 )
                 if (registering) {
                     PasswordField(
-                        value = confirmation, onValueChange = { confirmation = it },
-                        label = "Confirma tu contraseña", visible = showPassword,
-                        onToggle = { showPassword = !showPassword },
-                        error = submitted && confirmationError,
+                        value = state.confirmation, onValueChange = { onEvent(AuthEvent.ConfirmationChanged(it)) },
+                        label = "Confirma tu contraseña", visible = state.showPassword,
+                        onToggle = { onEvent(AuthEvent.TogglePassword) },
+                        error = state.errors.confirmation,
                         message = "Las contraseñas no coinciden."
                     )
                 }
                 Button(
-                    onClick = {
-                        submitted = true
-                        if (!nameError && !emailError && !passwordError && !confirmationError) {
-                            showNotice = true
-                        }
-                    }, modifier = Modifier.fillMaxWidth()
+                    onClick = { onEvent(AuthEvent.Submit) }, modifier = Modifier.fillMaxWidth()
                 ) { Text(if (registering) "Crear cuenta" else "Iniciar sesión") }
                 TextButton(onClick = onSwitch, modifier = Modifier.fillMaxWidth()) {
                     Text(if (registering) "Ya tengo cuenta · Iniciar sesión" else "No tengo cuenta · Registrarme")
@@ -128,16 +118,16 @@ private fun AuthForm(
         }
         TextButton(onClick = onGuest) { Text("Explorar como invitado") }
     }
-    if (showNotice) {
+    if (state.showNotice) {
         AlertDialog(
-            onDismissRequest = { showNotice = false },
+            onDismissRequest = { onEvent(AuthEvent.DismissNotice) },
             title = { Text("Demostración") },
             text = { Text("El acceso con cuenta todavía no está disponible. No se ha creado ninguna cuenta ni iniciado sesión. Puedes explorar el panel como invitado.") },
             confirmButton = {
-                TextButton(onClick = { showNotice = false; onGuest() }) { Text("Explorar panel") }
+                TextButton(onClick = { onEvent(AuthEvent.DismissNotice); onGuest() }) { Text("Explorar panel") }
             },
             dismissButton = {
-                TextButton(onClick = { showNotice = false }) { Text("Volver") }
+                TextButton(onClick = { onEvent(AuthEvent.DismissNotice) }) { Text("Volver") }
             }
         )
     }
@@ -168,11 +158,11 @@ private fun PasswordField(
 @Preview(showBackground = true)
 @Composable
 private fun LoginPreview() {
-    MaderTimberTheme { LoginScreen(onRegister = {}, onGuest = {}) }
+    MaderTimberTheme { LoginScreen(AuthUiState(), onEvent = {}, onRegister = {}, onGuest = {}) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun RegisterPreview() {
-    MaderTimberTheme { RegisterScreen(onLogin = {}, onGuest = {}) }
+    MaderTimberTheme { RegisterScreen(AuthUiState(), onEvent = {}, onLogin = {}, onGuest = {}) }
 }

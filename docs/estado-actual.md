@@ -7,14 +7,20 @@ Revisión de implementación Cloud: 2026-10-18. Los antecedentes Windows del 202
 | Área | Estado |
 | --- | --- |
 | Aplicación Android | Un módulo :app, launcher MainActivity, paquete com.duoc.madertimber y UI Compose/Material 3. |
-| Acceso | Login y registro de demostración con validación local, visibilidad de contraseña, navegación y acceso como invitado. Sin autenticación ni persistencia de credenciales. |
+| Acceso | Login y registro separan vistas, LoginViewModel/RegisterViewModel y AuthValidator. Estado observable y eventos; sin autenticación ni persistencia de credenciales. |
 | Pantalla | DashboardScreen muestra título CENAMAD, línea Construcción sustentable, año 2024, etiqueta demostrativa, cuatro tarjetas y barras comparativas. Es una vista estática desplazable. |
 | Tema | Paleta clara/oscura, colores dinámicos y tipografía de plantilla; identidad visual del producto pendiente. |
-| Pruebas | Dos ejemplos de plantilla: suma e identidad del paquete. No hay pruebas de indicadores ni de comportamiento UI. |
+| Pruebas | Seis pruebas JVM de los ViewModels de acceso, más dos ejemplos de plantilla: suma e identidad del paquete. No hay pruebas de indicadores ni de comportamiento UI. |
 | MVP/MVVM | Base visual del dashboard implementada con constantes de ejemplo. Faltan modelos, JSON, Repository, ViewModel, filtros interactivos, navegación, histórico y contenidos relacionados. |
 | Configuración release | Backup con reglas de plantilla y optimización desactivada. No hay firma release propia; publicación no pertenece al MVP. |
 
 Los resultados de ejecución de la tutoría están en [progreso.md](progreso.md). Código leído, build exitoso y comprensión del estudiante son evidencias diferentes.
+
+## Separación MVVM del acceso — 2026-10-18
+
+AuthScreen solo renderiza AuthUiState y envía AuthEvent. LoginViewModel y RegisterViewModel mantienen estados independientes y consultan AuthValidator para validar. MainActivity obtiene los ViewModels con ViewModelProvider y limpia los formularios al navegar. Sobreviven a cambios de configuración; las contraseñas no se serializan y se descartan al salir del formulario o terminar el proceso. El acceso sigue siendo demostrativo, sin Repository de cuentas ni servicio de autenticación. El dashboard aún no implementa MVVM.
+
+Validación ejecutada: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --max-workers=2 --console=plain`, resultado BUILD SUCCESSFUL. Siete pruebas JVM sin fallos (seis nuevas de acceso y una de plantilla). Lint: cero errores y 13 advertencias, incluida la sugerencia de actualizar la dependencia ViewModel declarada con la misma versión Lifecycle existente. `git diff --check` correcto. No se ejecutaron pruebas de UI ni revisión visual en dispositivo.
 
 ## Validación Cloud — 2026-10-18
 

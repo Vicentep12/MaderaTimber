@@ -4,7 +4,7 @@ Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para 
 
 Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
 
-La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard estático presenta con cuatro indicadores y una comparación entre líneas para 2024. Los valores son demostrativos; los filtros interactivos y la navegación se incorporarán después con Repository y ViewModel.
+La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard estático presenta con cuatro indicadores y una comparación entre líneas para 2024. Los valores son demostrativos; los filtros interactivos y la navegación se incorporarán después con Repository y ViewModel.
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
@@ -98,7 +98,7 @@ bash ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --consol
 
 APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes de pruebas: `app/build/reports/tests/`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
 
-Solo hay dos pruebas de plantilla: suma `2 + 2` e identidad del paquete. Las dependencias Compose Test no significan que existan pruebas de la interfaz. Consultar [estado actual](docs/estado-actual.md) para los resultados realmente obtenidos.
+Además de las dos pruebas de plantilla (suma e identidad del paquete), hay pruebas JVM de los ViewModels de acceso para validaciones, aviso demostrativo, estados independientes y limpieza al salir. Las dependencias Compose Test no significan que existan pruebas de la interfaz. Consultar [estado actual](docs/estado-actual.md) para los resultados realmente obtenidos.
 
 **Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí. En Cloud el registro de configuración y artefactos existentes acreditan APK, una prueba de plantilla sin fallos y Lint sin errores con 12 advertencias. Ejecución visual e instrumentada Cloud pendientes; detalle y procedencia en [estado actual](docs/estado-actual.md).
 

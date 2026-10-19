@@ -12,9 +12,9 @@ Actualización: 2026-10-18. Esta es la única lista de etapas, tareas abiertas y
 
 ## Pantallas de acceso solicitadas el 2026-10-18
 
-Implementadas las vistas de login y registro con validación local, contraseñas ocultables, navegación entre formularios y entrada al dashboard como invitado. Los envíos válidos muestran un aviso de demostración: no se crean cuentas ni se inicia una sesión real. No se añade backend ni almacenamiento de credenciales.
+Implementadas las vistas de login y registro con estado y eventos en LoginViewModel/RegisterViewModel, reglas en AuthValidator, validación local, contraseñas ocultables, navegación entre formularios y entrada al dashboard como invitado. Los envíos válidos muestran un aviso de demostración: no se crean cuentas ni se inicia una sesión real. No se añade backend ni almacenamiento de credenciales.
 
-Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, regreso y acceso como invitado. Esta implementación solicitada no acredita aprendizaje ni sustituye las etapas MVVM siguientes.
+Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, regreso y acceso como invitado. La separación MVVM del acceso no acredita aprendizaje ni sustituye las etapas MVVM del dashboard. Se añadieron pruebas JVM de los eventos y validaciones de los formularios.
 
 ## Próxima actividad acordada
 

@@ -1,6 +1,9 @@
 package com.duoc.madertimber
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import com.duoc.madertimber.ui.screens.auth.LoginViewModel
+import com.duoc.madertimber.ui.screens.auth.RegisterViewModel
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,24 +25,35 @@ import com.duoc.madertimber.ui.theme.MaderTimberTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        val registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
                 var screen by rememberSaveable { mutableStateOf("login") }
-                BackHandler(enabled = screen != "login") { screen = "login" }
+                fun navigate(destination: String) {
+                    loginViewModel.reset()
+                    registerViewModel.reset()
+                    screen = destination
+                }
+                BackHandler(enabled = screen != "login") { navigate("login") }
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     key(screen) {
                         val modifier = Modifier.padding(innerPadding)
                         when (screen) {
                             "register" -> RegisterScreen(
-                                onLogin = { screen = "login" },
-                                onGuest = { screen = "dashboard" },
+                                state = registerViewModel.uiState,
+                                onEvent = registerViewModel::onEvent,
+                                onLogin = { navigate("login") },
+                                onGuest = { navigate("dashboard") },
                                 modifier = modifier
                             )
                             "dashboard" -> DashboardScreen(modifier = modifier)
                             else -> LoginScreen(
-                                onRegister = { screen = "register" },
-                                onGuest = { screen = "dashboard" },
+                                state = loginViewModel.uiState,
+                                onEvent = loginViewModel::onEvent,
+                                onRegister = { navigate("register") },
+                                onGuest = { navigate("dashboard") },
                                 modifier = modifier
                             )
                         }
