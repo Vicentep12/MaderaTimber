@@ -12,8 +12,9 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | build.gradle.kts y gradle/libs.versions.toml | Plugins y versiones compartidas. |
 | app/build.gradle.kts | Identidad, SDK, opciones de compilación y dependencias de la aplicación. |
 | app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
-| app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema, Scaffold y montaje del dashboard. |
+| app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema, Scaffold y selección de login, registro o dashboard. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt | Vista estática inicial, tarjetas, barras comparativas y preview. |
+| app/src/main/java/com/duoc/madertimber/ui/screens/auth/AuthScreen.kt | Login y registro de demostración, campos, validación local y previews. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
 | app/src/test/ y app/src/androidTest/ | Ejemplos de pruebas JVM e instrumentadas. |
@@ -22,9 +23,9 @@ La documentación vive en docs/. Builds, cachés y local.properties son locales 
 
 ## Flujo existente
 
-MainActivity activa edge-to-edge y monta el tema, un Scaffold a tamaño completo y DashboardScreen con el padding del Scaffold. El dashboard utiliza una Column desplazable, cuatro tarjetas reutilizables y tres barras con las cifras de ejemplo del plan para 2024. DashboardPreview permite inspección estática en el IDE. Los valores son constantes de esta práctica visual; todavía no se calculan desde entidades.
+MainActivity activa edge-to-edge y monta el tema y un Scaffold a tamaño completo. Inicia en LoginScreen; permite cambiar a RegisterScreen o abrir DashboardScreen como invitado. La selección se conserva con rememberSaveable; Atrás desde registro o dashboard vuelve al login. Cada formulario tiene su propio estado de UI; las contraseñas solo viven en memoria y se descartan al salir o recrear la actividad. Los formularios no tienen Repository ni autenticación: al validar muestran un aviso explícito de demostración. El dashboard utiliza una Column desplazable, cuatro tarjetas reutilizables y tres barras con las cifras de ejemplo del plan para 2024. DashboardPreview permite inspección estática en el IDE. Los valores son constantes de esta práctica visual; todavía no se calculan desde entidades.
 
-El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. No hay todavía estado de negocio, acceso a datos, filtros interactivos ni navegación entre pantallas.
+El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. No hay todavía estado de negocio, acceso a datos, filtros interactivos ni navegación de detalles; solo existe el flujo visual de acceso.
 
 ## Responsabilidades objetivo
 

@@ -66,6 +66,8 @@ Los mockups deben respetar 2022–2024, la selección inicial 2024, las cinco m�
 - Estados de carga, vacío y error.
 - Pruebas básicas y datos de demostración.
 
+Las vistas de login y registro solicitadas el 2026-10-18 son formularios de demostración con validación local y acceso como invitado. No crean cuentas, guardan credenciales ni autentican usuarios.
+
 ### Fuera del alcance
 
 - Conexión a sistemas internos de CENAMAD.
