@@ -14,7 +14,9 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
 | app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema, Scaffold y selección de login, registro o dashboard. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt | Vista estática inicial, tarjetas, barras comparativas y preview. |
-| app/src/main/java/com/duoc/madertimber/ui/screens/auth/AuthScreen.kt | Login y registro de demostración, campos, validación local y previews. |
+| app/src/main/java/com/duoc/madertimber/ui/screens/auth/AuthScreen.kt | Vistas sin estado propio de formulario: renderizan AuthUiState y emiten AuthEvent; incluyen previews. |
+| app/src/main/java/com/duoc/madertimber/ui/screens/auth/AuthViewModel.kt | LoginViewModel y RegisterViewModel, estado observable inmutable y procesamiento de eventos. |
+| app/src/main/java/com/duoc/madertimber/model/auth/AuthValidator.kt | Reglas de validación y errores de los formularios. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
 | app/src/test/ y app/src/androidTest/ | Ejemplos de pruebas JVM e instrumentadas. |
@@ -23,7 +25,7 @@ La documentación vive en docs/. Builds, cachés y local.properties son locales 
 
 ## Flujo existente
 
-MainActivity activa edge-to-edge y monta el tema y un Scaffold a tamaño completo. Inicia en LoginScreen; permite cambiar a RegisterScreen o abrir DashboardScreen como invitado. La selección se conserva con rememberSaveable; Atrás desde registro o dashboard vuelve al login. Cada formulario tiene su propio estado de UI; las contraseñas solo viven en memoria y se descartan al salir o recrear la actividad. Los formularios no tienen Repository ni autenticación: al validar muestran un aviso explícito de demostración. El dashboard utiliza una Column desplazable, cuatro tarjetas reutilizables y tres barras con las cifras de ejemplo del plan para 2024. DashboardPreview permite inspección estática en el IDE. Los valores son constantes de esta práctica visual; todavía no se calculan desde entidades.
+MainActivity activa edge-to-edge y monta el tema y un Scaffold a tamaño completo. Inicia en LoginScreen; permite cambiar a RegisterScreen o abrir DashboardScreen como invitado. La selección se conserva con rememberSaveable; Atrás desde registro o dashboard vuelve al login. Cada formulario recibe estado observable de su ViewModel, obtenido con ViewModelProvider y ligado al ciclo de vida de la actividad. Los eventos modifican el estado y delegan las reglas en AuthValidator. La actividad limpia ambos formularios al navegar, incluido Atrás. El estado sobrevive a cambios de configuración; las contraseñas solo viven en memoria, no se guardan en SavedStateHandle y se pierden al morir el proceso o abandonar el formulario. No existe Repository de autenticación porque no hay acceso a datos ni servicio de cuentas: un envío válido muestra un aviso explícito de demostración. El dashboard utiliza una Column desplazable, cuatro tarjetas reutilizables y tres barras con las cifras de ejemplo del plan para 2024. DashboardPreview permite inspección estática en el IDE. Los valores son constantes de esta práctica visual; todavía no se calculan desde entidades.
 
 El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. No hay todavía estado de negocio, acceso a datos, filtros interactivos ni navegación de detalles; solo existe el flujo visual de acceso.
 
@@ -39,4 +41,4 @@ El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior 
 
 La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. Casos de uso, Hilt y Room se incorporan solo si su necesidad está justificada, de acuerdo con el alcance.
 
-MVVM se incorporará al añadir datos y filtros. La práctica inicial estática de Compose prepara la View; no acredita arquitectura completa. El código y las pruebas deben demostrar el flujo View → ViewModel → Repository y actualización del estado.
+El acceso demostrativo ya separa View, ViewModel y reglas del modelo. MVVM para el dashboard se incorporará al añadir datos y filtros. La práctica inicial estática de Compose prepara la View; no acredita arquitectura completa. El código y las pruebas deben demostrar el flujo View → ViewModel → Repository y actualización del estado.
