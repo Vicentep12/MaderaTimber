@@ -50,6 +50,17 @@ Las diez vistas de referencia se organizan como estados y componentes de las pan
 
 Los mockups deben respetar 2022–2024, la selección inicial 2024, las cinco métricas y sus reglas existentes. No sustituir proyectos activos por proyectos iniciados ni introducir relaciones directas proyecto–autor–publicación que el modelo inicial no contiene. Los bocetos exploratorios anteriores con otras cifras, períodos o relaciones requieren adaptación antes de usarse como diseño de implementación. Las fichas pueden ser diálogos y los listados reutilizar la pantalla de relacionados.
 
+### 2.3 Ampliación de la referencia: inicio de sesión y registro
+
+Solicitada el 2026-10-20 para completar la entrega de la próxima semana: cubrir las diez vistas anteriores y añadir estas dos vistas al diseño. El PNG de la sección 2.2 aún contiene solo las diez originales; su ampliación gráfica se registra como tarea en el plan operativo.
+
+| N.º | Vista | Contenido y comportamiento requerido |
+| --- | --- | --- |
+| 11 | Inicio de sesión | Correo, contraseña ocultable, validación, botón Iniciar sesión, enlace a registro y acceso como invitado. |
+| 12 | Registro | Nombre, correo, contraseña ocultable, confirmación, validación, botón Crear cuenta, regreso al login y acceso como invitado. |
+
+Conservar el alcance demostrativo del acceso: aviso visible de cuentas no habilitadas y respuesta explícita tras un envío válido. No simular una sesión real ni guardar credenciales. La UI emite eventos a los ViewModels y las reglas permanecen en el modelo. Verificar errores, teclado, desplazamiento, Atrás y limpieza de formularios al salir. Estas vistas ya tienen implementación base; incorporar su diseño y validar su comportamiento antes de cerrar la entrega.
+
 ## 3. Alcance del MVP
 
 ### Incluido
@@ -80,7 +91,9 @@ Las vistas de login y registro solicitadas el 2026-10-18 son formularios de demo
 
 ## 4. Flujo principal
 
-    Inicio
+    Inicio de sesión <-> Registro (demostrativos)
+      -> Explorar como invitado
+      -> Dashboard
       -> Seleccionar línea de investigación
       -> Seleccionar año
       -> Ver resumen de indicadores
@@ -481,7 +494,9 @@ Esta persistencia opcional conserva preferencias entre sesiones. La conservació
 
 El MVP se considera funcional cuando:
 
-- La aplicación inicia sin errores.
+- La aplicación inicia sin errores y presenta el acceso demostrativo.
+- Login y registro permiten validar campos, alternar formularios y entrar como invitado sin crear cuentas ni conservar credenciales al salir.
+- Las diez vistas originales y las dos vistas de acceso están representadas en el diseño y verificadas en Android.
 - El usuario puede seleccionar línea y año.
 - Los indicadores se actualizan según los filtros.
 - Los gráficos coinciden con los datos de las tarjetas.

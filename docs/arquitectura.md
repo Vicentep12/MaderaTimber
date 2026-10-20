@@ -1,6 +1,6 @@
 # Arquitectura: implementación actual y objetivo
 
-Revisión por lectura: 2026-10-15. Configuración y versiones en [README](../README.md); requisitos MVVM y estructura objetivo en la sección 6 de [especificacion.md](especificacion.md); validación en [estado-actual.md](estado-actual.md).
+Revisión por lectura: 2026-10-20. Configuración y versiones en [README](../README.md); requisitos MVVM y estructura objetivo en la sección 6 de [especificacion.md](especificacion.md); validación en [estado-actual.md](estado-actual.md).
 
 ## Estructura actual
 
@@ -19,7 +19,7 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/java/com/duoc/madertimber/model/auth/AuthValidator.kt | Reglas de validación y errores de los formularios. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
-| app/src/test/ y app/src/androidTest/ | Ejemplos de pruebas JVM e instrumentadas. |
+| app/src/test/ y app/src/androidTest/ | Seis pruebas JVM de acceso y ejemplos de plantilla JVM/instrumentado; sin pruebas UI del flujo. |
 
 La documentación vive en docs/. Builds, cachés y local.properties son locales por equipo.
 

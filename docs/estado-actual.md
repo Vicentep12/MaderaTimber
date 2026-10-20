@@ -1,6 +1,23 @@
 # Estado técnico y validación
 
-Revisión de implementación Cloud: 2026-10-18. Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+Revisión por lectura del repositorio y mockup: 2026-10-20. Última ejecución Gradle registrada: 2026-10-18 (no repetida en esta revisión documental). Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+
+## Corte de entrega — 2026-10-20
+
+Checkout revisado: rama `work`, HEAD `6c1c257`; árbol limpio antes de esta actualización. Se leyeron MainActivity, dashboard, acceso, validadores, pruebas y configuración Gradle, y se inspeccionó visualmente `docs/mockups/cenamad-plan-estudiantes.png`. No se consultó el remoto; este estado corresponde al checkout disponible.
+
+| Referencia visual | Evidencia actual | Pendiente para entrega |
+| --- | --- | --- |
+| 1. Dashboard | Cuatro tarjetas y barras con constantes 2024. | Datos calculados, filtros, métrica seleccionable, resaltado y botón Ver línea. |
+| 2. Filtros | No hay controles interactivos. | Selector/modal de línea y año, aplicar/cancelar y restauración. |
+| 3–4. Detalles de línea e indicador | No hay pantallas ni ViewModels de detalle. | Indicadores, históricos, variación, interpretación y navegación. |
+| 5, 7 y 9. Listas relacionadas | No implementadas. | Pestañas según origen, listas completas y conteos coherentes. |
+| 6, 8 y 10. Fichas | No implementadas. | Proyecto, investigador y publicación con regreso al contexto. |
+| 11–12. Login y registro (ampliación solicitada) | Formularios Compose, MVVM, validación, visibilidad de contraseña, aviso demo e invitado implementados. | Incorporarlos al diseño de referencia y comprobarlos visualmente en Android. |
+
+El PNG todavía contiene diez vistas: la ampliación gráfica a doce sigue pendiente. No existen modelos del panel, JSON en assets, Repository ni DashboardViewModel. Hay dependencia explícita Lifecycle ViewModel; no hay dependencias explícitas de Navigation Compose ni lector JSON. MainActivity usa una selección local de tres pantallas, no el flujo de detalles del MVP.
+
+Esta revisión actualiza documentación y planificación, no funcionalidad. No se ejecutaron Gradle, pruebas JVM ni pruebas Android. Los resultados históricos siguientes no acreditan una nueva ejecución ni la entrega completa. Las tareas y fechas propuestas están en [plan-implementacion.md](plan-implementacion.md#tarjetas-para-trello).
 
 ## Implementación observada
 
@@ -38,7 +55,7 @@ El dashboard es una práctica visual estática; esta prueba de aritmética no va
 
 Al iniciar esta revisión: rama main, HEAD 30f29f9; la integración documental 49284ea está en el historial. MainActivity.kt tiene cambios preparados por el usuario: argumento Diego y val saludo. Se preservaron el archivo y el índice.
 
-La consolidación documental posterior permanece local. No se hizo commit, push, fetch ni se verificó el estado remoto o la configuración Cloud durante esta revisión. Estos identificadores describen esta comprobación y deben actualizarse cuando cambie el checkout.
+La consolidación documental posterior permanece local. No se hizo commit, push, fetch ni se verificó el estado remoto o la configuración Cloud durante esta revisión. Estos identificadores corresponden exclusivamente al antecedente del 2026-10-08; el checkout vigente se registra en el corte de entrega superior.
 
 ## Antecedentes de validación — 2026-10-08
 
