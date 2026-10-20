@@ -2,6 +2,12 @@
 
 Revisión por lectura del repositorio y mockup: 2026-10-20. Última ejecución Gradle registrada: 2026-10-18 (no repetida en esta revisión documental). Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Cambio solicitado a SDK 38 — 2026-10-20
+
+`app/build.gradle.kts` declara ahora `compileSdk = release(38)` y `targetSdk = 38`. Se mantienen `minSdk = 24`, AGP y Gradle Wrapper 9.6.0. Cambio solicitado y confirmado por el propietario, no motivado por un fallo de entorno.
+
+Validación: `sdkmanager --list` consultó el catálogo remoto; aparecen plataformas 37.x y Canary, pero ninguna API 38. El SDK local contiene `android-37.0`. El intento de `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --max-workers=2 --console=plain` primero falló por restricciones de conexiones locales del sandbox. Se reintentó fuera del sandbox y se interrumpió durante configuración tras comprobar la ausencia de la plataforma solicitada. No hay build, pruebas ni Lint exitosos para este cambio. Pendiente instalar API 38 cuando esté disponible y repetir la validación, incluida la ejecución Android por el cambio de targetSdk. README actualizado; `git diff --check` sin errores.
+
 ## Corte de entrega — 2026-10-20
 
 Checkout revisado: rama `work`, HEAD `6c1c257`; árbol limpio antes de esta actualización. Se leyeron MainActivity, dashboard, acceso, validadores, pruebas y configuración Gradle, y se inspeccionó visualmente `docs/mockups/cenamad-plan-estudiantes.png`. No se consultó el remoto; este estado corresponde al checkout disponible.

@@ -6,13 +6,13 @@ plugins {
 android {
     namespace = "com.duoc.madertimber"
     compileSdk {
-        version = release(37)
+        version = release(38)
     }
 
     defaultConfig {
         applicationId = "com.duoc.madertimber"
         minSdk = 24
-        targetSdk = 37
+        targetSdk = 38
         versionCode = 1
         versionName = "1.0"
 
