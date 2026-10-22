@@ -63,7 +63,7 @@ Organizar los incrementos según las cinco iteraciones de la sección 13. No cam
 
 ## Continuidad y entorno pendientes
 
-- [ ] Sincronizar con el remoto el commit del mockup, el mapa y su documentación. El propietario solicitó el commit local el 2026-10-22; en esta operación no se realiza push.
+- [x] Sincronizar con el remoto el commit del mockup, el mapa y su documentación. El propietario autorizó pasarlo todo a `main` el 2026-10-22; `f16875b` se integró por avance directo y se subió a `origin/main`, sin conflictos.
 - [ ] Comprobar que otro clon o sesión Cloud recibe la misma revisión y lee AGENTS.md.
 - [ ] Verificar herramientas y configuración publicada Cloud cuando se use ese entorno; editar documentación no modifica el servicio.
 - [ ] Validar el proyecto actualizado en el equipo donde se vaya a ejecutar. El fallo AAPT2 histórico se diagnostica solo si reaparece.
