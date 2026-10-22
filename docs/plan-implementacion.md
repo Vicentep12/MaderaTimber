@@ -1,6 +1,6 @@
 # Plan de implementación y continuidad
 
-Actualización: 2026-10-20. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
+Actualización: 2026-10-22. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
 
 ## Retomar una sesión
 
@@ -20,12 +20,12 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 Prioridad solicitada el 2026-10-20: completar las diez vistas del mockup y añadir inicio de sesión y registro al diseño, con implementación y verificación de las doce vistas/estados. Se propone cerrar el viernes **30 de octubre de 2026**, dentro de la semana del 26 al 30; el día exacto de entrega y la disponibilidad del equipo no están confirmados. Las fechas de las tarjetas son objetivos de planificación, no compromisos ya acordados.
 
-Próximo incremento de implementación: T01–T04 (referencia visual, modelos, datos y cálculos); continuar con estado/navegación antes de conectar la UI. Las tarjetas T01–T17 de abajo desglosan las etapas existentes para Trello, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener como alcance acceso demostrativo y datos locales; autenticación real no está incluida.
+T01 completada: plano de doce vistas y mapa de navegación revisados; el propietario autorizó su commit el 2026-10-22. Próxima actividad de implementación: T02, modelos del panel, seguida de T03–T04 (datos y cálculos); continuar con estado/navegación antes de conectar la UI. Las tarjetas T01–T17 de abajo desglosan las etapas existentes para Trello, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener como alcance acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
 
-El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las pantallas y sus textos, aplicar las pautas y la referencia de diez vistas de las secciones 2.1–2.2 de [especificacion.md](especificacion.md). Se mantienen el plan técnico, la muestra 2022–2024 y la actividad de tutoría siguiente.
+El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las pantallas y sus textos, aplicar las pautas y la referencia de doce vistas de las secciones 2.1–2.3 de [especificacion.md](especificacion.md). Se mantienen el plan técnico, la muestra 2022–2024 y la actividad de tutoría siguiente.
 
 Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
@@ -63,7 +63,7 @@ Organizar los incrementos según las cinco iteraciones de la sección 13. No cam
 
 ## Continuidad y entorno pendientes
 
-- [ ] Guardar y sincronizar esta actualización documental cuando se autorice; el checkout inicial ya incluye la integración MVVM en `6c1c257`. Esta revisión no realiza commit ni push.
+- [ ] Sincronizar con el remoto el commit del mockup, el mapa y su documentación. El propietario solicitó el commit local el 2026-10-22; en esta operación no se realiza push.
 - [ ] Comprobar que otro clon o sesión Cloud recibe la misma revisión y lee AGENTS.md.
 - [ ] Verificar herramientas y configuración publicada Cloud cuando se use ese entorno; editar documentación no modifica el servicio.
 - [ ] Validar el proyecto actualizado en el equipo donde se vaya a ejecutar. El fallo AAPT2 histórico se diagnostica solo si reaparece.
@@ -72,17 +72,18 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. Todas las tarjetas siguientes tienen trabajo pendiente; T07 y T14 aprovechan código parcial existente. Asignar un responsable al tomar cada tarjeta. P0 indica una dependencia que desbloquea otras tareas; P1 también es obligatoria para la entrega. No se han creado tarjetas en Trello.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01 está completada; las tarjetas T02–T17 tienen trabajo pendiente y T07 y T14 aprovechan código parcial existente. Asignar un responsable al tomar cada tarjeta. P0 indica una dependencia que desbloquea otras tareas; P1 también es obligatoria para la entrega. No se han creado tarjetas en Trello.
 
 Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni disponibilidad del equipo. Total orientativo: **56–85 horas**, más margen para imprevistos. El calendario requiere comenzar esta semana; no presupone que todo quepa en cinco jornadas de una sola persona. Si la capacidad no alcanza, revisar fecha o distribución de trabajo sin declarar vistas incompletas como terminadas.
 
 ### T01 — Ampliar los mockups a doce vistas
 
 - **Prioridad:** P0 · **Objetivo:** 21/10 · **Estimación:** 2–3 h · **Depende de:** nada.
-- [ ] Incorporar las vistas 11 (inicio de sesión) y 12 (registro), con campos, enlaces, invitado y aviso demostrativo de la sección 2.3.
-- [ ] Mantener las diez vistas originales y definir estados de error, vacío, carga y controles de regreso/cierre.
-- [ ] Alinear colores, tipografía, espaciados y botones entre acceso y panel; guardar la referencia visual en `docs/mockups/` y enlazarla desde la especificación.
-- **Aceptación:** referencia visual de las doce vistas y recorrido completo identificable. El PNG actual de diez vistas por sí solo no cierra esta tarjeta.
+- **Estado al 22/10:** completada. Plano ampliado y mapa de navegación revisados y enlazados en la sección 2.2 de la especificación; el propietario autorizó su incorporación mediante commit. Este cierre corresponde al diseño, no a la implementación o validación Android.
+- [x] Incorporar las vistas 11 (inicio de sesión) y 12 (registro), con campos, enlaces, invitado y aviso demostrativo de la sección 2.3.
+- [x] Mantener las diez vistas originales y definir estados de error, vacío, carga y controles de regreso/cierre.
+- [x] Alinear colores, tipografía, espaciados y botones entre acceso y panel; guardar la referencia visual en `docs/mockups/` y enlazarla desde la especificación.
+- **Aceptación:** referencia visual de las doce vistas y recorrido completo identificable, revisados conjuntamente y aprobados por el propietario.
 
 ### T02 — Implementar los modelos del panel
 

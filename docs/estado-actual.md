@@ -1,6 +1,16 @@
 # Estado técnico y validación
 
-Revisión por lectura del repositorio y mockup: 2026-10-20. Última ejecución Gradle registrada: 2026-10-18 (no repetida en esta revisión documental). Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+Revisión del mockup ampliado y documentación: 2026-10-22; último corte de implementación: 2026-10-20. Última ejecución Gradle exitosa registrada: 2026-10-18 (no repetida en esta revisión visual y documental). Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+
+## Mockup ampliado para revisión conjunta — 2026-10-22
+
+El [plano de referencia](mockups/cenamad-plan-estudiantes.png) incorpora las doce vistas numeradas: conserva dashboard, filtros, detalles, listas y fichas, y añade inicio de sesión y registro. Incluye ejemplos auxiliares de validación, aviso demostrativo, carga, vacío, error y falta de cobertura, controles de regreso/cierre y el recorrido entre vistas. Los formularios conservan el alcance de demostración y la entrada como invitado; los errores de carga se refieren al archivo local.
+
+Estado: revisado y autorizado para commit por el propietario el 2026-10-22. Esta operación guarda los cambios localmente; no realiza push. La ampliación es una referencia de diseño; no modifica código Kotlin ni configuración Gradle y no acredita implementación o validación Android de las doce vistas. Los requisitos de acceso y las aclaraciones del plano se mantienen en las secciones 2.2–2.3 de la especificación; T01 registra el cierre del diseño.
+
+Se añade `docs/mockups/cenamad-mapa-navegacion.png` como imagen independiente, con las doce vistas ordenadas por recorrido y flechas de apertura/regreso. Se revisaron la correspondencia de números, la entrada como invitado, los filtros, las pestañas según indicador y el regreso de cada ficha a su lista. El enlace se mantiene en la sección 2.2 de la especificación; el mapa se incluye en el commit autorizado.
+
+Validación de esta revisión: inspección visual de las doce vistas, los ejemplos auxiliares y el mapa de navegación; plano PNG de 1190 × 1322 píxeles y mapa de 1024 × 1536 píxeles guardados en sus rutas de referencia. Comprobados 40 enlaces locales de nueve Markdown, sin enlaces rotos; `git diff --check` sin errores. No se ejecutaron Gradle ni pruebas Android por tratarse de cambios de diseño y documentación.
 
 ## Cambio solicitado a SDK 38 — 2026-10-20
 
@@ -21,7 +31,7 @@ Checkout revisado: rama `work`, HEAD `6c1c257`; árbol limpio antes de esta actu
 | 6, 8 y 10. Fichas | No implementadas. | Proyecto, investigador y publicación con regreso al contexto. |
 | 11–12. Login y registro (ampliación solicitada) | Formularios Compose, MVVM, validación, visibilidad de contraseña, aviso demo e invitado implementados. | Incorporarlos al diseño de referencia y comprobarlos visualmente en Android. |
 
-El PNG todavía contiene diez vistas: la ampliación gráfica a doce sigue pendiente. No existen modelos del panel, JSON en assets, Repository ni DashboardViewModel. Hay dependencia explícita Lifecycle ViewModel; no hay dependencias explícitas de Navigation Compose ni lector JSON. MainActivity usa una selección local de tres pantallas, no el flujo de detalles del MVP.
+En este corte del 20-10, el PNG contenía diez vistas; la ampliación a doce se preparó después para la revisión conjunta del 22-10 indicada arriba. No existen modelos del panel, JSON en assets, Repository ni DashboardViewModel. Hay dependencia explícita Lifecycle ViewModel; no hay dependencias explícitas de Navigation Compose ni lector JSON. MainActivity usa una selección local de tres pantallas, no el flujo de detalles del MVP.
 
 Esta revisión actualiza documentación y planificación, no funcionalidad. No se ejecutaron Gradle, pruebas JVM ni pruebas Android. Los resultados históricos siguientes no acreditan una nueva ejecución ni la entrega completa. Las tareas y fechas propuestas están en [plan-implementacion.md](plan-implementacion.md#tarjetas-para-trello).
 

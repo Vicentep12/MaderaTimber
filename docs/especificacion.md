@@ -31,7 +31,9 @@ Para una futura validación con estudiantes, observar si pueden explicar qué es
 
 ### 2.2 Referencia para los mockups
 
-Ver el [plano de diez vistas actualizado al plan](mockups/cenamad-plan-estudiantes.png). Es una propuesta visual de baja fidelidad para estudiantes, no una captura de funcionalidad implementada. Conserva las métricas, líneas y años definidos aquí. El histórico 4–6–8 proyectos y el avance de 60,0 % son ejemplos visuales sintéticos adicionales; no sustituyen los datos ni las reglas de generación de la sección 8.
+Ver el [plano de doce vistas](mockups/cenamad-plan-estudiantes.png), ampliado el 2026-10-22. Es una propuesta visual de baja fidelidad para estudiantes, cuya incorporación a Git fue autorizada por el propietario el 2026-10-22, no una captura de funcionalidad implementada. Conserva las métricas, líneas y años definidos aquí. El histórico 4–6–8 proyectos y el avance de 60,0 % son ejemplos visuales sintéticos adicionales; no sustituyen los datos ni las reglas de generación de la sección 8.
+
+El [mapa de navegación de las doce vistas](mockups/cenamad-mapa-navegacion.png) conserva la numeración del plano y las ordena por recorrido: acceso, dashboard/filtros, detalles, listas y fichas. Las flechas verdes indican apertura y las grises discontinuas, regreso. Explicita las pestañas disponibles según el origen de la navegación y el retorno de cada ficha a su lista. Su incorporación a Git fue autorizada junto con el plano el 2026-10-22.
 
 Las diez vistas de referencia se organizan como estados y componentes de las pantallas de la sección 9, sin exigir diez destinos de navegación distintos:
 
@@ -52,12 +54,14 @@ Los mockups deben respetar 2022–2024, la selección inicial 2024, las cinco m�
 
 ### 2.3 Ampliación de la referencia: inicio de sesión y registro
 
-Solicitada el 2026-10-20 para completar la entrega de la próxima semana: cubrir las diez vistas anteriores y añadir estas dos vistas al diseño. El PNG de la sección 2.2 aún contiene solo las diez originales; su ampliación gráfica se registra como tarea en el plan operativo.
+Solicitada el 2026-10-20 y preparada para revisión conjunta el 2026-10-22: el PNG de la sección 2.2 conserva las diez vistas anteriores e incorpora las dos siguientes. El propietario autorizó el commit del plano y su mapa de navegación el 2026-10-22; T01 registra el cierre del diseño. La comprobación Android sigue pendiente.
 
 | N.º | Vista | Contenido y comportamiento requerido |
 | --- | --- | --- |
 | 11 | Inicio de sesión | Correo, contraseña ocultable, validación, botón Iniciar sesión, enlace a registro y acceso como invitado. |
 | 12 | Registro | Nombre, correo, contraseña ocultable, confirmación, validación, botón Crear cuenta, regreso al login y acceso como invitado. |
+
+La banda inferior del plano reúne las vistas 11–12 y ejemplos auxiliares de validación, aviso demostrativo, carga, vacío, error y falta de cobertura, junto con el recorrido de regreso. Estos ejemplos no son nuevas pantallas numeradas. Los listados de las vistas 5, 7 y 9 representan la entrada desde detalle de línea; desde un indicador solo se muestran las pestañas aplicables de la sección 9.4.
 
 Conservar el alcance demostrativo del acceso: aviso visible de cuentas no habilitadas y respuesta explícita tras un envío válido. No simular una sesión real ni guardar credenciales. La UI emite eventos a los ViewModels y las reglas permanecen en el modelo. Verificar errores, teclado, desplazamiento, Atrás y limpieza de formularios al salir. Estas vistas ya tienen implementación base; incorporar su diseño y validar su comportamiento antes de cerrar la entrega.
 
