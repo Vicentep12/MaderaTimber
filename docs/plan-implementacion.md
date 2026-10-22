@@ -29,7 +29,7 @@ El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las 
 
 Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
-Al retomar la tutoría: ejecutar la pantalla en el dispositivo del usuario y revisar DashboardScreen, Column, Card, Modifier y las funciones reutilizables. Registrar su comprensión solo después de un ejercicio o explicación. Luego introducir modelos, Repository y ViewModel antes de filtros interactivos. Esta práctica estática no acredita el dashboard completo ni MVVM.
+Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. No se verificaron los archivos ni su compilación en este checkout; queda comprobar que el enum no contiene los caracteres de formato del mensaje. Próximo ejercicio: crear `EstadoProyecto`, antes de `SeguimientoProyecto` y `Proyecto`. La revisión de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente; la práctica estática no acredita el dashboard completo ni MVVM. Introducir Repository y ViewModel antes de filtros interactivos.
 
 ## Etapas y tareas
 
@@ -118,6 +118,9 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 ### T06 — Completar navegación y regreso
 
 - **Prioridad:** P0 · **Objetivo:** 26/10 · **Estimación:** 3–5 h · **Depende de:** T05.
+- **Pendiente añadido el 22/10 por solicitud del usuario:** organizar las rutas y su conexión con las pantallas en `com.duoc.madertimber.ui.navigation`. Esta subtarea forma parte de T06; no está implementada.
+- [ ] Crear `Rutas.kt` para definir los destinos y argumentos del flujo.
+- [ ] Crear `AppNavigation.kt` para conectar destinos y pantallas; trasladar allí la selección y navegación actualmente en `MainActivity`, manteniendo la inicialización de la actividad y el tema en su lugar.
 - [ ] Integrar el acceso existente con rutas de dashboard, línea, indicador y relacionados de la sección 11; habilitar apertura/cierre de fichas.
 - [ ] Transmitir y validar IDs, año y tipo; ofrecer regreso ante argumentos inválidos.
 - [ ] Conservar selección al volver y limpiar formularios al salir del acceso.
