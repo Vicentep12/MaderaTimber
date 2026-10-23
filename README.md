@@ -34,7 +34,7 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 
 | Componente | Configuración | Fuente |
 | --- | --- | --- |
-| Plataforma | Android; `compileSdk` 38, `targetSdk` 38, `minSdk` 24 | `app/build.gradle.kts` |
+| Plataforma | Android; `compileSdk` 37, `targetSdk` 37, `minSdk` 24 | `app/build.gradle.kts` |
 | Gradle Wrapper | 9.6.0, distribución con SHA-256 | `gradle/wrapper/gradle-wrapper.properties` |
 | Android Gradle Plugin | 9.4.1 | `gradle/libs.versions.toml` |
 | Kotlin Compose plugin | 2.2.10 | `gradle/libs.versions.toml` |
@@ -49,7 +49,7 @@ AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catá
 
 Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal. Configuration Cache activada; heap Gradle configurado en 2 GB. Un único módulo `:app`. No hay backend, servicios externos ni variables `.env` requeridas por el código actual.
 
-**SDK 38 pendiente de disponibilidad:** el 20-10-2026 se actualizaron `compileSdk` y `targetSdk` a 38 por solicitud del propietario. El catálogo consultado con `sdkmanager --list` no ofrece una plataforma API 38. Esta configuración aún no está validada como compilable; no sustituirla por una plataforma Canary suponiendo equivalencia. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24.
+**SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24. La última validación Gradle exitosa registrada es del 18-10-2026; no acredita una compilación de los cambios posteriores.
 
 ## Instalación en otro computador
 
@@ -63,7 +63,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
    ```
 
 3. Abrir **esa carpeta** en Android Studio y Codex. En Windows el usuario trabaja bajo `E:/AnalistaProgramador/Desarrollo app moviles`; la carpeta contenedora no es la raíz Git. Los documentos de continuidad de esta entrega se conservan dentro del repositorio.
-4. En SDK Manager instalar Android SDK Platform 38, Platform Tools y las Build Tools que requiera AGP (36.0.0 solicitadas durante esta revisión). Aceptar licencias. No usar API 24 como plataforma de compilación: es solo el mínimo para dispositivos.
+4. En SDK Manager instalar Android SDK Platform 37.0 (API 37), Platform Tools y las Build Tools que requiera AGP (36.0.0 solicitadas durante esta revisión). Aceptar licencias. No usar API 24 como plataforma de compilación: es solo el mínimo para dispositivos.
 5. Configurar el JDK para Gradle y la ubicación local del SDK. Android Studio puede crear `local.properties`; debe permanecer ignorado. Alternativa de terminal (reemplazar rutas por las de tu equipo):
 
    ```powershell
@@ -123,7 +123,7 @@ Guía consultada en la revisión Cloud anterior del 2026-10-08: [Codex Cloud](ht
 1. Revisar los cambios locales y subirlos a GitHub cuando lo autorices; Cloud necesita la documentación en el repositorio remoto.
 2. Iniciar sesión en ChatGPT; en web/escritorio seleccionar **Work in > Cloud > Select environment > Create environment** (también desde Settings > Codex Cloud > Environments).
 3. Conectar GitHub si se solicita y dar acceso al repositorio `Vicentep12/MaderaTimber`. Si no eres su propietario, disponer del permiso correspondiente; para cuentas de organización puede hacer falta autorización administrativa.
-4. Seleccionar el repositorio y **Get started**. Solicitar que el entorno prepare JDK 25, SDK Android API 38, licencias, Build Tools requeridas por AGP y las variables `JAVA_HOME`/`ANDROID_HOME`; usar la raíz que contenga `settings.gradle.kts`.
+4. Seleccionar el repositorio y **Get started**. Solicitar que el entorno prepare JDK 25, SDK Android API 37, licencias, Build Tools requeridas por AGP y las variables `JAVA_HOME`/`ANDROID_HOME`; usar la raíz que contenga `settings.gradle.kts`.
 5. Indicar como comprobación los comandos Linux de este README. Preparar el entorno antes de publicar su configuración; registrar las versiones efectivas y cualquier fallo en `docs/estado-actual.md`.
 6. Revisar el acceso de red para Gradle, Maven, plugins y Android SDK. Si Foojay descarga un JDK, verificar `api.foojay.io` y el proveedor al que redirige; el listado de dominios debe ajustarse a errores observados. Ningún token de la app es necesario actualmente.
 7. Revisar resultados y configuración, guardar y seleccionar **Publish** del entorno Cloud. Esto lo haces manualmente; no equivale a publicar la app Android. Iniciar una nueva tarea con el mensaje de continuidad anterior.
@@ -131,12 +131,12 @@ Guía consultada en la revisión Cloud anterior del 2026-10-08: [Codex Cloud](ht
 
 **Compatibilidad condicionada:** el proyecto tiene Wrapper y scripts para Linux. El registro y artefactos locales de configuración acreditan una compilación inicial en Cloud; restaurar otro entorno o usar otro equipo requiere verificar su instalación. Lectura/edición pueden realizarse; compilación, Lint y pruebas locales requieren provisionar JDK/SDK y acceso a dependencias. No asumir que la imagen Cloud trae Android SDK ni emulador. Las pruebas instrumentadas y la verificación visual necesitan un dispositivo/emulador; si Cloud no lo proporciona, realizarlas localmente y registrar el resultado.
 
-Para preparar paquetes desde Android SDK Command-Line Tools, si el entorno dispone de `sdkmanager` (verificar en la lista el identificador publicado para API 38 antes de instalarlo):
+Para preparar paquetes desde Android SDK Command-Line Tools, si el entorno dispone de `sdkmanager` (el identificador de Android SDK Platform 37.0 es `platforms;android-37.0`):
 
 ```bash
 sdkmanager --list
 sdkmanager --licenses
-sdkmanager "platform-tools" "platforms;<identificador-API-38>" "build-tools;36.0.0"
+sdkmanager "platform-tools" "platforms;android-37.0" "build-tools;36.0.0"
 # Revisar Build Tools si cambia AGP; 36.0.0 fue requerida en esta revisión.
 ```
 
