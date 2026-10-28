@@ -15,7 +15,7 @@ El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, 
 | Documento | Contenido |
 | --- | --- |
 | [Especificación](docs/especificacion.md) | Contratos, modelos, cálculos, plan técnico completo, aceptación, pruebas y entregables. |
-| [Plan operativo](docs/plan-implementacion.md) | Etapas, tarjetas para Trello y calendario propuesto de entrega al 30-10-2026. |
+| [Plan operativo](docs/plan-implementacion.md) | Etapas, tarjetas para Trello y entrega indicada para el jueves 29-10-2026. |
 | [Aprendizaje](docs/aprendizaje.md) | Perfil, método y recorrido pedagógico completo. |
 | [Progreso](docs/progreso.md) | Ejercicios y comprensión comprobada. |
 | [Arquitectura](docs/arquitectura.md) | Componentes actuales y responsabilidades objetivo. |

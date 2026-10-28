@@ -1,6 +1,21 @@
 # Estado técnico y validación
 
-Revisión del mockup ampliado y documentación: 2026-10-22; último corte de implementación: 2026-10-20. Última ejecución Gradle exitosa registrada: 2026-10-18 (no repetida en esta revisión visual y documental). Los antecedentes Windows del 2026-10-08 se conservan abajo. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+Revisión por lectura del checkout: 2026-10-28. Última ejecución Gradle exitosa registrada antes de esta revisión: 2026-10-18. Los cortes del 20 y 22 de octubre y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+
+## Checkout actual — 2026-10-28
+
+Rama `main`, HEAD `6c99e16`, árbol limpio al iniciar la revisión. Se leyeron archivos fuente y configuración sin consultar el remoto. Esta evidencia describe el checkout local; no certifica ejecución Android.
+
+| Área | Evidencia por lectura | Pendiente |
+| --- | --- | --- |
+| Modelos del panel | Existen los diez contratos de la sección 7 bajo `data/model`. El 28/10 el usuario guardó `VinculacionInvestigador`, `Investigador` y `Publicacion` como archivos añadidos con cambios locales; se revisaron sus propiedades y tipos por lectura. También escribió `tieneIdsDuplicados` para IDs de líneas en `IntegridadDatos.kt`; tras corregir la comparación, su estructura coincide con los tres casos explicados por el usuario. | Probar la función y completar la validación de otros IDs, referencias, años y avances. T02 sigue abierta. |
+| Vistas relacionadas | `ListaInvestigadoresScreen` presenta tres nombres fijos y `FichaInvestigadorScreen` muestra una ficha fija; ambas tienen previews y callbacks. El resto de archivos de listas, fichas, detalles y filtros son marcadores de paquete. | Conectar modelos, Repository, ViewModels y navegación; listas completas, selección por ID y regreso al contexto. T12–T13 siguen abiertas. |
+| Navegación y panel | `MainActivity` conserva la selección local login/registro/dashboard; `ui/navegacion/navegacion.kt` solo declara el paquete. El dashboard sigue con cifras fijas. | Rutas del panel, filtros, datos calculados y estados MVVM. |
+| Datos y pruebas | No hay JSON en assets ni Repository del panel; las pruebas fuente siguen siendo las de acceso y los ejemplos de plantilla. | Implementar datos, cálculos y sus pruebas; revisar interfaz y ejecución Android. |
+
+Los modelos presentes coinciden por estructura con los contratos correspondientes de la sección 7 de la especificación, pero su presencia no demuestra integridad de conjuntos de datos; el aprendizaje comprobado se registra por separado en [progreso.md](progreso.md). Las pantallas de investigadores son maquetas estáticas aún no integradas; su existencia tampoco acredita las vistas funcionales del MVP.
+
+Validación intentada en Windows el 2026-10-28: se inició `.\gradlew.bat :app:assembleDebug :app:testDebugUnitTest --console=plain` desde la raíz. Tras aproximadamente dos minutos sin salida, se interrumpió; `java -version` tampoco devolvió salida y se interrumpió. No se obtuvo resultado de compilación ni de pruebas, y la causa no está determinada. Antes de acreditar T02 o avanzar a datos, diagnosticar el arranque de Java/Gradle en este equipo y repetir la comprobación. `git diff --check` y los enlaces Markdown locales se revisaron sin errores para esta actualización documental.
 
 ## Mockup ampliado para revisión conjunta — 2026-10-22
 
@@ -18,7 +33,7 @@ Validación de esta revisión: inspección visual de las doce vistas, los ejempl
 
 Validación: `sdkmanager --list` consultó el catálogo remoto; aparecen plataformas 37.x y Canary, pero ninguna API 38. El SDK local contiene `android-37.0`. El intento de `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --max-workers=2 --console=plain` primero falló por restricciones de conexiones locales del sandbox. Se reintentó fuera del sandbox y se interrumpió durante configuración tras comprobar la ausencia de la plataforma solicitada. No hay build, pruebas ni Lint exitosos para este cambio. Pendiente instalar API 38 cuando esté disponible y repetir la validación, incluida la ejecución Android por el cambio de targetSdk. README actualizado; `git diff --check` sin errores.
 
-## Corte de entrega — 2026-10-20
+## Corte de entrega histórico — 2026-10-20
 
 Checkout revisado: rama `work`, HEAD `6c1c257`; árbol limpio antes de esta actualización. Se leyeron MainActivity, dashboard, acceso, validadores, pruebas y configuración Gradle, y se inspeccionó visualmente `docs/mockups/cenamad-plan-estudiantes.png`. No se consultó el remoto; este estado corresponde al checkout disponible.
 
@@ -35,7 +50,7 @@ En este corte del 20-10, el PNG contenía diez vistas; la ampliación a doce se 
 
 Esta revisión actualiza documentación y planificación, no funcionalidad. No se ejecutaron Gradle, pruebas JVM ni pruebas Android. Los resultados históricos siguientes no acreditan una nueva ejecución ni la entrega completa. Las tareas y fechas propuestas están en [plan-implementacion.md](plan-implementacion.md#tarjetas-para-trello).
 
-## Implementación observada
+## Implementación observada en el corte histórico del 2026-10-20
 
 | Área | Estado |
 | --- | --- |

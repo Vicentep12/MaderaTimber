@@ -1,6 +1,6 @@
 # Plan de implementación y continuidad
 
-Actualización: 2026-10-22. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
+Actualización: 2026-10-28. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
 
 ## Retomar una sesión
 
@@ -18,9 +18,9 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 ## Objetivo de entrega y próxima actividad
 
-Prioridad solicitada el 2026-10-20: completar las diez vistas del mockup y añadir inicio de sesión y registro al diseño, con implementación y verificación de las doce vistas/estados. Se propone cerrar el viernes **30 de octubre de 2026**, dentro de la semana del 26 al 30; el día exacto de entrega y la disponibilidad del equipo no están confirmados. Las fechas de las tarjetas son objetivos de planificación, no compromisos ya acordados.
+La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01 completada: plano de doce vistas y mapa de navegación revisados; el propietario autorizó su commit el 2026-10-22. Próxima actividad de implementación: T02, modelos del panel, seguida de T03–T04 (datos y cálculos); continuar con estado/navegación antes de conectar la UI. Las tarjetas T01–T17 de abajo desglosan las etapas existentes para Trello, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener como alcance acceso demostrativo y datos locales; autenticación real no está incluida.
+T01 completada: plano de doce vistas y mapa de navegación revisados; el propietario autorizó su commit el 2026-10-22. T02 está en curso: los diez contratos de modelos de la sección 7 están presentes, incluidos `VinculacionInvestigador`, `Investigador` y `Publicacion` guardados como cambios locales; existe un primer control de IDs duplicados de líneas, aún sin prueba ejecutada. Faltan las demás reglas de integridad de la sección 8 y sus pruebas. Próxima actividad: completar T02 y ejecutar una compilación/pruebas actuales; en paralelo de equipo, asignar T18–T20 y preparar la integración de T03–T06. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -29,7 +29,7 @@ El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las 
 
 Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
-Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. No se verificaron los archivos ni su compilación en este checkout; queda comprobar que el enum no contiene los caracteres de formato del mensaje. Próximo ejercicio: crear `EstadoProyecto`, antes de `SeguimientoProyecto` y `Proyecto`. La revisión de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente; la práctica estática no acredita el dashboard completo ni MVVM. Introducir Repository y ViewModel antes de filtros interactivos.
+Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. En el checkout del 2026-10-28 se comprobaron por lectura esos cuatro modelos y también `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto`; `TipoIndicador.kt` contiene las cinco opciones sin los caracteres de formato del mensaje. La presencia de los otros tres archivos no acredita por sí sola comprensión del usuario. El usuario escribió `VinculacionInvestigador` y, tras una corrección guiada, identificó como duplicado repetir el mismo par `(lineaId, anio)`. También escribió `Investigador` y reconoció que tres pares distintos de línea/año requieren tres elementos en `vinculaciones`. Ambos archivos quedaron guardados en el árbol de trabajo. `Publicacion` también está guardado y coincide por lectura con el contrato; el usuario explicó que una publicación de 2023 no aparece con el filtro 2024. Escribió y corrigió `tieneIdsDuplicados` para líneas; explicó correctamente los casos de IDs distintos, repetidos y lista vacía. Próximo ejercicio: probar esta función con JUnit. La revisión de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente; la práctica estática no acredita el dashboard completo ni MVVM. Introducir Repository y ViewModel antes de filtros interactivos.
 
 ## Etapas y tareas
 
@@ -40,7 +40,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 1. Alcance | Confirmar flujo, líneas, indicadores, años y aceptación. | Definido en la especificación. |
 | 2. Base Android | Crear/configurar proyecto y ejecutar la pantalla inicial. | Proyecto existente; ejecución inicial registrada en tutoría. No recrearlo. |
 | 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Parcial: Compose/Material 3, Lifecycle ViewModel y pruebas de acceso/plantilla; sin Navigation Compose ni lector JSON explícitos. Cada cambio de Gradle debe compilar. |
-| 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Pendiente. IDs/referencias únicos, relaciones temporales y rangos válidos. |
+| 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | En curso: diez contratos presentes, tres aún sin commit; primer control de IDs duplicados de líneas escrito por el usuario. Faltan sus pruebas y las demás reglas de IDs, referencias, relaciones temporales y rangos. |
 | 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Pendiente. Datos coherentes, funcionamiento offline y carga/éxito/vacío/error diferenciados. |
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | Parcial: acceso login/registro/invitado existente; flujo del panel pendiente. Definir rutas al preparar el flujo; completar conservación de filtros después del paso 7. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Parcial: acceso implementado; dashboard y detalles pendientes. Incorporarlo antes de filtros interactivos; restaurar selección con SavedStateHandle. |
@@ -48,9 +48,9 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | Pendiente. Aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
 | 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Pendiente. Aplicar reglas de ausencia, base cero y puntos porcentuales de la sección 8. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
-| 12. Persistencia opcional | Filtros entre sesiones, favoritos o historial si queda tiempo. | Opcional. No bloquea el MVP ni sustituye la restauración de estado obligatoria del flujo. |
+| 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
 
-Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. Implementarlos con los detalles de los pasos 9–10.
+Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. Implementarlos con los detalles de los pasos 9–10. La lista y ficha de investigadores existentes son vistas estáticas sin conexión al flujo ni datos del modelo; T12–T13 siguen abiertos.
 
 ## Validación y entrega
 
@@ -58,6 +58,8 @@ Los contenidos relacionados incluyen las pestañas según el indicador de origen
 - [ ] Comprobar build, pruebas JVM y Lint; con Android disponible, pruebas UI y revisión visual.
 - [ ] Verificar todos los criterios de la sección 12 y realizar el recorrido de demostración.
 - [ ] Preparar los entregables completos de la sección 15: código/datos, instrucciones, arquitectura/modelo, capturas, casos y video o demostración.
+- [ ] Comprobar en dispositivo imagen, animación, modal y selector nativo de archivos; verificar recuperación de la selección guardada en Room tras reiniciar.
+- [ ] Revisar historial Git y tarjetas Trello con responsables y estados; cotejar la ruta de repositorio con el Excel Oficial antes de que cada integrante la entregue.
 
 Organizar los incrementos según las cinco iteraciones de la sección 13. No cambiar requisitos ni dar una etapa por completada solo porque compiló la plantilla.
 
@@ -72,9 +74,9 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01 está completada; las tarjetas T02–T17 tienen trabajo pendiente y T07 y T14 aprovechan código parcial existente. Asignar un responsable al tomar cada tarjeta. P0 indica una dependencia que desbloquea otras tareas; P1 también es obligatoria para la entrega. No se han creado tarjetas en Trello.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01 está completada; T02 está en curso; T03–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
-Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni disponibilidad del equipo. Total orientativo: **56–85 horas**, más margen para imprevistos. El calendario requiere comenzar esta semana; no presupone que todo quepa en cinco jornadas de una sola persona. Si la capacidad no alcanza, revisar fecha o distribución de trabajo sin declarar vistas incompletas como terminadas.
+Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
 ### T01 — Ampliar los mockups a doce vistas
 
@@ -88,7 +90,9 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 ### T02 — Implementar los modelos del panel
 
 - **Prioridad:** P0 · **Objetivo:** 21/10 · **Estimación:** 3–4 h · **Depende de:** nada.
-- [ ] Implementar contratos de la sección 7 y validación de integridad de la sección 8.
+- **Estado al 28/10:** en curso. Los siete modelos previos y `VinculacionInvestigador`, `Investigador` y `Publicacion` están presentes por lectura; estos últimos tres están guardados como cambios locales. `tieneIdsDuplicados` comprueba por estructura los IDs de líneas, pero aún no tiene prueba ejecutada.
+- [x] Escribir los contratos de la sección 7 por estructura.
+- [ ] Validar la integridad de la sección 8.
 - [ ] Probar IDs, referencias, duplicados temporales y avances fuera de rango.
 - **Aceptación:** modelos independientes de Compose; no se introducen relaciones proyecto–autor–publicación ajenas al contrato.
 
@@ -131,8 +135,9 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 - **Prioridad:** P1 · **Objetivo:** 26/10 · **Estimación:** 4–5 h · **Depende de:** T01, T05, T06.
 - [ ] Sustituir constantes por datos del ViewModel en las cuatro tarjetas.
 - [ ] Añadir selector de las cinco métricas y barras de las tres líneas con año/unidad, resaltado y descripción accesible.
+- [ ] Incorporar una imagen del contenido visible dentro de la app y una animación útil al actualizar una tarjeta o cambiar de selección; describir la imagen y verificar la animación en Android.
 - [ ] Añadir Ver línea y acceso al selector de filtros; representar valores ausentes.
-- **Aceptación:** cambiar la selección actualiza tarjetas y comparativo de forma coherente, conservando las otras líneas visibles.
+- **Aceptación:** cambiar la selección actualiza tarjetas y comparativo de forma coherente, conservando las otras líneas visibles; imagen y animación se comprueban en la app.
 
 ### T08 — Implementar selección de filtros (vista 2)
 
@@ -166,6 +171,7 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 ### T12 — Implementar las tres listas relacionadas (vistas 5, 7 y 9)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 4–6 h · **Depende de:** T03, T05, T06, T10, T11.
+- **Estado al 28/10:** existe `ListaInvestigadoresScreen` con tres nombres fijos y callbacks sin ID; no recibe entidades ni está conectada al flujo.
 - [ ] Mostrar proyectos activos, investigadores vinculados y publicaciones de línea/año.
 - [ ] Respetar las pestañas aplicables al indicador de origen según la sección 9.4; desde línea, ofrecer las tres.
 - [ ] Mostrar totales, estados vacíos y abrir fichas por ID.
@@ -174,6 +180,7 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 ### T13 — Implementar las tres fichas (vistas 6, 8 y 10)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 3–5 h · **Depende de:** T12.
+- **Estado al 28/10:** existe `FichaInvestigadorScreen` con texto fijo y botón de regreso; no recibe un investigador seleccionado ni está conectada al flujo.
 - [ ] Proyecto: título, línea/año, estado y avance del seguimiento seleccionado.
 - [ ] Investigador: nombre, especialidad y vinculación de la selección.
 - [ ] Publicación: título, tipo, año y línea; identificar registro ficticio sin inventar fuentes.
@@ -184,6 +191,7 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 2–4 h · **Depende de:** T01, T06.
 - [ ] Reutilizar AuthScreen, LoginViewModel, RegisterViewModel y AuthValidator existentes; alinear su apariencia con T01.
 - [ ] Verificar campos vacíos, correo inválido, contraseña de registro mínima y confirmación, visibilidad, aviso demo y acceso invitado.
+- [ ] Comprobar que el aviso demostrativo se muestra como modal y se puede cerrar con teclado, Atrás o su botón según corresponda.
 - [ ] Revisar teclado, desplazamiento, Atrás, cambio de formulario y limpieza de credenciales al salir.
 - **Aceptación:** ambas vistas funcionan en Android y conservan MVVM; sin crear cuentas ni afirmar autenticación real. Las seis pruebas JVM existentes siguen pasando.
 
@@ -191,6 +199,7 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 
 - **Prioridad:** P1 · **Objetivo:** 29/10 · **Estimación:** 3–5 h · **Depende de:** T07–T14.
 - [ ] Comparar cada vista con la referencia ampliada; corregir textos, jerarquía, paleta y botones.
+- [ ] Revisar nombres descriptivos, ortografía, comentarios útiles y código sin uso; confirmar que README sigue describiendo el proyecto real.
 - [ ] Revisar pantallas pequeñas/grandes, texto ampliado, contraste, desplazamiento, teclado y descripciones de controles/gráficos.
 - **Aceptación:** doce vistas verificadas en Android con capturas; sin contenido esencial cortado ni información comunicada solo por color.
 
@@ -204,11 +213,37 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 
 ### T17 — Preparar y ensayar la entrega
 
-- **Prioridad:** P1 · **Objetivo:** 30/10 · **Estimación:** 3–5 h · **Depende de:** T16.
+- **Prioridad:** P0 · **Objetivo:** 29/10 antes del envío · **Estimación original:** 3–5 h · **Depende de:** T16, T18–T20.
 - [ ] Preparar todos los entregables de la sección 15: proyecto compilable, datos, instrucciones, arquitectura/modelo, capturas, casos y video o demostración.
 - [ ] Ensayar acceso → dashboard → filtros → línea → indicador → listados → fichas → regreso, incluyendo cambio de línea/año.
 - [ ] Actualizar evidencia técnica y estado de tarjetas; comprobar ejecución del proyecto en el equipo de presentación.
+- [ ] Confirmar con el Excel Oficial la ruta exacta del repositorio y que cada integrante entregue la misma; ensayar también la explicación técnica de MVVM, Room y el recurso nativo.
 - **Aceptación:** entrega reproducible, recorrido completo y evidencia de las doce vistas; cualquier limitación restante queda explícita. Sin publicación en Google Play como requisito.
+
+### T18 — Guardar la selección con Room
+
+- **Prioridad:** P0 · **Objetivo:** 29/10 · **Estimación adicional:** 4–7 h · **Depende de:** T05.
+- [ ] Añadir Room en el catálogo y el módulo, sin cambiar versiones/SDK para ocultar fallos; compilar tras configurar las dependencias.
+- [ ] Crear entidad, DAO, base de datos y Repository para línea, año y métrica seleccionados; recuperar la selección al iniciar y actualizarla al cambiar filtros.
+- [ ] Mantener las reglas y validación fuera de composables; no guardar correo ni contraseñas del acceso demostrativo.
+- [ ] Probar escritura, lectura, selección inválida y recuperación tras cerrar y abrir la app; comprobar que SavedStateHandle sigue cubriendo recreación y navegación.
+- **Aceptación:** Room persiste una selección válida entre sesiones y la UI la refleja sin confundir persistencia con autenticación.
+
+### T19 — Importar datos con el selector nativo de archivos
+
+- **Prioridad:** P0 · **Objetivo:** 29/10 · **Estimación adicional:** 3–5 h · **Depende de:** T03, T05.
+- [ ] Añadir una acción visible para abrir el selector nativo de documentos y elegir un JSON de datos sintéticos.
+- [ ] Entregar el contenido al ViewModel/Repository para lectura y validación; comunicar éxito, cancelación, archivo inválido y error de lectura.
+- [ ] Probar que cancelar o seleccionar un archivo inválido no reemplaza los datos válidos; confirmar el recorrido en Android.
+- **Aceptación:** existe un uso comprobado de un recurso nativo y los datos importados respetan los contratos y reglas de la sección 8.
+
+### T20 — Coordinar y evidenciar Git y Trello
+
+- **Prioridad:** P0 · **Objetivo:** seguimiento desde 28/10 y cierre 29/10 · **Estimación adicional:** 1–2 h, distribuida durante el trabajo · **Depende de:** asignación del equipo.
+- [ ] Crear/actualizar las tarjetas T01–T20 en Trello, asignar responsables y moverlas según evidencia real; mantener visibles los bloqueos.
+- [ ] Integrar cambios por incrementos comprobables con mensajes de commit descriptivos y revisar el historial antes de entregar.
+- [ ] Revisar diferencias, archivos rastreados y secretos antes de cada sincronización autorizada; no hacer push sin autorización.
+- **Aceptación:** tablero e historial muestran trabajo continuado y coinciden con el estado real de la app.
 
 ### Hitos propuestos
 
@@ -218,7 +253,7 @@ Las estimaciones son horas de trabajo concentrado, sin conocer la velocidad ni d
 | 26 octubre | Navegación, dashboard, filtros e histórico reutilizable | T06–T09 |
 | 27 octubre | Detalles de línea e indicador | T10–T11 |
 | 28 octubre | Listas, fichas y acceso integrados; doce vistas disponibles | T12–T14 |
-| 29 octubre | Revisión visual, pruebas y correcciones | T15–T16 |
-| 30 octubre | Margen final, documentación y demostración | T17 |
+| 28 octubre | Asignar responsables y abrir seguimiento Git/Trello; iniciar Room y selector nativo en cuanto estén sus dependencias | T18–T20 |
+| 29 octubre, antes del envío | Integrar imagen, animación, modal y Room; comprobar build, pruebas, Android, documentación y ruta del repositorio; ensayar entrega | T07, T14–T20 |
 
-El fin de semana no se cuenta como disponibilidad obligatoria. Si T01–T05 no están listas el 23, revisar el calendario antes de iniciar la semana de entrega. Favoritos, historial y persistencia opcional quedan fuera de estas tarjetas obligatorias.
+El hito del 29/10 es el plazo informado por la pauta, no una afirmación de que el trabajo alcance a completarse. Revisar capacidad y bloqueos con el equipo el 28/10; si algo no se implementa o no compila, registrar el límite con evidencia y comunicarlo de forma honesta. Favoritos e historial siguen fuera de las tarjetas obligatorias; Room para la selección no.

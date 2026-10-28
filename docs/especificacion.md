@@ -80,6 +80,8 @@ Conservar el alcance demostrativo del acceso: aviso visible de cuentas no habili
 - Navegación hacia proyectos, investigadores y publicaciones.
 - Estados de carga, vacío y error.
 - Pruebas básicas y datos de demostración.
+- Una imagen visible dentro de la aplicación y una animación funcional de la interfaz.
+- Un modal, persistencia local con Room y uso del selector nativo de archivos.
 
 Las vistas de login y registro solicitadas el 2026-10-18 son formularios de demostración con validación local y acceso como invitado. No crean cuentas, guardan credenciales ni autentican usuarios.
 
@@ -115,10 +117,10 @@ Las vistas de login y registro solicitadas el 2026-10-18 son formularios de demo
 - Kotlin Coroutines y Flow.
 - Navigation Compose.
 - Hilt para inyección de dependencias, opcional.
-- Room para persistencia local, opcional.
+- Room para persistencia local obligatoria en la entrega de la asignatura.
 - JUnit y Compose UI Test.
 
-Para mantener el alcance controlado, se recomienda comenzar con datos JSON locales y migrar a Room solo si se necesita guardar filtros, favoritos o historial.
+Los datos sintéticos iniciales pueden seguir en JSON. Room guardará al menos la última selección de línea, año y métrica entre sesiones; no almacenará contraseñas ni fingirá autenticación. El selector nativo de documentos permitirá escoger un JSON local e importarlo tras validarlo mediante Repository. Esto cumple el uso de un recurso nativo sin necesitar permisos de almacenamiento generales.
 
 ## 6. Arquitectura requerida
 
@@ -130,7 +132,7 @@ MVVM es requisito explícito de la asignatura. Usar separación por responsabili
            |
     Repository - fuente de datos
            |
-    JSON local o Room - datos sintéticos
+    JSON local + Room - datos sintéticos y preferencias persistentes
 
 Estructura sugerida:
 
@@ -395,7 +397,7 @@ Agregar dependencias para:
 - Navigation Compose.
 - ViewModel Compose.
 - Coroutines.
-- JSON local o Room.
+- JSON local y Room.
 - Pruebas unitarias y de interfaz.
 
 Después de cada cambio en Gradle, ejecutar una compilación.
@@ -481,18 +483,22 @@ Definir las rutas del paso 6 al preparar la navegación; completar su restauraci
 - Probar orientación vertical y desplazamiento.
 - Evitar saturar la pantalla.
 
-### Paso 12: Agregar persistencia opcional
+### Paso 12: Agregar persistencia obligatoria con Room
 
-Si el tiempo lo permite, guardar:
+- Guardar la última línea, el último año y la métrica seleccionada en Room y recuperarlos tras cerrar y abrir la app.
+- Mantener favoritos o historial como extensiones opcionales.
+- Probar lectura, escritura y recuperación con datos válidos e inválidos. No guardar credenciales del acceso demostrativo.
 
-- Última línea seleccionada.
-- Último año seleccionado.
-- Indicadores favoritos.
-- Historial de líneas consultadas.
+La conservación de filtros al navegar y recrear pantallas mediante SavedStateHandle sigue siendo obligatoria. Room cubre la persistencia entre sesiones; no es necesario crear un backend.
 
-Room es suficiente para esta funcionalidad. No es necesario crear un backend.
+### Requisitos transversales de la entrega de la asignatura
 
-Esta persistencia opcional conserva preferencias entre sesiones. La conservación de filtros al navegar y recrear pantallas mediante SavedStateHandle sigue siendo un requisito obligatorio del flujo, aunque no se implemente Room.
+- Mostrar al menos una imagen propia del contenido dentro de una vista, con descripción accesible; el icono de lanzamiento y los mockups no la sustituyen.
+- Mostrar al menos una animación perceptible y útil, por ejemplo al cambiar el valor de una tarjeta, sin ocultar información ni impedir la lectura.
+- Mostrar al menos un modal operable; el aviso demostrativo existente puede cumplirlo si se comprueba en Android.
+- Usar el selector nativo de archivos para importar un JSON de datos sintéticos. Manejar cancelación, archivo inválido y error de lectura sin alterar los datos válidos actuales.
+- Mantener el trabajo del equipo en Git con commits pequeños y mensajes descriptivos, y reflejar responsables, estados y evidencias en Trello durante el desarrollo.
+- Revisar nombres, código sin uso, formato, ortografía, README y compilación antes de entregar. Los comentarios de código explican reglas o decisiones que no sean evidentes; no duplican lo que el código ya expresa.
 
 ## 12. Criterios de aceptación
 
@@ -514,6 +520,9 @@ El MVP se considera funcional cuando:
 - Existen proyectos, investigadores y publicaciones relacionados.
 - Se puede volver entre pantallas y recrear la pantalla conservando línea, año y métrica de comparación.
 - La app funciona con datos locales y sin internet.
+- Se observan en Android una imagen, una animación y un modal funcionales.
+- La selección guardada en Room se recupera tras reiniciar la app, sin persistir credenciales.
+- El selector de archivos permite importar un JSON válido y recuperarse de cancelación o archivo inválido.
 - Los datos están identificados como ficticios o sintéticos.
 - El flujo se entiende en una demostración de pocos minutos.
 
@@ -556,6 +565,7 @@ El MVP se considera funcional cuando:
 - Ejecutar pruebas.
 - Preparar datos de demostración.
 - Crear documentación y capturas.
+- Verificar imagen, animación, modal, Room, selector nativo de archivos y evidencia Git/Trello.
 
 ## 14. Pruebas mínimas
 
@@ -573,6 +583,8 @@ El MVP se considera funcional cuando:
 - Verificar la fórmula de impacto con los tres ejemplos, valores cero y valores que superen las metas.
 - Verificar avance sin proyectos activos y distinguir un año sin datos de un conteo cero en un conjunto completo.
 - Validar la cobertura por línea/año declarada en el JSON, incluso cuando una línea no tenga entidades para ese año.
+- Probar lectura y escritura de la selección en Room, recuperación tras reinicio y rechazo de valores inválidos.
+- Comprobar que un JSON importado inválido no reemplaza los datos válidos.
 
 ### Pruebas de interfaz
 
@@ -586,6 +598,9 @@ El MVP se considera funcional cuando:
 - Conservar filtros al volver y al recrear la pantalla.
 - Mostrar huecos en el histórico y “Sin datos” en el comparativo cuando falten valores.
 - Abrir las pestañas correspondientes a cada indicador y comprobar el año visible.
+- Comprobar imagen, animación y cierre del modal en Android.
+- Importar un JSON con el selector nativo; probar cancelación, error de lectura y archivo inválido.
+- Reiniciar la aplicación y comprobar que la selección guardada en Room reaparece sin conservar credenciales.
 
 ### Recorrido de demostración
 
@@ -609,6 +624,8 @@ El MVP se considera funcional cuando:
 - Capturas de pantallas.
 - Lista de casos de prueba.
 - Video breve o demostración presencial.
+- Ruta del mismo repositorio que figura en el Excel Oficial, entregada por cada integrante del equipo.
+- Evidencia de trabajo continuado en Git y tarjetas Trello actualizadas.
 
 ## 16. Riesgos y decisiones de alcance
 

@@ -1,4 +1,7 @@
 package com.duoc.madertimber.data.model
 
-class VinculacionInvestigador {
+data class VinculacionInvestigador(
+    val lineaId: String,
+    val anio: Int
+) {
 }

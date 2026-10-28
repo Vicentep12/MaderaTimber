@@ -43,4 +43,11 @@ Esta política sustituye las versiones anteriores que dependían de documentos e
 - **Motivo:** ayudarles a descubrir y comprender investigaciones y encontrar contenidos útiles para estudiar.
 - **Consecuencia:** aplicar lenguaje claro, interpretación de indicadores y acceso a los contenidos relacionados. Pautas y vistas en las secciones 2.1–2.2 de `especificacion.md`; se conservan MVVM, datos locales, años 2022–2024, fórmulas y el recorrido de implementación existentes.
 
+### D-011 — Adecuar la entrega a la pauta de la asignatura
+
+- **Fecha:** 2026-10-28.
+- **Estado:** vigente por solicitud del propietario de actualizar el plan tras compartir la pauta.
+- **Decisión:** entregar el jueves 29/10/2026 con Room obligatorio, una imagen, una animación, un modal, un recurso nativo y evidencia de uso continuado de Git y Trello, además del flujo y MVVM acordados. Mantener el acceso como demostración sin credenciales persistidas; usar Room para la selección y el selector de documentos para importar JSON.
+- **Consecuencia:** reemplaza el cierre propuesto para el 30/10 y la persistencia opcional de la especificación anterior. Las tareas y criterios concretos quedan en `plan-implementacion.md` y `especificacion.md`.
+
 Registrar solo decisiones que alteren alcance, arquitectura o forma de trabajar: fecha, estado, evidencia/motivo, decisión y consecuencia. Si reemplazan otra decisión, indicar cuál. Los movimientos menores y resultados de comandos pertenecen al diff o al estado técnico, no a un nuevo registro por cada edición.
