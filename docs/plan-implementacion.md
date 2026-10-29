@@ -20,7 +20,7 @@ Login y registro se comprobaron en emulador Android durante T14: errores, teclad
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T14 están versionadas en `main`; T14 quedó en `76b8f50`. T15 está completada en el árbol local, con ajustes de legibilidad y revisión Android de las doce vistas en tres perfiles de pantalla. Próxima actividad: T16, comprobación del flujo integrado; coordinar T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T15 están versionadas en `main`; T15 quedó en `709d6b3`, con ajustes de legibilidad y revisión Android de las doce vistas en tres perfiles de pantalla. T16 avanzó con build, Lint y casos UI integrados; resta comprobar rutas inválidas desde la UI y ausencias con datos preparados. Coordinar T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T14 están versionadas; T15 está completada en el árbol local y pendiente de commit. T16–T20 conservan trabajo pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T15 están versionadas; T16 está en curso y T17–T20 conservan trabajo pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -206,7 +206,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 
 ### T15 — Revisar diseño y accesibilidad de las doce vistas
 
-- **Estado al 29/10:** completada en el árbol local. Doce vistas revisadas con capturas en Pixel_10_Pro API 37: perfil normal, 320 × 640 dp con texto al 150 % y 900 × 1350 dp oscuro. Corregidos espacio de contraseñas, tarjetas adaptables, contexto de línea del indicador y semántica de controles. Compilación, Lint y recorrido instrumentado correctos; evidencia y límites en [estado-actual.md](estado-actual.md#revisión-visual-y-accesibilidad--t15--2026-10-29). Sin pruebas unitarias nuevas ni ejecutadas.
+- **Estado al 29/10:** completada y versionada en `709d6b3`. Doce vistas revisadas con capturas en Pixel_10_Pro API 37: perfil normal, 320 × 640 dp con texto al 150 % y 900 × 1350 dp oscuro. Corregidos espacio de contraseñas, tarjetas adaptables, contexto de línea del indicador y semántica de controles. Compilación, Lint y recorrido instrumentado correctos; evidencia y límites en [estado-actual.md](estado-actual.md#revisión-visual-y-accesibilidad--t15--2026-10-29). Sin pruebas unitarias nuevas ni ejecutadas.
 - **Prioridad:** P1 · **Objetivo:** 29/10 · **Estimación:** 3–5 h · **Depende de:** T07–T14.
 - [x] Comparar cada vista con la referencia ampliada; corregir textos, jerarquía, paleta y botones.
 - [x] Revisar nombres descriptivos, ortografía, comentarios útiles y código sin uso; confirmar que README sigue describiendo el proyecto real.
@@ -215,9 +215,10 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 
 ### T16 — Comprobar el flujo integrado y corregir fallos
 
+- **Estado al 29/10:** en curso. Build, Lint y 11 pruebas Android existentes pasaron; tres casos UI nuevos cubrieron comparación restaurada, conteos/listas/categorías y estados de error/vacío. Los seis casos de navegación pasaron además sin Wi-Fi ni datos móviles. Falta ejercitar rutas inválidas desde la UI y ausencias reales en comparativo con datos preparados; Room e importación nativa corresponden a T18–T19. Evidencia en [estado-actual.md](estado-actual.md#flujo-integrado--t16--2026-10-29).
 - **Prioridad:** P1 · **Objetivo:** 29/10 · **Estimación:** 6–8 h · **Depende de:** T06–T15.
-- [ ] Ejecutar assembleDebug y lintDebug mediante Wrapper; registrar resultados nuevos y causas de fallos. Por instrucción del usuario, no añadir ni ejecutar más pruebas unitarias.
-- [ ] Ejecutar casos UI de la sección 14 en dispositivo/emulador, además del acceso y las tres fichas.
+- [x] Ejecutar assembleDebug y lintDebug mediante Wrapper; registrar resultados nuevos y causas de fallos. Por instrucción del usuario, no añadir ni ejecutar más pruebas unitarias.
+- [x] Ejecutar casos UI disponibles de la sección 14 en emulador, además del acceso y las tres fichas; los escenarios que exigen datos alternativos o rutas forzadas siguen abajo.
 - [ ] Verificar offline, filtros, navegación, recreación, argumentos inválidos, vacíos, errores, huecos históricos y coincidencia de listas/indicadores.
 - **Aceptación:** fallos que impiden los criterios de la sección 12 corregidos y comprobados de nuevo; evidencia con fecha, dispositivo, casos y resultado. Un build exitoso solo no cierra esta tarjeta.
 

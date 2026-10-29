@@ -1,5 +1,8 @@
 package com.duoc.madertimber.ui.screens.dashboard
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -97,5 +100,26 @@ class DashboardScreenTest {
         composeRule.runOnIdle {
             assertEquals(listOf(DashboardEvent.FiltrosAplicados("L2", 2023)), eventos)
         }
+    }
+
+    @Test
+    fun errorDeCargaPermiteReintentarYVacioNoPresentaIndicadores() {
+        var estado by mutableStateOf(
+            DashboardUiState(estado = EstadoDashboard.ERROR, mensaje = "Archivo JSON inválido")
+        )
+        var ultimoEvento: DashboardEvent? = null
+        composeRule.setContent {
+            DashboardScreen(state = estado, onEvent = { ultimoEvento = it })
+        }
+
+        composeRule.onNodeWithText("Archivo JSON inválido").assertExists()
+        composeRule.onNodeWithText("Reintentar").performClick()
+        composeRule.runOnIdle {
+            assertEquals(DashboardEvent.ReintentarCarga, ultimoEvento)
+            estado = DashboardUiState(estado = EstadoDashboard.VACIO)
+        }
+        composeRule.onNodeWithText("No hay líneas de investigación disponibles.").assertExists()
+        composeRule.onNodeWithText("Reintentar").assertDoesNotExist()
+        composeRule.onNodeWithText("Ver línea").assertDoesNotExist()
     }
 }
