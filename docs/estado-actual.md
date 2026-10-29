@@ -2,11 +2,17 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Fichas relacionadas — T13 — 2026-10-29
+
+Rama `main`, HEAD `a1e5380` y árbol limpio antes de T13. `FichaRelacionadaScreen` presenta el proyecto con título, línea, año, estado y avance del seguimiento seleccionado; el investigador con nombre, especialidad y vinculación a línea/año; y la publicación con título, tipo, año, línea y una nota explícita de registro ficticio sin fuente bibliográfica real. Las tres fichas conservan el botón de regreso a la lista. `AppNavigation` ya valida categoría, ID, línea, año y tipo antes de mostrar la ficha; un ID inválido abre un mensaje recuperable con Volver. La maqueta fija previa de investigador permanece fuera del flujo.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó completar la vista y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android en este incremento; sigue en T15. T13 está implementada en el árbol local y pendiente de commit; sigue T14.
+
 ## Listas relacionadas — T12 — 2026-10-29
 
 Rama `main`, HEAD `5679d20` y árbol limpio antes de T12. `RelacionadosScreen` usa las listas ya filtradas por `LocalPanelRepository`: proyectos activos, investigadores vinculados y publicaciones de la línea/año. Desde la línea ofrece las tres categorías; desde un indicador presenta solo las categorías aplicables según `categoriasRelacionadas`. Muestra el contexto aun sin cobertura, evita un total cero ficticio cuando no hay consulta, presenta totales y estados vacíos, y abre cada ficha por ID conservando la ruta de línea/año/tipo. Las tarjetas añaden un dato breve y una acción visible de apertura. La maqueta antigua de investigadores sigue fuera del flujo.
 
-Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó la vista funcional y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android para T12; la revisión integral sigue en T15. T12 está implementada en el árbol local y pendiente de commit; sigue T13.
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó la vista funcional y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android para T12; la revisión integral sigue en T15. T12 quedó versionada en `a1e5380`; el estado posterior de T13 se registra arriba.
 
 ## Detalle de indicador — T11 — 2026-10-29
 

@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T11 están versionadas en `main`; T11 quedó en `5679d20` con valor, variación, histórico e interpretación del indicador. T12 está implementada en el árbol local: listas relacionadas con categorías aplicables, totales, estados vacíos y acceso a fichas por ID; `assembleDebug` pasó. Próxima actividad: T13, completar las fichas; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T12 están versionadas en `main`; T12 quedó en `a1e5380` con listas relacionadas, totales, vacíos y acceso por ID. T13 está implementada en el árbol local: fichas de proyecto, investigador y publicación con datos de la selección; `assembleDebug` pasó. Próxima actividad: T14, ajustar y validar el acceso; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -50,7 +50,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
 | 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
 
-Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. Implementarlos con los detalles de los pasos 9–10. Las maquetas antiguas de investigadores siguen estáticas; T06 usa una pantalla común con datos del modelo, mientras T12–T14 conservan el contenido completo pendiente.
+Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. T12–T13 los conectaron con datos del modelo en la pantalla común; las maquetas antiguas de investigadores siguen estáticas y fuera del flujo. La revisión visual completa permanece en T15.
 
 ## Validación y entrega
 
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T06 están versionadas; T07 está implementada en el árbol local y pendiente de commit. T08–T20 conservan trabajo pendiente. Las fichas de T12–T14 ya se pueden abrir con datos básicos, pero su contenido completo sigue pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T12 están versionadas; T13 está implementada en el árbol local y pendiente de commit. T14–T20 conservan trabajo pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -179,7 +179,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T12 — Implementar las tres listas relacionadas (vistas 5, 7 y 9)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 4–6 h · **Depende de:** T03, T05, T06, T10, T11.
-- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. El flujo usa `RelacionadosScreen` con datos filtrados por el Repository; la maqueta fija previa de investigadores permanece fuera del flujo. La vista muestra contexto de línea/año, categorías aplicables, total, mensaje de vacío o falta de cobertura y tarjetas que abren fichas por ID. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
+- **Estado al 29/10:** versionada en `a1e5380`. El flujo usa `RelacionadosScreen` con datos filtrados por el Repository; la maqueta fija previa de investigadores permanece fuera del flujo. La vista muestra contexto de línea/año, categorías aplicables, total, mensaje de vacío o falta de cobertura y tarjetas que abren fichas por ID. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
 - [x] Mostrar proyectos activos, investigadores vinculados y publicaciones de línea/año.
 - [x] Respetar las pestañas aplicables al indicador de origen según la sección 9.4; desde línea, ofrecer las tres.
 - [x] Mostrar totales, estados vacíos y abrir fichas por ID.
@@ -188,10 +188,10 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T13 — Implementar las tres fichas (vistas 6, 8 y 10)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 3–5 h · **Depende de:** T12.
-- **Estado al 28/10:** existe `FichaInvestigadorScreen` con texto fijo y botón de regreso; no recibe un investigador seleccionado ni está conectada al flujo.
-- [ ] Proyecto: título, línea/año, estado y avance del seguimiento seleccionado.
-- [ ] Investigador: nombre, especialidad y vinculación de la selección.
-- [ ] Publicación: título, tipo, año y línea; identificar registro ficticio sin inventar fuentes.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. El flujo usa `FichaRelacionadaScreen` alimentada por `DatosRelacionados`; la maqueta fija previa de investigador permanece fuera del flujo. Proyecto, investigador y publicación muestran los campos de la selección y un regreso a la lista; la publicación se identifica como ficticia sin inventar fuentes. Los IDs inválidos usan el error recuperable de navegación. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
+- [x] Proyecto: título, línea/año, estado y avance del seguimiento seleccionado.
+- [x] Investigador: nombre, especialidad y vinculación de la selección.
+- [x] Publicación: título, tipo, año y línea; identificar registro ficticio sin inventar fuentes.
 - **Aceptación:** abrir y cerrar cada ficha conserva pestaña, línea y año; IDs inválidos muestran una salida recuperable.
 
 ### T14 — Ajustar y validar login y registro (vistas 11 y 12)

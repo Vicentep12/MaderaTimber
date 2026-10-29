@@ -27,6 +27,7 @@ import com.duoc.madertimber.data.model.CategoriaRelacionada
 import com.duoc.madertimber.data.model.DatosRelacionados
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.categoriasRelacionadas
+import java.util.Locale
 
 @Composable
 fun RelacionadosScreen(
@@ -124,33 +125,79 @@ fun FichaRelacionadaScreen(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Ficha de ${categoria.etiqueta().lowercase()}", style = MaterialTheme.typography.headlineMedium)
+        Text("Ficha de ${categoria.nombreFicha()}", style = MaterialTheme.typography.headlineMedium)
         Text("${datos.linea.nombre} · ${datos.anio} · Datos demostrativos")
-        when (categoria) {
-            CategoriaRelacionada.PROYECTOS -> {
-                val proyecto = datos.proyectos.first { it.id == itemId }
-                Text(proyecto.titulo, style = MaterialTheme.typography.titleLarge)
-                proyecto.seguimientos.find { it.anio == datos.anio }?.let {
-                    Text("Estado: ${it.estado.name.lowercase()}")
-                    Text("Avance: ${it.avancePorcentaje} %")
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                when (categoria) {
+                    CategoriaRelacionada.PROYECTOS -> {
+                        val proyecto = datos.proyectos.find { it.id == itemId }
+                        val seguimiento = proyecto?.seguimientos?.find { it.anio == datos.anio }
+                        if (proyecto == null || seguimiento == null) {
+                            Text("El proyecto no está disponible para esta línea y año.")
+                        } else {
+                            Text(proyecto.titulo, style = MaterialTheme.typography.titleLarge)
+                            Text("Línea: ${datos.linea.nombre}")
+                            Text("Año: ${seguimiento.anio}")
+                            Text(
+                                "Estado: " + seguimiento.estado.name.lowercase()
+                                    .replaceFirstChar { it.uppercase() }
+                            )
+                            Text(
+                                "Avance: " + String.format(
+                                    Locale.forLanguageTag("es-CL"),
+                                    "%.1f %%",
+                                    seguimiento.avancePorcentaje
+                                )
+                            )
+                        }
+                    }
+                    CategoriaRelacionada.INVESTIGADORES -> {
+                        val investigador = datos.investigadores.find { it.id == itemId }
+                        val vinculacion = investigador?.vinculaciones?.find {
+                            it.lineaId == datos.linea.id && it.anio == datos.anio
+                        }
+                        if (investigador == null || vinculacion == null) {
+                            Text("El investigador no está vinculado a esta línea y año.")
+                        } else {
+                            Text(investigador.nombre, style = MaterialTheme.typography.titleLarge)
+                            Text("Especialidad: ${investigador.especialidad}")
+                            Text("Vinculación: ${datos.linea.nombre} · ${vinculacion.anio}")
+                        }
+                    }
+                    CategoriaRelacionada.PUBLICACIONES -> {
+                        val publicacion = datos.publicaciones.find { it.id == itemId }
+                        if (publicacion == null) {
+                            Text("La publicación no está disponible para esta línea y año.")
+                        } else {
+                            Text(publicacion.titulo, style = MaterialTheme.typography.titleLarge)
+                            Text("Tipo: ${publicacion.tipo}")
+                            Text("Año: ${publicacion.anio}")
+                            Text("Línea: ${datos.linea.nombre}")
+                        }
+                    }
                 }
             }
-            CategoriaRelacionada.INVESTIGADORES -> {
-                val investigador = datos.investigadores.first { it.id == itemId }
-                Text(investigador.nombre, style = MaterialTheme.typography.titleLarge)
-                Text("Especialidad: ${investigador.especialidad}")
-            }
-            CategoriaRelacionada.PUBLICACIONES -> {
-                val publicacion = datos.publicaciones.first { it.id == itemId }
-                Text(publicacion.titulo, style = MaterialTheme.typography.titleLarge)
-                Text("Tipo: ${publicacion.tipo}")
-                Text("Año: ${publicacion.anio}")
-            }
+        }
+        if (categoria == CategoriaRelacionada.PUBLICACIONES) {
+            Text(
+                "Publicación ficticia de demostración. No se incluye una fuente bibliográfica real.",
+                style = MaterialTheme.typography.bodySmall
+            )
         }
         Button(onClick = onVolverClick, modifier = Modifier.fillMaxWidth()) {
             Text("Volver a la lista")
         }
     }
+}
+
+private fun CategoriaRelacionada.nombreFicha(): String = when (this) {
+    CategoriaRelacionada.PROYECTOS -> "proyecto"
+    CategoriaRelacionada.INVESTIGADORES -> "investigador"
+    CategoriaRelacionada.PUBLICACIONES -> "publicación"
 }
 
 private fun CategoriaRelacionada.etiqueta(): String = when (this) {
