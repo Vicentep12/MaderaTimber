@@ -2,6 +2,14 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Limpieza de código sin uso - 2026-10-29
+
+Se eliminaron las maquetas previas de listas y fichas (`ui/screens/proyectos`, `investigadores` y `publicaciones`, seis archivos) y el marcador vacío `SeleccionFiltros.kt`. Ningún archivo del flujo las usaba: las listas y fichas reales están en `ui/screens/relacionados/RelacionadosScreen.kt`. Las menciones anteriores a esas maquetas en este documento son históricas. Además, `AuthValidator` pasó de `model/auth` a `data/model` (una sola carpeta de modelo) y `AppNavigation` en `MainActivity.kt` se dividió en funciones por destino (`DestinoDashboard`, `DestinoLinea`, `DestinoIndicador`, `DestinoRelacionados`, `DestinoFicha`) con ayudantes comunes para argumentos y validación del tipo; el comportamiento no cambia. Pendiente: compilar en Android Studio para confirmar que no quedó ninguna referencia.
+
+## Recurso nativo: cámara - 2026-10-29
+
+Por decisión del usuario, el recurso nativo de la entrega es la cámara (recurso entregado por el profesor), en lugar del selector de archivos de T19. El dashboard tiene el botón "Tomar foto de apoyo", que abre la ruta `camara` (`ui/screens/camara/CamaraScreen.kt`). Pide el permiso CAMERA en ejecución, crea un archivo temporal en la caché, lo entrega con FileProvider (`res/xml/file_paths.xml`, proveedor declarado en el manifest) y muestra la foto con `TakePicture`. Gestiona permiso denegado, cámara no disponible y foto cancelada. La foto no se guarda. Pendiente: compilar y probar en dispositivo o emulador con cámara.
+
 ## Simplificación de consultas - 2026-10-29
 
 El repositorio reutiliza la regla de categorías relacionadas para filtrar los contenidos por indicador. El ViewModel concentra la lectura de resultados disponibles o vacíos. Se conserva MVVM y no se modifican las fórmulas ni Room. Android Studio ejecutó assembleDebug: BUILD SUCCESSFUL. La comprobación visual queda pendiente.

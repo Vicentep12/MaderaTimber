@@ -4,8 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.duoc.madertimber.model.auth.AuthErrors
-import com.duoc.madertimber.model.auth.AuthValidator
+import com.duoc.madertimber.data.model.AuthErrors
+import com.duoc.madertimber.data.model.AuthValidator
 
 data class AuthUiState(
     val name: String = "",

@@ -1,4 +1,4 @@
-package com.duoc.madertimber.model.auth
+package com.duoc.madertimber.data.model
 
 import androidx.core.util.PatternsCompat
 
