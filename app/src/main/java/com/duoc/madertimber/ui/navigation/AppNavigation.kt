@@ -144,21 +144,27 @@ fun AppNavigation(
                     navArgument("anio") { type = NavType.StringType }
                 )
             ) { entrada ->
+                val estadoLinea = dashboardViewModel.uiState
                 val lineaId = entrada.arguments?.getString("lineaId")
                 val anio = entrada.arguments?.getString("anio")?.toIntOrNull()
-                ContenidoContextual(estado, lineaId, anio, ::volver) {
-                    val linea = estado.lineaSeleccionada ?: return@ContenidoContextual
+                ContenidoContextual(estadoLinea, lineaId, anio, ::volver) {
+                    val detalle = estadoLinea.detalleLinea ?: return@ContenidoContextual
                     DetalleLineaScreen(
-                        linea = linea,
-                        anio = estado.anio,
+                        state = detalle,
+                        onHistoricoSeleccionado = { tipo ->
+                            dashboardViewModel.onEvent(DashboardEvent.HistoricoLineaSeleccionado(tipo))
+                        },
                         onVolverClick = ::volver,
-                        onVerIndicadorClick = {
-                            estado.indicadorSeleccionado?.let {
-                                navController.navigate(Rutas.indicador(it.indicador.id, estado.anio))
+                        onVerIndicadorClick = { tipo ->
+                            estadoLinea.indicadores.find { it.indicador.tipo == tipo }?.let { indicador ->
+                                dashboardViewModel.onEvent(DashboardEvent.IndicadorSeleccionado(tipo))
+                                navController.navigate(
+                                    Rutas.indicador(indicador.indicador.id, estadoLinea.anio)
+                                )
                             }
                         },
                         onVerRelacionadosClick = {
-                            navController.navigate(Rutas.relacionados(linea.id, estado.anio))
+                            navController.navigate(Rutas.relacionados(detalle.linea.id, estadoLinea.anio))
                         }
                     )
                 }

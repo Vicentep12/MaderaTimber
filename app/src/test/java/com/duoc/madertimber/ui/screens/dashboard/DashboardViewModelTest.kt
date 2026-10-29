@@ -20,6 +20,41 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class DashboardViewModelTest {
     @Test
+    fun detalleLineaSeleccionaHistoricoSinCambiarFiltrosYLoRestaura() = ejecutar {
+        val guardado = SavedStateHandle()
+        val repositorio = LocalPanelRepository { StringReader(datosDePrueba()) }
+        val modelo = DashboardViewModel(guardado, repositorio, StandardTestDispatcher(testScheduler))
+        advanceUntilIdle()
+
+        val inicial = modelo.uiState.detalleLinea!!
+        assertEquals(5, inicial.indicadores.size)
+        assertEquals(TipoIndicador.PROYECTOS_ACTIVOS, inicial.tipoHistorico)
+        assertEquals("Proyectos activos", inicial.historico?.titulo)
+
+        modelo.onEvent(DashboardEvent.HistoricoLineaSeleccionado(TipoIndicador.PUBLICACIONES_GENERADAS))
+        assertEquals("L1", modelo.uiState.lineaId)
+        assertEquals(2024, modelo.uiState.anio)
+        assertEquals(TipoIndicador.PUBLICACIONES_GENERADAS, modelo.uiState.detalleLinea?.tipoHistorico)
+        assertEquals("Publicaciones generadas", modelo.uiState.detalleLinea?.historico?.titulo)
+        assertEquals("PUBLICACIONES_GENERADAS", guardado.get<String>("dashboard.tipoHistoricoLinea"))
+
+        val restaurado = DashboardViewModel(
+            guardado,
+            repositorio,
+            StandardTestDispatcher(testScheduler)
+        )
+        advanceUntilIdle()
+        assertEquals(TipoIndicador.PUBLICACIONES_GENERADAS, restaurado.uiState.detalleLinea?.tipoHistorico)
+        assertEquals("Publicaciones generadas", restaurado.uiState.detalleLinea?.historico?.titulo)
+
+        modelo.onEvent(DashboardEvent.FiltrosAplicados("L2", 2023))
+        assertEquals(EstadoDashboard.SIN_COBERTURA, modelo.uiState.estado)
+        assertTrue(modelo.uiState.detalleLinea!!.indicadores.isEmpty())
+        assertNull(modelo.uiState.detalleLinea?.historico)
+        assertEquals("Sin datos para esta línea y año", modelo.uiState.detalleLinea?.mensaje)
+    }
+
+    @Test
     fun cargaDatosEnSegundoPlanoYComienzaEnLaLineaYAnioPrevistos() = ejecutar {
         val modelo = DashboardViewModel(
             SavedStateHandle(),

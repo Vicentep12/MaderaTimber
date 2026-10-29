@@ -1,5 +1,6 @@
 package com.duoc.madertimber.ui.navigation
 
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -70,5 +71,39 @@ class AppNavigationTest {
         composeRule.onNodeWithTag("grafico-historico").performScrollTo().assertExists()
         composeRule.onNodeWithText("Evolución de Proyectos activos").assertExists()
         composeRule.onNodeWithText("2024 *").assertExists()
+    }
+
+    @Test
+    fun detalleLineaMuestraCincoIndicadoresYCambiaHistoricoConNavegacion() {
+        composeRule.onNodeWithText("Explorar como invitado").performClick()
+        composeRule.waitUntil(10_000) {
+            composeRule.onAllNodesWithText("Ver línea").fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText("Ver línea").performScrollTo().performClick()
+
+        composeRule.onNodeWithText("Indicadores de 2024").assertExists()
+        listOf(
+            "PROYECTOS_ACTIVOS", "PUBLICACIONES_GENERADAS", "INVESTIGADORES_ASOCIADOS",
+            "AVANCE_PROMEDIO", "IMPACTO_ESTIMADO"
+        ).forEach { tipo ->
+            composeRule.onNodeWithTag("indicador-linea-$tipo").assertExists()
+        }
+        composeRule.onNodeWithText("Proyectos asociados: 8").assertExists()
+        composeRule.onNodeWithText("Investigadores asociados: 12").assertExists()
+        composeRule.onNodeWithText("Publicaciones relacionadas: 15").assertExists()
+
+        composeRule.onNodeWithTag("grafico-historico").performScrollTo()
+        composeRule.onNodeWithTag("historico-linea-PUBLICACIONES_GENERADAS")
+            .performScrollTo().performClick()
+        composeRule.onNodeWithTag("historico-linea-PUBLICACIONES_GENERADAS").assertIsSelected()
+        composeRule.onNodeWithTag("grafico-historico").performScrollTo()
+        composeRule.onNodeWithText("Evolución de Publicaciones generadas").assertExists()
+        composeRule.onNodeWithText("Ver indicador seleccionado").performScrollTo().performClick()
+        composeRule.onNodeWithText("Publicaciones generadas").assertExists()
+        composeRule.onNodeWithText("2024 · Datos demostrativos").assertExists()
+        composeRule.onNodeWithText("Volver").performScrollTo().performClick()
+
+        composeRule.onNodeWithText("Ver contenidos relacionados").performScrollTo().performClick()
+        composeRule.onNodeWithText("Contenidos relacionados").assertExists()
     }
 }

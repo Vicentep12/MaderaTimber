@@ -20,6 +20,7 @@ import com.duoc.madertimber.data.repository.EstadoCargaPanel
 import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.ResultadoConsultaPanel
 import com.duoc.madertimber.data.repository.ResultadoIndicadoresPanel
+import com.duoc.madertimber.ui.screens.lineas.DetalleLineaUiState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,6 +42,7 @@ data class DashboardUiState(
     val anio: Int = 2024,
     val tipoComparacion: TipoIndicador = TipoIndicador.PROYECTOS_ACTIVOS,
     val tipoIndicador: TipoIndicador = TipoIndicador.PROYECTOS_ACTIVOS,
+    val tipoHistoricoLinea: TipoIndicador = TipoIndicador.PROYECTOS_ACTIVOS,
     val lineas: List<LineaInvestigacion> = emptyList(),
     val aniosDisponibles: List<Int> = emptyList(),
     val indicadores: List<IndicadorCalculado> = emptyList(),
@@ -55,6 +57,19 @@ data class DashboardUiState(
 
     val indicadorSeleccionado: IndicadorCalculado?
         get() = indicadores.find { it.indicador.tipo == tipoIndicador }
+
+    val detalleLinea: DetalleLineaUiState?
+        get() = lineaSeleccionada?.let { linea ->
+            DetalleLineaUiState(
+                linea = linea,
+                anio = anio,
+                indicadores = indicadores,
+                tipoHistorico = tipoHistoricoLinea,
+                historico = historicos[tipoHistoricoLinea],
+                relacionados = relacionadosSinFiltro,
+                mensaje = if (estado == EstadoDashboard.SIN_COBERTURA) mensaje else null
+            )
+        }
 }
 
 sealed interface DashboardEvent {
@@ -63,6 +78,7 @@ sealed interface DashboardEvent {
     data class FiltrosAplicados(val lineaId: String, val anio: Int) : DashboardEvent
     data class MetricaComparada(val tipo: TipoIndicador) : DashboardEvent
     data class IndicadorSeleccionado(val tipo: TipoIndicador) : DashboardEvent
+    data class HistoricoLineaSeleccionado(val tipo: TipoIndicador) : DashboardEvent
     data object ReintentarCarga : DashboardEvent
 }
 
@@ -78,7 +94,8 @@ class DashboardViewModel(
             lineaId = guardado[CLAVE_LINEA],
             anio = guardado[CLAVE_ANIO] ?: 2024,
             tipoComparacion = tipoGuardado(CLAVE_COMPARACION),
-            tipoIndicador = tipoGuardado(CLAVE_INDICADOR)
+            tipoIndicador = tipoGuardado(CLAVE_INDICADOR),
+            tipoHistoricoLinea = tipoGuardado(CLAVE_HISTORICO_LINEA)
         )
     )
         private set
@@ -120,6 +137,12 @@ class DashboardViewModel(
             is DashboardEvent.IndicadorSeleccionado -> {
                 guardado[CLAVE_INDICADOR] = evento.tipo.name
                 uiState = uiState.copy(tipoIndicador = evento.tipo)
+            }
+            is DashboardEvent.HistoricoLineaSeleccionado -> {
+                if (evento.tipo !in uiState.historicos) return
+                guardado[CLAVE_HISTORICO_LINEA] = evento.tipo.name
+                uiState = uiState.copy(tipoHistoricoLinea = evento.tipo)
+                return
             }
             DashboardEvent.ReintentarCarga -> Unit
         }
@@ -168,6 +191,7 @@ class DashboardViewModel(
         guardado[CLAVE_ANIO] = anio
         guardado[CLAVE_COMPARACION] = uiState.tipoComparacion.name
         guardado[CLAVE_INDICADOR] = uiState.tipoIndicador.name
+        guardado[CLAVE_HISTORICO_LINEA] = uiState.tipoHistoricoLinea.name
         uiState = uiState.copy(
             lineaId = lineaId,
             anio = anio,
@@ -272,6 +296,7 @@ class DashboardViewModel(
         private const val CLAVE_ANIO = "dashboard.anio"
         private const val CLAVE_COMPARACION = "dashboard.tipoComparacion"
         private const val CLAVE_INDICADOR = "dashboard.tipoIndicador"
+        private const val CLAVE_HISTORICO_LINEA = "dashboard.tipoHistoricoLinea"
 
         fun factory(repositorio: LocalPanelRepository): ViewModelProvider.Factory = viewModelFactory {
             initializer {
