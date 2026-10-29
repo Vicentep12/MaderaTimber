@@ -23,6 +23,7 @@ import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaScreen
 import com.duoc.madertimber.ui.screens.proyectos.FichaProyectosScreen
+import com.duoc.madertimber.ui.screens.proyectos.ListaProyectosScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
-                var screen by rememberSaveable { mutableStateOf("ficha-proyectos") }
+                var screen by rememberSaveable { mutableStateOf("lista-proyectos") }
                 fun navigate(destination: String) {
                     loginViewModel.reset()
                     registerViewModel.reset()
@@ -52,9 +53,11 @@ class MainActivity : ComponentActivity() {
                                 modifier = modifier
                             )
                             "dashboard" -> DashboardScreen(modifier = modifier)
-                            "ficha-proyectos" -> FichaProyectosScreen(
-                                onVolverClick = { navigate("dashboard") },
+                            "lista-proyectos" -> ListaProyectosScreen(
+                                onProyectoClick = { navigate("dashboard") },
+                                onVolverClick = {navigate("dashboard")},
                                 modifier = modifier
+
                             )
 
                             else -> LoginScreen(
