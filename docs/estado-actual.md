@@ -2,6 +2,14 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Dashboard y comparación — T07 — 2026-10-29
+
+Rama `main`, HEAD `c372e32` y árbol limpio antes de T07. `DashboardScreen` incorpora una imagen local de investigación en madera con descripción accesible, controles rápidos de línea/año que pueden ocultarse, transición animada de los valores de las tarjetas y animación de las barras al cambiar métrica o año. Las barras anuncian línea, métrica, año, valor y selección; una línea sin valor muestra “Sin datos” sin dibujar una barra de cero. Conserva las cinco métricas, cuatro tarjetas calculadas y acceso al detalle. El modal con aplicar/cancelar sigue en T08.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. En emulador Pixel_10_Pro API 37, `:app:connectedDebugAndroidTest` pasó **3 pruebas, 0 fallos y 0 errores**, incluidas la navegación T06 y la accesibilidad/evento del dashboard. Se abrió la app como invitado y se revisaron capturas: la imagen se ve en el panel, y al cambiar la comparación de proyectos a publicaciones se actualizan las tres barras y la unidad sin cambiar las tarjetas de la línea seleccionada. La transición está implementada y se ejercitó en el emulador; las capturas son estados puntuales, no una medición de fotogramas o rendimiento.
+
+El primer intento de pruebas Android falló antes de abrir las pantallas porque Espresso 3.5.1 buscó por reflexión `InputManager.getInstance`, ausente en el emulador. Se actualizó solo la dependencia de pruebas a Espresso 3.7.0; las [notas oficiales de AndroidX](https://developer.android.com/jetpack/androidx/releases/test) registran la corrección de ese acceso. La repetición terminó correctamente. T07 está implementada en el árbol local y pendiente de commit; T08 es el siguiente incremento.
+
 ## Navegación del panel — T06 — 2026-10-29
 
 Rama `main`, árbol limpio en `0fad2d0` antes de T06; ese commit integra T05 con las rutas añadidas por el equipo. Se incorporó Navigation Compose 2.10.2 desde el catálogo. `MainActivity` conserva inicialización y tema; `ui/navigation/Rutas.kt` construye destinos con IDs y año, y `AppNavigation.kt` monta el NavHost para acceso, dashboard, línea, indicador, relacionados y fichas. El regreso usa la pila del NavController; el DashboardViewModel ligado a la actividad conserva filtros en SavedStateHandle. Los formularios se limpian al cambiar entre acceso y panel o al volver/cerrar sesión.

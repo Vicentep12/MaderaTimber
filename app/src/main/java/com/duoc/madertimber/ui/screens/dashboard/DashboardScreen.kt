@@ -1,5 +1,12 @@
 package com.duoc.madertimber.ui.screens.dashboard
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -17,11 +24,24 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
+import com.duoc.madertimber.R
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.nombre
 import com.duoc.madertimber.data.model.unidad
@@ -40,6 +60,7 @@ fun DashboardScreen(
     onCerrarSesionClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    var mostrarFiltros by rememberSaveable { mutableStateOf(true) }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -50,6 +71,12 @@ fun DashboardScreen(
         Text("CENAMAD", style = MaterialTheme.typography.headlineLarge)
         Text("Explora la investigación", style = MaterialTheme.typography.titleLarge)
         Text("Datos demostrativos de las líneas de investigación.")
+        Image(
+            painter = painterResource(R.drawable.portada_investigacion_madera),
+            contentDescription = "Paneles de madera, una planta joven y un edificio de madera en un paisaje montañoso",
+            modifier = Modifier.fillMaxWidth().height(160.dp).clip(RoundedCornerShape(12.dp)),
+            contentScale = ContentScale.Crop
+        )
 
         when (state.estado) {
             EstadoDashboard.CARGANDO -> CircularProgressIndicator()
@@ -61,22 +88,36 @@ fun DashboardScreen(
                 }
             }
             EstadoDashboard.LISTO, EstadoDashboard.SIN_COBERTURA -> {
-                SelectorOpciones(
-                    titulo = "Línea de investigación",
-                    opciones = state.lineas,
-                    seleccionada = state.lineaSeleccionada,
-                    etiqueta = { it.nombre },
-                    onSeleccionar = { onEvent(DashboardEvent.LineaSeleccionada(it.id)) }
-                )
-                SelectorOpciones(
-                    titulo = "Año",
-                    opciones = state.aniosDisponibles,
-                    seleccionada = state.anio,
-                    etiqueta = { it.toString() },
-                    onSeleccionar = { onEvent(DashboardEvent.AnioSeleccionado(it)) }
-                )
+                OutlinedButton(
+                    onClick = { mostrarFiltros = !mostrarFiltros },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(if (mostrarFiltros) "Ocultar filtros" else "Cambiar filtros")
+                }
+                if (mostrarFiltros) {
+                    Text("Filtros rápidos", style = MaterialTheme.typography.titleMedium)
+                    SelectorOpciones(
+                        titulo = "Línea de investigación",
+                        opciones = state.lineas,
+                        seleccionada = state.lineaSeleccionada,
+                        etiqueta = { it.nombre },
+                        onSeleccionar = { onEvent(DashboardEvent.LineaSeleccionada(it.id)) }
+                    )
+                    SelectorOpciones(
+                        titulo = "Año",
+                        opciones = state.aniosDisponibles,
+                        seleccionada = state.anio,
+                        etiqueta = { it.toString() },
+                        onSeleccionar = { onEvent(DashboardEvent.AnioSeleccionado(it)) }
+                    )
+                }
 
-                Card(modifier = Modifier.fillMaxWidth().clickable(onClick = onVerLineaClick)) {
+                Card(
+                    modifier = Modifier.fillMaxWidth().clickable(
+                        role = Role.Button,
+                        onClick = onVerLineaClick
+                    )
+                ) {
                     Column(
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -153,8 +194,10 @@ fun DashboardScreen(
                             BarraComparativa(
                                 nombre = barra.linea.nombre,
                                 valor = formatoValor(state.tipoComparacion, barra.valor),
-                                fraccion = barra.fraccion,
-                                seleccionada = barra.seleccionada
+                                fraccion = if (barra.valor == null) null else barra.fraccion,
+                                seleccionada = barra.seleccionada,
+                                tipo = state.tipoComparacion,
+                                anio = state.anio
                             )
                         }
                     }
@@ -216,12 +259,18 @@ private fun IndicadorCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    Card(modifier = modifier.clickable(onClick = onClick)) {
+    Card(modifier = modifier.clickable(role = Role.Button, onClick = onClick)) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(valor, style = MaterialTheme.typography.headlineSmall)
+            AnimatedContent(
+                targetState = valor,
+                transitionSpec = { fadeIn(tween(250)) togetherWith fadeOut(tween(250)) },
+                label = "Cambio de valor"
+            ) { valorVisible ->
+                Text(valorVisible, style = MaterialTheme.typography.headlineSmall)
+            }
             Text(titulo, style = MaterialTheme.typography.bodyMedium)
         }
     }
@@ -231,21 +280,33 @@ private fun IndicadorCard(
 private fun BarraComparativa(
     nombre: String,
     valor: String,
-    fraccion: Float,
+    fraccion: Float?,
     seleccionada: Boolean,
+    tipo: TipoIndicador,
+    anio: Int,
     modifier: Modifier = Modifier
 ) {
+    val progreso by animateFloatAsState(
+        targetValue = fraccion ?: 0f,
+        animationSpec = tween(500),
+        label = "Cambio de comparación"
+    )
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().clearAndSetSemantics {
+            contentDescription = "$nombre. ${tipo.nombre()} en $anio: $valor" +
+                if (seleccionada) ". Línea seleccionada." else "."
+        },
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(nombre + ": " + valor + if (seleccionada) " · seleccionada" else "")
-        LinearProgressIndicator(
-            progress = { fraccion },
-            modifier = Modifier.fillMaxWidth().height(8.dp),
-            color = if (seleccionada) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.tertiary
-        )
+        if (fraccion != null) {
+            LinearProgressIndicator(
+                progress = { progreso },
+                modifier = Modifier.fillMaxWidth().height(8.dp),
+                color = if (seleccionada) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.tertiary
+            )
+        }
     }
 }
 

@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T05 están versionadas en `main`; T05 quedó en `4328a5a` y se integró con la navegación aportada por el equipo en `0fad2d0`. T06 tiene rutas, argumentos, regreso y fichas conectados en el árbol local; compilación, pruebas JVM y Lint pasan, pero no hubo dispositivo Android conectado para comprobar visualmente el recorrido. Próxima actividad: T07–T08 para completar dashboard y filtro modal; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T06 están versionadas en `main`; T06 quedó en `c372e32` y su prueba de regreso pasó después en un emulador API 37. T07 está implementada en el árbol local: imagen, animación, filtros rápidos, cinco métricas y barras accesibles; la app y sus pruebas Android pasaron, y se revisaron capturas del dashboard. Próxima actividad: T08, filtro modal con aplicar/cancelar; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -42,9 +42,9 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Compose/Material 3, Lifecycle ViewModel, coroutines, Gson y Navigation Compose configurados; Room pendiente para T18. Cada cambio de Gradle debe compilar. |
 | 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Completado y registrado en el commit local `0dffc3d`; compilación y pruebas JVM correctas. |
 | 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas en T03; cinco indicadores, históricos y variaciones en T04. La vista del panel consume los resultados por medio del ViewModel desde T05. |
-| 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | T06 implementada en código con rutas y pila de Navigation Compose, validación de argumentos, regreso y selección conservada en el ViewModel; falta recorrido visual Android al integrar T07–T14. |
+| 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | T06 versionada; su prueba instrumentada de regreso conservando año pasó en emulador API 37. El recorrido completo se revisará al integrar T08–T14. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Acceso y dashboard implementados; DashboardViewModel guarda selección en SavedStateHandle y coordina datos, comparación y errores. ViewModels de detalles pendientes al integrar esas vistas. |
-| 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Parcial: cuatro tarjetas y comparación usan datos del ViewModel; hay selección básica de línea, año y métrica. Faltan acceso al detalle, imagen, animación, filtro modal y validación visual Android. |
+| 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | T07 implementada: cuatro tarjetas, cinco métricas, barras accesibles, imagen, animación y acceso a filtros rápidos; comprobada en emulador. El filtro modal de T08 sigue pendiente. |
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | Pendiente. Aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
 | 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Pendiente. Aplicar reglas de ausencia, base cero y puntos porcentuales de la sección 8. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T05 están versionadas; T06 está implementada en el árbol local y pendiente de commit y revisión visual Android. T07–T20 conservan trabajo pendiente. Las fichas de T12–T14 ya se pueden abrir con datos básicos, pero su contenido completo sigue pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T06 están versionadas; T07 está implementada en el árbol local y pendiente de commit. T08–T20 conservan trabajo pendiente. Las fichas de T12–T14 ya se pueden abrir con datos básicos, pero su contenido completo sigue pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -125,7 +125,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T06 — Completar navegación y regreso
 
 - **Prioridad:** P0 · **Objetivo:** 26/10 · **Estimación:** 3–5 h · **Depende de:** T05.
-- **Estado al 29/10:** implementada en código, pendiente de commit y recorrido visual Android. `MainActivity` conserva inicialización y tema; `ui/navigation` contiene las rutas y el flujo. Las listas y fichas relacionadas usan IDs y datos del ViewModel, mientras sus contenidos completos siguen en T10–T14. Cuatro pruebas JVM nuevas, compilación, Lint y compilación de la prueba instrumentada pasan; no había dispositivo conectado para ejecutarla.
+- **Estado al 29/10:** versionada en `c372e32`. `MainActivity` conserva inicialización y tema; `ui/navigation` contiene rutas y flujo. Cuatro pruebas JVM nuevas, compilación y Lint pasaron; la prueba instrumentada de regreso conservando 2023 pasó después en un emulador API 37 durante T07. El contenido completo de las vistas sigue en T10–T14.
 - [x] Crear `Rutas.kt` para definir los destinos y argumentos del flujo.
 - [x] Crear `AppNavigation.kt` para conectar destinos y pantallas; trasladar allí la selección y navegación actualmente en `MainActivity`, manteniendo la inicialización de la actividad y el tema en su lugar.
 - [x] Integrar el acceso existente con rutas de dashboard, línea, indicador y relacionados de la sección 11; habilitar apertura/cierre de fichas.
@@ -136,10 +136,11 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T07 — Completar dashboard y comparación (vista 1)
 
 - **Prioridad:** P1 · **Objetivo:** 26/10 · **Estimación:** 4–5 h · **Depende de:** T01, T05, T06.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. Imagen de investigación en madera incluida en recursos y descrita para accesibilidad; tarjetas con transición de valor y barras animadas; controles rápidos visibles/ocultables. Build, pruebas JVM, Lint y tres pruebas Android pasan en emulador API 37. Capturas revisadas tras cambiar proyectos por publicaciones; las tres barras y la unidad se actualizaron.
 - [x] Sustituir constantes por datos del ViewModel en las cuatro tarjetas.
-- [ ] Añadir selector de las cinco métricas y barras de las tres líneas con año/unidad, resaltado y descripción accesible.
-- [ ] Incorporar una imagen del contenido visible dentro de la app y una animación útil al actualizar una tarjeta o cambiar de selección; describir la imagen y verificar la animación en Android.
-- [ ] Añadir Ver línea y acceso al selector de filtros; representar valores ausentes.
+- [x] Añadir selector de las cinco métricas y barras de las tres líneas con año/unidad, resaltado y descripción accesible.
+- [x] Incorporar una imagen del contenido visible dentro de la app y una animación útil al actualizar una tarjeta o cambiar de selección; describir la imagen y verificar la animación en Android.
+- [x] Añadir Ver línea y acceso al selector de filtros; representar valores ausentes. El selector actual es rápido/en línea; el modal con aplicar/cancelar corresponde a T08.
 - **Aceptación:** cambiar la selección actualiza tarjetas y comparativo de forma coherente, conservando las otras líneas visibles; imagen y animación se comprueban en la app.
 
 ### T08 — Implementar selección de filtros (vista 2)
