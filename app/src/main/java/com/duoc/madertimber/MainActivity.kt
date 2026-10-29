@@ -82,7 +82,15 @@ class MainActivity : ComponentActivity() {
                                 onGuest = { navigateTo("dashboard") },
                                 modifier = modifier
                             )
-                            "dashboard" -> DashboardScreen(modifier = modifier)
+                            "dashboard" -> DashboardScreen(
+                                onVerLineaClick = { navigateTo("detalle-linea") },
+                                onVerIndicadorClick = { navigateTo("detalle-indicador") },
+                                onVerProyectosClick = { navigateTo("lista-proyectos") },
+                                onVerInvestigadoresClick = { navigateTo("lista-investigadores") },
+                                onVerPublicacionesClick = { navigateTo("lista-publicaciones") },
+                                onCerrarSesionClick = { navigateTo("login") },
+                                modifier = modifier
+                            )
                             "lista-publicaciones" -> ListaPublicacionesScreen(
                                 onVolverClick = {navigateTo("dashboard")},
                                 onPublicacionClick = {navigateTo("dashboard")},
@@ -119,13 +127,6 @@ class MainActivity : ComponentActivity() {
                             )
 
                             "ficha-investigador" -> FichaInvestigadorScreen(
-                                onVolverClick = { navigateBack() },
-                                modifier = modifier
-                            )
-
-                            // --- Publicaciones ---
-                            "lista-publicaciones" -> ListaPublicacionesScreen(
-                                onPublicacionClick = { navigateTo("ficha-publicacion") },
                                 onVolverClick = { navigateBack() },
                                 modifier = modifier
                             )
