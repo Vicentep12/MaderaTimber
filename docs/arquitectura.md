@@ -14,7 +14,7 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
 | app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema, Scaffold y selección de login, registro o dashboard. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt | Vista estática inicial, tarjetas, barras comparativas y preview. |
-| app/src/main/java/com/duoc/madertimber/data/model/ | Los diez contratos de la sección 7 están presentes, incluidos `VinculacionInvestigador`, `Investigador` y `Publicacion` como cambios locales. `IntegridadDatos.kt` contiene el primer control de IDs duplicados de líneas; faltan las demás reglas de integridad y sus pruebas. |
+| app/src/main/java/com/duoc/madertimber/data/model/ | Los diez contratos de la sección 7 están versionados. `IntegridadDatos.kt` contiene controles de IDs duplicados de líneas y referencias de proyectos a líneas; el segundo tiene una prueba ejecutada para referencia ausente. Faltan los otros casos y las demás reglas de integridad. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/investigadores/ | Lista y ficha estáticas con contenido fijo y previews; todavía no reciben estado del ViewModel ni se conectan a la navegación. |
 | app/src/main/java/com/duoc/madertimber/ui/navegacion/navegacion.kt | Solo declaración de paquete; las rutas y destinos del panel siguen pendientes. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/auth/AuthScreen.kt | Vistas sin estado propio de formulario: renderizan AuthUiState y emiten AuthEvent; incluyen previews. |
@@ -22,7 +22,7 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/java/com/duoc/madertimber/model/auth/AuthValidator.kt | Reglas de validación y errores de los formularios. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
-| app/src/test/ y app/src/androidTest/ | Seis pruebas JVM de acceso y ejemplos de plantilla JVM/instrumentado; sin pruebas UI del flujo. |
+| app/src/test/ y app/src/androidTest/ | Seis pruebas JVM de acceso, cuatro pruebas JUnit locales de integridad y ejemplos de plantilla JVM/instrumentado; sin pruebas UI del flujo. |
 
 La documentación vive en docs/. Builds, cachés y local.properties son locales por equipo.
 

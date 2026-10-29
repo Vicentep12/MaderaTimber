@@ -1,8 +1,16 @@
 # Estado técnico y validación
 
-Revisión por lectura del checkout: 2026-10-28. Última ejecución Gradle exitosa registrada antes de esta revisión: 2026-10-18. Los cortes del 20 y 22 de octubre y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
-## Checkout actual — 2026-10-28
+## Prueba de integridad — 2026-10-28
+
+Rama `main`, HEAD `7a5fa87` y árbol limpio antes de que el usuario añadiera `app/src/test/java/com/duoc/madertimber/data/model/IntegridadDatosTest.kt`. La prueba local crea dos líneas con el mismo ID y llama a `assertTrue(tieneIdsDuplicados(lineas))`; el archivo de prueba está añadido con cambios locales.
+
+El usuario ejecutó primero desde Android Studio `:app:testDebugUnitTest --tests com.duoc.madertimber.data.model.IntegridadDatosTest.detectaIdsRepetidos` y compartió `BUILD SUCCESSFUL`. El reporte local registró una prueba, cero fallos y cero errores. Después añadió `idsDistintosNoSonDuplicados` y `listaVaciaNoTieneIdsDuplicados`, ejecutando la clase completa tras cada incremento. Se inspeccionó `app/build/test-results/testDebugUnitTest/TEST-com.duoc.madertimber.data.model.IntegridadDatosTest.xml`: tres pruebas, cero fallos, cero errores y cero omitidas. Este resultado verifica los casos de IDs repetidos, distintos y lista vacía y la compilación necesaria para esa tarea; no acredita `assembleDebug`, Lint ni el flujo Android. Próximo control: referencias de proyectos a líneas existentes, seguido de las demás reglas de integridad.
+
+Después, el usuario guardó en `IntegridadDatos.kt` la función `tieneProyectosConLineaInexistente`, a partir del código completo solicitado a Codex. La lectura muestra que compara cada `Proyecto.lineaId` con los IDs de líneas y devuelve `true` si encuentra una referencia ausente. Añadió el caso `detectaProyectoConLineaInexistente` y ejecutó la clase completa en Android Studio. El reporte XML local registra cuatro pruebas, cero fallos, cero errores y cero omitidas; el cuarto caso usa `lineaId = "L2"` con una sola línea `id = "L1"`. Los archivos tienen cambios locales. Falta comprobar referencia válida y lista vacía; esta ejecución tampoco acredita `assembleDebug`, Lint ni el flujo Android.
+
+## Corte anterior del checkout — 2026-10-28
 
 Rama `main`, HEAD `6c99e16`, árbol limpio al iniciar la revisión. Se leyeron archivos fuente y configuración sin consultar el remoto. Esta evidencia describe el checkout local; no certifica ejecución Android.
 
