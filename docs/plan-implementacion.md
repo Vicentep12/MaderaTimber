@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01 y T02 completadas; T02 quedó en el commit local `0dffc3d`, todavía sin sincronizar con `origin/main`. T03 está implementada en el árbol local: fuente JSON con tres líneas y cobertura 2022–2024, lector estricto y Repository consultable por línea/año. Las pruebas del Repository pasan con el archivo real y escenarios de carga, vacío, falta de cobertura y error. Próxima actividad: T04, cálculos de indicadores e históricos desde estas entidades; en paralelo de equipo, asignar T18–T20 y preparar la integración de T05–T06. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T03 completadas; T03 quedó en el commit `f6344f3` y la rama local coincide con `origin/main` al comenzar T04. T04 está implementada en el árbol local: las cinco métricas, sus históricos y variaciones se derivan de las entidades validadas; las pruebas incluyen los impactos 78,0 / 54,0 / 96,0 de 2024. Próxima actividad: T05, conectar Repository y cálculos con el estado MVVM del panel; en paralelo de equipo, asignar T18–T20 y preparar la integración de T06. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -41,7 +41,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 2. Base Android | Crear/configurar proyecto y ejecutar la pantalla inicial. | Proyecto existente; ejecución inicial registrada en tutoría. No recrearlo. |
 | 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Parcial: Compose/Material 3, Lifecycle ViewModel y lector Gson; aún sin Navigation Compose ni coroutines explícitas. Cada cambio de Gradle debe compilar. |
 | 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Completado y registrado en el commit local `0dffc3d`; compilación y pruebas JVM correctas. |
-| 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas implementadas en T03. Cálculo de los cinco indicadores e históricos pendiente para T04; la UI todavía no usa el Repository. |
+| 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas implementadas en T03. Cálculo de cinco indicadores, históricos y variaciones implementado en T04; la UI todavía no usa el Repository. |
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | Parcial: acceso login/registro/invitado existente; flujo del panel pendiente. Definir rutas al preparar el flujo; completar conservación de filtros después del paso 7. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Parcial: acceso implementado; dashboard y detalles pendientes. Incorporarlo antes de filtros interactivos; restaurar selección con SavedStateHandle. |
 | 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Parcial: primera vista estática implementada. Faltan datos desde Repository/ViewModel, selectores interactivos, métrica seleccionable, acceso al detalle y validación visual Android. |
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01 y T02 están completadas; T03 está implementada en el árbol local y pendiente de commit; T04–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T03 están completadas; T04 está implementada en el árbol local y pendiente de commit; T05–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -99,7 +99,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T03 — Crear datos JSON y Repository local
 
 - **Prioridad:** P0 · **Objetivo:** 22/10 · **Estimación:** 4–6 h · **Depende de:** T02.
-- **Estado al 28/10:** implementada en el árbol local, pendiente de commit. El JSON contiene entidades y cobertura 2022–2024 para las tres líneas; el Repository consulta por línea/año y diferencia carga, datos, conjunto vacío, falta de cobertura y error. El lector aplica la validación de T02. Ocho pruebas JVM del Repository pasan, incluida lectura del archivo real; la UI aún no está conectada.
+- **Estado al 28/10:** completada en el commit `f6344f3`. El JSON contiene entidades y cobertura 2022–2024 para las tres líneas; el Repository consulta por línea/año y diferencia carga, datos, conjunto vacío, falta de cobertura y error. El lector aplica la validación de T02. Ocho pruebas JVM del Repository pasan, incluida lectura del archivo real; la UI aún no está conectada.
 - [x] Generar entidades y cobertura declarada para tres líneas y 2022–2024; reproducir los conteos de la muestra 2024.
 - [x] Añadir lector y Repository; incorporar solo las dependencias necesarias en el catálogo y comprobar compilación.
 - [x] Diferenciar carga, éxito, vacío, falta de cobertura y error; probar archivo inválido y lectura offline.
@@ -108,8 +108,9 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T04 — Implementar cálculos y sus pruebas
 
 - **Prioridad:** P0 · **Objetivo:** 23/10 · **Estimación:** 4–6 h · **Depende de:** T03.
-- [ ] Calcular las cinco métricas, históricos y variaciones conforme a la sección 8.
-- [ ] Cubrir la batería de reglas de negocio de la sección 14: ausencias, base cero, año anterior exacto, puntos porcentuales, deduplicación, cobertura e impacto.
+- **Estado al 28/10:** implementada en el árbol local, pendiente de commit. El modelo calcula valores anuales e históricos sin redondear; el Repository expone los cinco indicadores por línea/año y los contenidos relacionados según el tipo. Once pruebas nuevas pasan, incluidos la muestra 2024, el año anterior exacto, ceros, ausencias, avance y metas superadas. La UI aún no consume estos resultados.
+- [x] Calcular las cinco métricas, históricos y variaciones conforme a la sección 8.
+- [x] Cubrir la batería de reglas de negocio de la sección 14: ausencias, base cero, año anterior exacto, puntos porcentuales, deduplicación, cobertura e impacto.
 - **Aceptación:** 2024 reproduce 78,0 / 54,0 / 96,0 puntos de impacto y los conteos de la muestra; listas y valores coinciden, sin ceros inventados ni infinitos.
 
 ### T05 — Implementar estado MVVM del panel

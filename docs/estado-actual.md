@@ -2,6 +2,16 @@
 
 Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Cálculos e históricos de T04 — 2026-10-28
+
+Rama `main`, HEAD `f6344f3`, árbol limpio e igual a `origin/main` antes de T04. `CalculosIndicadores.kt` deriva desde entidades y cobertura los cinco valores anuales por línea, incluido avance promedio solo para proyectos activos e impacto demostrativo limitado por las metas 10/20/15. Conserva precisión completa y omite el valor de avance cuando no hay proyectos activos. `LocalPanelRepository` expone los indicadores del año solicitado con histórico, variación respecto de `t - 1` y la cobertura; también filtra contenidos relacionados por tipo de indicador usando las entidades que participaron en el cálculo. El gráfico puede usar el histórico hasta el año seleccionado sin mostrar valores posteriores.
+
+La variación de conteos e impacto es porcentual cuando la base anterior es mayor que cero; con base cero devuelve el estado específico, incluso si ambos valores son cero. El avance se expresa como diferencia de puntos porcentuales y admite base cero. Si falta el valor actual o el del año calendario anterior, devuelve ausencia de comparación. Un año cubierto sin entidades produce conteos e impacto cero; uno sin cobertura no genera indicadores. Un error de carga no se transforma en cero.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. Los reportes XML registran **6 pruebas de cálculos y 5 del Repository, todas sin fallos, errores ni omisiones**. Se verificaron los impactos 78,0 / 54,0 / 96,0 de 2024 con el asset real, igualdad de conteos con listas relacionadas, selección de 2023 aunque exista 2024, proyecto finalizado excluido, huecos del histórico, año anterior exacto, avance ausente, base cero, signo de variación y saturación del impacto. No se ejecutó la app en dispositivo; el dashboard aún usa cifras fijas y su conexión MVVM corresponde a T05.
+
+T04 está implementada en el árbol local y pendiente de commit. Próximo paso: T05, estado observable del panel y conexión del Repository a las vistas.
+
 ## Fuente local y Repository de T03 — 2026-10-28
 
 Rama `main`, HEAD `0dffc3d` y árbol limpio antes de T03; la rama local está un commit por delante de `origin/main`. T02 ya quedó registrada en ese commit. Se añadió `app/src/main/assets/cenamad_datos.json` con tres líneas, cobertura explícita de 2022–2024 para cada una, 23 proyectos, 36 investigadores y 91 publicaciones sintéticas. En 2024 las consultas contienen 8/5/10 proyectos activos, 15/11/18 publicaciones y 12/9/15 investigadores únicos para L1/L2/L3. El JSON almacena entidades y cobertura, sin conteos de indicadores independientes.
@@ -10,7 +20,7 @@ Rama `main`, HEAD `0dffc3d` y árbol limpio antes de T03; la rama local está un
 
 Ejecución local con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. El reporte de `LocalPanelRepositoryTest` registra **8 pruebas, 0 fallos, 0 errores y 0 omitidas**. Incluyen lectura del asset real, cobertura y conteos 2024, estados de consulta, archivo ausente, JSON inválido, referencias, años fuera de cobertura, avances inválidos y formato JSON estricto. El APK se compiló y Lint pasó; no se ejecutó la app en dispositivo ni se comprobó visualmente el panel.
 
-T03 está implementada en el árbol local y pendiente de commit. Próximo paso: T04, derivar los cinco indicadores, históricos y variaciones desde las listas validadas, sin almacenar resultados manuales en el JSON.
+Al cerrar esta comprobación de T03, sus cambios seguían pendientes de commit. El usuario creó después `f6344f3`; el estado de T04 se describe en la sección superior.
 
 ## Cierre técnico de T02 — 2026-10-28
 

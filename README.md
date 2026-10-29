@@ -6,7 +6,7 @@ Su público principal son estudiantes que quieren explorar líneas de investigac
 
 La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard estático presenta cuatro indicadores y una comparación entre líneas para 2024. Los valores son demostrativos; los filtros interactivos y la navegación se incorporarán después con Repository y ViewModel.
 
-La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee y valida, pero el dashboard todavía usa cifras fijas; los cálculos y la conexión con la interfaz corresponden a T04–T05.
+La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; el dashboard todavía usa cifras fijas. La conexión con la interfaz corresponde a T05.
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
