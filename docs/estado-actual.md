@@ -2,6 +2,14 @@
 
 Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Cierre técnico de T02 — 2026-10-28
+
+Rama `main`, HEAD `970735c` y árbol limpio antes de estos cambios. Los diez modelos de la sección 7 ya estaban versionados. Se completó `IntegridadDatos.kt` con `validarIntegridadDatos`, que devuelve errores con tipo y detalle para IDs repetidos por entidad, referencias de proyectos, investigadores, publicaciones e indicadores a líneas inexistentes, seguimientos repetidos por año, vinculaciones repetidas por `(lineaId, anio)`, avances fuera de 0–100 o no finitos, indicadores repetidos por `(lineaId, tipo)` y valores anuales repetidos. Se conservaron `tieneIdsDuplicados` y `tieneProyectosConLineaInexistente`.
+
+Se añadieron pruebas de referencias válidas y listas vacías, un conjunto válido con límites 0 y 100, y casos inválidos de cada regla. Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL** en la comprobación final. El reporte XML de `IntegridadDatosTest` registra **13 pruebas, 0 fallos, 0 errores y 0 omitidas**. Estas comprobaciones validan compilación, pruebas JVM y Lint; no acreditan ejecución en dispositivo ni los flujos de las pantallas.
+
+T02 queda implementada en el árbol local; el commit solicitado como mensaje aún no se ha ejecutado. Próximo trabajo de producto: T03, fuente JSON con cobertura temporal declarada, lector, Repository y aplicación de la validación al cargar. La ausencia de datos, un archivo inválido y un conteo calculado cero se distinguirán allí; todavía no hay JSON ni Repository del panel.
+
 ## Prueba de integridad — 2026-10-28
 
 Rama `main`, HEAD `7a5fa87` y árbol limpio antes de que el usuario añadiera `app/src/test/java/com/duoc/madertimber/data/model/IntegridadDatosTest.kt`. La prueba local crea dos líneas con el mismo ID y llama a `assertTrue(tieneIdsDuplicados(lineas))`; el archivo de prueba está añadido con cambios locales.
