@@ -2,13 +2,23 @@
 
 Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Fuente local y Repository de T03 — 2026-10-28
+
+Rama `main`, HEAD `0dffc3d` y árbol limpio antes de T03; la rama local está un commit por delante de `origin/main`. T02 ya quedó registrada en ese commit. Se añadió `app/src/main/assets/cenamad_datos.json` con tres líneas, cobertura explícita de 2022–2024 para cada una, 23 proyectos, 36 investigadores y 91 publicaciones sintéticas. En 2024 las consultas contienen 8/5/10 proyectos activos, 15/11/18 publicaciones y 12/9/15 investigadores únicos para L1/L2/L3. El JSON almacena entidades y cobertura, sin conteos de indicadores independientes.
+
+`LectorDatosPanel` usa Gson 2.14.0 en modo estricto y rechaza sintaxis o estructura inválida, campos obligatorios ausentes, relaciones inválidas según T02, cobertura repetida y entidades situadas fuera de la cobertura declarada. `LocalPanelRepository` abre el asset de Android o un `Reader` inyectado, y consulta proyectos, investigadores y publicaciones por línea/año. Distingue carga, datos disponibles, conjunto cubierto vacío, falta de cobertura y error de lectura o validación. La lectura desde el archivo local no requiere red; `AndroidManifest.xml` no solicita permiso de Internet. El dashboard todavía no consume el Repository y los cinco indicadores no se calculan aún: son trabajo de T04–T05.
+
+Ejecución local con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. El reporte de `LocalPanelRepositoryTest` registra **8 pruebas, 0 fallos, 0 errores y 0 omitidas**. Incluyen lectura del asset real, cobertura y conteos 2024, estados de consulta, archivo ausente, JSON inválido, referencias, años fuera de cobertura, avances inválidos y formato JSON estricto. El APK se compiló y Lint pasó; no se ejecutó la app en dispositivo ni se comprobó visualmente el panel.
+
+T03 está implementada en el árbol local y pendiente de commit. Próximo paso: T04, derivar los cinco indicadores, históricos y variaciones desde las listas validadas, sin almacenar resultados manuales en el JSON.
+
 ## Cierre técnico de T02 — 2026-10-28
 
 Rama `main`, HEAD `970735c` y árbol limpio antes de estos cambios. Los diez modelos de la sección 7 ya estaban versionados. Se completó `IntegridadDatos.kt` con `validarIntegridadDatos`, que devuelve errores con tipo y detalle para IDs repetidos por entidad, referencias de proyectos, investigadores, publicaciones e indicadores a líneas inexistentes, seguimientos repetidos por año, vinculaciones repetidas por `(lineaId, anio)`, avances fuera de 0–100 o no finitos, indicadores repetidos por `(lineaId, tipo)` y valores anuales repetidos. Se conservaron `tieneIdsDuplicados` y `tieneProyectosConLineaInexistente`.
 
 Se añadieron pruebas de referencias válidas y listas vacías, un conjunto válido con límites 0 y 100, y casos inválidos de cada regla. Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL** en la comprobación final. El reporte XML de `IntegridadDatosTest` registra **13 pruebas, 0 fallos, 0 errores y 0 omitidas**. Estas comprobaciones validan compilación, pruebas JVM y Lint; no acreditan ejecución en dispositivo ni los flujos de las pantallas.
 
-T02 queda implementada en el árbol local; el commit solicitado como mensaje aún no se ha ejecutado. Próximo trabajo de producto: T03, fuente JSON con cobertura temporal declarada, lector, Repository y aplicación de la validación al cargar. La ausencia de datos, un archivo inválido y un conteo calculado cero se distinguirán allí; todavía no hay JSON ni Repository del panel.
+Al cerrar esta comprobación de T02, el commit todavía no se había ejecutado y T03 seguía pendiente. El usuario creó después el commit local `0dffc3d`; el estado de T03 se describe en la sección superior.
 
 ## Prueba de integridad — 2026-10-28
 
