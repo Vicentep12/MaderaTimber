@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T09 están versionadas en `main`; T09 quedó en `e02e57b` con histórico anual reutilizable e integración en el detalle de indicador. T10 está implementada en el árbol local: cinco indicadores, selector del histórico, conteos relacionados y estado sin cobertura; la prueba Android corregida y 54 pruebas JVM pasan. Próxima actividad: T11, completar el detalle de indicador; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T10 están versionadas en `main`; T10 quedó en `34e2554` con cinco indicadores, histórico seleccionable y conteos relacionados. T11 está implementada en el árbol local: valor, unidad, variación, histórico, interpretación y acceso a contenidos según el indicador; `assembleDebug` pasó. Próxima actividad: T12, completar las listas relacionadas; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -46,7 +46,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Acceso y dashboard implementados; DashboardViewModel guarda selección en SavedStateHandle y coordina datos, comparación y errores. ViewModels de detalles pendientes al integrar esas vistas. |
 | 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | T07–T08 implementadas: cuatro tarjetas, cinco métricas, barras accesibles, imagen, animación, filtros rápidos y modal; comprobadas en emulador. |
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | T10 implementada: selector y navegación comprobados en Android; falta la revisión visual integral de T15. |
-| 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Histórico de T09 integrado; T11 aún debe completar variación, interpretación y estados según la sección 8. |
+| 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | T11 implementada en código; compilación correcta. Falta revisión visual completa en T15. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
 | 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
 
@@ -162,7 +162,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T10 — Implementar detalle de línea (vista 3)
 
 - **Prioridad:** P1 · **Objetivo:** 27/10 · **Estimación:** 3–4 h · **Depende de:** T05, T06, T09.
-- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. Compilación y Lint pasaron; tras retirar un caso redundante, 54 pruebas JVM pasaron. La primera ejecución Android tuvo nueve pruebas correctas y una falla porque la prueba pulsó un chip fuera de la pantalla. El registro compartido por el usuario mostró `Selected = false` y posición vertical fuera del dispositivo; la prueba corregida desplaza primero el gráfico y pasó aislada. Se conservan pruebas de pantalla sin cobertura y navegación.
+- **Estado al 29/10:** versionada en `34e2554`. Compilación y Lint pasaron; tras retirar un caso redundante, 54 pruebas JVM pasaron. La primera ejecución Android tuvo nueve pruebas correctas y una falla porque la prueba pulsó un chip fuera de la pantalla. El registro compartido por el usuario mostró `Selected = false` y posición vertical fuera del dispositivo; la prueba corregida desplaza primero el gráfico y pasó aislada. Se conservan pruebas de pantalla sin cobertura y navegación.
 - [x] Mostrar nombre, descripción, año y cinco indicadores, incluido avance promedio.
 - [x] Integrar histórico con proyectos activos por defecto y selección de indicador.
 - [x] Abrir detalle de indicador y contenidos relacionados conservando línea/año.
@@ -171,8 +171,9 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T11 — Implementar detalle de indicador (vista 4)
 
 - **Prioridad:** P1 · **Objetivo:** 27/10 · **Estimación:** 3–5 h · **Depende de:** T05, T06, T09.
-- [ ] Mostrar valor del año seleccionado, unidad, variación, histórico e interpretación sencilla.
-- [ ] Incluir etiqueta demostrativa y acceso a los contenidos correspondientes al tipo.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. La vista usa la variación ya calculada por el modelo y presenta los mensajes especiales de ausencia y base cero. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias para T11. La comprobación visual integral sigue en T15.
+- [x] Mostrar valor del año seleccionado, unidad, variación, histórico e interpretación sencilla.
+- [x] Incluir etiqueta demostrativa y acceso a los contenidos correspondientes al tipo.
 - **Aceptación:** funcionan las cinco métricas y mensajes especiales de la sección 8; abrir un detalle nunca cambia al año más reciente.
 
 ### T12 — Implementar las tres listas relacionadas (vistas 5, 7 y 9)
