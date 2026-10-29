@@ -4,9 +4,9 @@ Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para 
 
 Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
 
-La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard estático presenta cuatro indicadores y una comparación entre líneas para 2024. Los valores son demostrativos; los filtros interactivos y la navegación se incorporarán después con Repository y ViewModel.
+La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard muestra cuatro indicadores calculados y una comparación entre líneas para el año elegido. Tiene selección básica de línea, año y métrica; el flujo de detalles, el filtro modal y la navegación completa siguen pendientes.
 
-La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; el dashboard todavía usa cifras fijas. La conexión con la interfaz corresponde a T05.
+La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; `DashboardViewModel` entrega esos resultados a la vista y conserva la selección durante recreaciones.
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
@@ -46,6 +46,7 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | AndroidX | Core KTX 1.10.1; Lifecycle Runtime KTX 2.6.1; Activity Compose 1.8.0 | Catálogo |
 | Pruebas | JUnit 4.13.2; AndroidX JUnit 1.1.5; Espresso 3.5.1; Compose UI test | Catálogo y módulo `app` |
 | Lectura JSON | Gson 2.14.0 | Catálogo y módulo `app` |
+| Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android/test 1.10.2 | Catálogo y módulo `app` |
 | Resolución de toolchains | Foojay resolver convention 1.0.0 | `settings.gradle.kts` |
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).

@@ -2,6 +2,16 @@
 
 Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Estado MVVM del panel — T05 — 2026-10-28
+
+Rama `main`, HEAD `4d7009e` y árbol limpio antes de T05; la rama coincidía con `origin/main`. `DashboardViewModel` recibe `LocalPanelRepository` y `SavedStateHandle`, carga el JSON en segundo plano y expone un `DashboardUiState` observable. Coordina los cinco indicadores, la comparación de tres líneas y los contenidos relacionados para el indicador seleccionado. Guarda línea, año, métrica de comparación e indicador en `SavedStateHandle`; inicia con 2024 y proyectos activos y valida las selecciones restauradas. Distingue carga, datos, conjunto vacío, falta de cobertura y error con reintento.
+
+`DashboardScreen` ahora renderiza ese estado y envía eventos para cambiar línea, año y métrica. Las cuatro tarjetas y barras muestran valores derivados del Repository; el redondeo a un decimal ocurre solo al mostrar. `MainActivity` obtiene el ViewModel con una fábrica y vuelve a iniciar en login, como pide la especificación, en lugar de abrir directamente la lista de publicaciones. Las otras pantallas y su conexión de navegación siguen pendientes para T06–T14.
+
+Se ejecutó con JDK 25.0.2 y el Wrapper `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`: **BUILD SUCCESSFUL**. El XML de `DashboardViewModelTest` registra **6 pruebas, 0 fallos, 0 errores y 0 omitidas**. Cubren carga, selección y comparación, falta de cobertura sin cero inventado, restauración y saneamiento de valores guardados, reintento tras error y conjunto vacío. La compilación y Lint pasaron; no se ejecutó la app ni se inspeccionó visualmente en dispositivo. La recreación de actividad no se probó de extremo a extremo: las pruebas reconstruyen el ViewModel con un SavedStateHandle que contiene la selección.
+
+T05 está implementada en el árbol local y pendiente de commit. Próximo paso: T06, rutas y regreso entre pantallas, seguido de completar el dashboard y sus recursos visuales en T07–T08.
+
 ## Cálculos e históricos de T04 — 2026-10-28
 
 Rama `main`, HEAD `f6344f3`, árbol limpio e igual a `origin/main` antes de T04. `CalculosIndicadores.kt` deriva desde entidades y cobertura los cinco valores anuales por línea, incluido avance promedio solo para proyectos activos e impacto demostrativo limitado por las metas 10/20/15. Conserva precisión completa y omite el valor de avance cuando no hay proyectos activos. `LocalPanelRepository` expone los indicadores del año solicitado con histórico, variación respecto de `t - 1` y la cobertura; también filtra contenidos relacionados por tipo de indicador usando las entidades que participaron en el cálculo. El gráfico puede usar el histórico hasta el año seleccionado sin mostrar valores posteriores.
@@ -10,7 +20,7 @@ La variación de conteos e impacto es porcentual cuando la base anterior es mayo
 
 Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. Los reportes XML registran **6 pruebas de cálculos y 5 del Repository, todas sin fallos, errores ni omisiones**. Se verificaron los impactos 78,0 / 54,0 / 96,0 de 2024 con el asset real, igualdad de conteos con listas relacionadas, selección de 2023 aunque exista 2024, proyecto finalizado excluido, huecos del histórico, año anterior exacto, avance ausente, base cero, signo de variación y saturación del impacto. No se ejecutó la app en dispositivo; el dashboard aún usa cifras fijas y su conexión MVVM corresponde a T05.
 
-T04 está implementada en el árbol local y pendiente de commit. Próximo paso: T05, estado observable del panel y conexión del Repository a las vistas.
+Al cerrar esta comprobación de T04, sus cambios seguían pendientes de commit. El usuario creó después `4d7009e`; el estado de T05 se describe en la sección superior.
 
 ## Fuente local y Repository de T03 — 2026-10-28
 

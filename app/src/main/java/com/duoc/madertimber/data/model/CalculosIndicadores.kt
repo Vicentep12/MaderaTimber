@@ -104,7 +104,7 @@ fun proyectosActivos(proyectos: List<Proyecto>, lineaId: String, anio: Int): Lis
         }
     }.distinctBy { it.id }
 
-private fun TipoIndicador.nombre(): String = when (this) {
+fun TipoIndicador.nombre(): String = when (this) {
     TipoIndicador.PROYECTOS_ACTIVOS -> "Proyectos activos"
     TipoIndicador.PUBLICACIONES_GENERADAS -> "Publicaciones generadas"
     TipoIndicador.INVESTIGADORES_ASOCIADOS -> "Investigadores asociados"
@@ -120,7 +120,7 @@ private fun TipoIndicador.descripcion(): String = when (this) {
     TipoIndicador.IMPACTO_ESTIMADO -> "Índice demostrativo de actividad frente a metas ficticias"
 }
 
-private fun TipoIndicador.unidad(): String = when (this) {
+fun TipoIndicador.unidad(): String = when (this) {
     TipoIndicador.PROYECTOS_ACTIVOS -> "proyectos"
     TipoIndicador.PUBLICACIONES_GENERADAS -> "publicaciones"
     TipoIndicador.INVESTIGADORES_ASOCIADOS -> "investigadores"

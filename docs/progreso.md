@@ -28,6 +28,8 @@ Los archivos `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto` también está
 
 T04 fue implementada por Codex a solicitud de continuar con el plan. Las once pruebas nuevas verifican cálculos, históricos, variaciones y consultas; todavía no consta una explicación o ejercicio propio del usuario que acredite comprensión de estas reglas. Próxima lección sugerida: comparar un año cubierto sin proyectos activos con uno sin cobertura, y explicar por qué la variación de avance se expresa en puntos porcentuales.
 
+T05 se implementó por petición de continuar con el plan. Codex conectó DashboardViewModel, Repository, SavedStateHandle y la vista; seis pruebas JVM verifican el estado y los eventos. Todavía no consta una explicación o modificación propia del usuario que acredite comprensión de ViewModel y estado observable. Próximo ejercicio sugerido: explicar qué cambia al seleccionar 2023 y qué conserva SavedStateHandle al recrear la actividad.
+
 ## Cómo continuar el registro
 
 Al cerrar cada lección, añadir su objetivo, código revisado, respuesta o ejercicio que demuestra comprensión, resultado de ejecución y dificultad pendiente. Distinguir ejecución reportada de comprobación visual y de comandos ejecutados. No registrar aquí el historial de movimientos de archivos ni repetir la especificación.

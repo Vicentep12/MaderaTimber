@@ -7,6 +7,7 @@ import com.duoc.madertimber.ui.screens.auth.RegisterViewModel
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,8 @@ import androidx.compose.ui.Modifier
 import com.duoc.madertimber.ui.screens.auth.LoginScreen
 import com.duoc.madertimber.ui.screens.auth.RegisterScreen
 import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
+import com.duoc.madertimber.ui.screens.dashboard.DashboardViewModel
+import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaScreen
 import com.duoc.madertimber.ui.screens.proyectos.FichaProyectosScreen
@@ -29,6 +32,10 @@ import com.duoc.madertimber.ui.screens.publicaciones.ListaPublicacionesScreen
 
 
 class MainActivity : ComponentActivity() {
+    private val dashboardViewModel: DashboardViewModel by viewModels {
+        DashboardViewModel.factory(LocalPanelRepository(applicationContext))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -36,7 +43,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
-                var screen by rememberSaveable { mutableStateOf("lista-publicaciones") }
+                var screen by rememberSaveable { mutableStateOf("login") }
                 fun navigate(destination: String) {
                     loginViewModel.reset()
                     registerViewModel.reset()
@@ -54,7 +61,11 @@ class MainActivity : ComponentActivity() {
                                 onGuest = { navigate("dashboard") },
                                 modifier = modifier
                             )
-                            "dashboard" -> DashboardScreen(modifier = modifier)
+                            "dashboard" -> DashboardScreen(
+                                state = dashboardViewModel.uiState,
+                                onEvent = dashboardViewModel::onEvent,
+                                modifier = modifier
+                            )
                             "lista-publicaciones" -> ListaPublicacionesScreen(
                                 onVolverClick = {navigate("dashboard")},
                                 onPublicacionClick = {navigate("dashboard")},
