@@ -1,0 +1,1714 @@
+{
+  "lineas": [
+    {
+      "id": "L1",
+      "nombre": "Construcción sustentable",
+      "descripcion": "Soluciones de madera para edificaciones sostenibles.",
+      "color": "#2E7D32"
+    },
+    {
+      "id": "L2",
+      "nombre": "Biomateriales de madera",
+      "descripcion": "Materiales renovables derivados de la madera.",
+      "color": "#8D6E63"
+    },
+    {
+      "id": "L3",
+      "nombre": "Procesos industriales",
+      "descripcion": "Innovación en procesos de transformación de madera.",
+      "color": "#1565C0"
+    }
+  ],
+  "cobertura": [
+    {
+      "lineaId": "L1",
+      "anios": [
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "lineaId": "L2",
+      "anios": [
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "lineaId": "L3",
+      "anios": [
+        2022,
+        2023,
+        2024
+      ]
+    }
+  ],
+  "proyectos": [
+    {
+      "id": "P-L1-01",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 1",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 32
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 50
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 68
+        }
+      ]
+    },
+    {
+      "id": "P-L1-02",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 2",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 34
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 52
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 70
+        }
+      ]
+    },
+    {
+      "id": "P-L1-03",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 3",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 36
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 54
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 72
+        }
+      ]
+    },
+    {
+      "id": "P-L1-04",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 4",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 38
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 56
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 74
+        }
+      ]
+    },
+    {
+      "id": "P-L1-05",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 5",
+      "seguimientos": [
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 58
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 76
+        }
+      ]
+    },
+    {
+      "id": "P-L1-06",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 6",
+      "seguimientos": [
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 60
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 78
+        }
+      ]
+    },
+    {
+      "id": "P-L1-07",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 7",
+      "seguimientos": [
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 80
+        }
+      ]
+    },
+    {
+      "id": "P-L1-08",
+      "lineaId": "L1",
+      "titulo": "Proyecto demostrativo construcción sustentable 8",
+      "seguimientos": [
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 82
+        }
+      ]
+    },
+    {
+      "id": "P-L2-01",
+      "lineaId": "L2",
+      "titulo": "Proyecto demostrativo biomateriales de madera 1",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 32
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 50
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 68
+        }
+      ]
+    },
+    {
+      "id": "P-L2-02",
+      "lineaId": "L2",
+      "titulo": "Proyecto demostrativo biomateriales de madera 2",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 34
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 52
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 70
+        }
+      ]
+    },
+    {
+      "id": "P-L2-03",
+      "lineaId": "L2",
+      "titulo": "Proyecto demostrativo biomateriales de madera 3",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 36
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 54
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 72
+        }
+      ]
+    },
+    {
+      "id": "P-L2-04",
+      "lineaId": "L2",
+      "titulo": "Proyecto demostrativo biomateriales de madera 4",
+      "seguimientos": [
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 56
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 74
+        }
+      ]
+    },
+    {
+      "id": "P-L2-05",
+      "lineaId": "L2",
+      "titulo": "Proyecto demostrativo biomateriales de madera 5",
+      "seguimientos": [
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 76
+        }
+      ]
+    },
+    {
+      "id": "P-L3-01",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 1",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 32
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 50
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 68
+        }
+      ]
+    },
+    {
+      "id": "P-L3-02",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 2",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 34
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 52
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 70
+        }
+      ]
+    },
+    {
+      "id": "P-L3-03",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 3",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 36
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 54
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 72
+        }
+      ]
+    },
+    {
+      "id": "P-L3-04",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 4",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 38
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 56
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 74
+        }
+      ]
+    },
+    {
+      "id": "P-L3-05",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 5",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 40
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 58
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 76
+        }
+      ]
+    },
+    {
+      "id": "P-L3-06",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 6",
+      "seguimientos": [
+        {
+          "anio": 2022,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 42
+        },
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 60
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 78
+        }
+      ]
+    },
+    {
+      "id": "P-L3-07",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 7",
+      "seguimientos": [
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 62
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 80
+        }
+      ]
+    },
+    {
+      "id": "P-L3-08",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 8",
+      "seguimientos": [
+        {
+          "anio": 2023,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 64
+        },
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 82
+        }
+      ]
+    },
+    {
+      "id": "P-L3-09",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 9",
+      "seguimientos": [
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 84
+        }
+      ]
+    },
+    {
+      "id": "P-L3-10",
+      "lineaId": "L3",
+      "titulo": "Proyecto demostrativo procesos industriales 10",
+      "seguimientos": [
+        {
+          "anio": 2024,
+          "estado": "ACTIVO",
+          "avancePorcentaje": 86
+        }
+      ]
+    }
+  ],
+  "investigadores": [
+    {
+      "id": "I-L1-01",
+      "nombre": "Investigador/a demostrativo/a L1-1",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-02",
+      "nombre": "Investigador/a demostrativo/a L1-2",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-03",
+      "nombre": "Investigador/a demostrativo/a L1-3",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-04",
+      "nombre": "Investigador/a demostrativo/a L1-4",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-05",
+      "nombre": "Investigador/a demostrativo/a L1-5",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-06",
+      "nombre": "Investigador/a demostrativo/a L1-6",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-07",
+      "nombre": "Investigador/a demostrativo/a L1-7",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-08",
+      "nombre": "Investigador/a demostrativo/a L1-8",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-09",
+      "nombre": "Investigador/a demostrativo/a L1-9",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-10",
+      "nombre": "Investigador/a demostrativo/a L1-10",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-11",
+      "nombre": "Investigador/a demostrativo/a L1-11",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L1-12",
+      "nombre": "Investigador/a demostrativo/a L1-12",
+      "especialidad": "Construcción sustentable",
+      "vinculaciones": [
+        {
+          "lineaId": "L1",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-01",
+      "nombre": "Investigador/a demostrativo/a L2-1",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-02",
+      "nombre": "Investigador/a demostrativo/a L2-2",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-03",
+      "nombre": "Investigador/a demostrativo/a L2-3",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-04",
+      "nombre": "Investigador/a demostrativo/a L2-4",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-05",
+      "nombre": "Investigador/a demostrativo/a L2-5",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-06",
+      "nombre": "Investigador/a demostrativo/a L2-6",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-07",
+      "nombre": "Investigador/a demostrativo/a L2-7",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-08",
+      "nombre": "Investigador/a demostrativo/a L2-8",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L2-09",
+      "nombre": "Investigador/a demostrativo/a L2-9",
+      "especialidad": "Biomateriales de madera",
+      "vinculaciones": [
+        {
+          "lineaId": "L2",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-01",
+      "nombre": "Investigador/a demostrativo/a L3-1",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-02",
+      "nombre": "Investigador/a demostrativo/a L3-2",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-03",
+      "nombre": "Investigador/a demostrativo/a L3-3",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-04",
+      "nombre": "Investigador/a demostrativo/a L3-4",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-05",
+      "nombre": "Investigador/a demostrativo/a L3-5",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-06",
+      "nombre": "Investigador/a demostrativo/a L3-6",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-07",
+      "nombre": "Investigador/a demostrativo/a L3-7",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-08",
+      "nombre": "Investigador/a demostrativo/a L3-8",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-09",
+      "nombre": "Investigador/a demostrativo/a L3-9",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2022
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-10",
+      "nombre": "Investigador/a demostrativo/a L3-10",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-11",
+      "nombre": "Investigador/a demostrativo/a L3-11",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-12",
+      "nombre": "Investigador/a demostrativo/a L3-12",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2023
+        },
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-13",
+      "nombre": "Investigador/a demostrativo/a L3-13",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-14",
+      "nombre": "Investigador/a demostrativo/a L3-14",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    },
+    {
+      "id": "I-L3-15",
+      "nombre": "Investigador/a demostrativo/a L3-15",
+      "especialidad": "Procesos industriales",
+      "vinculaciones": [
+        {
+          "lineaId": "L3",
+          "anio": 2024
+        }
+      ]
+    }
+  ],
+  "publicaciones": [
+    {
+      "id": "U-L1-2022-01",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-1",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2022-02",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-2",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2022-03",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-3",
+      "tipo": "Informe",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2022-04",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-4",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2022-05",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-5",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2022-06",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2022-6",
+      "tipo": "Informe",
+      "anio": 2022
+    },
+    {
+      "id": "U-L1-2023-01",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-1",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-02",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-2",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-03",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-3",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-04",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-4",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-05",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-5",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-06",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-6",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-07",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-7",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-08",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-8",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-09",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-9",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2023-10",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2023-10",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L1-2024-01",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-1",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-02",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-2",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-03",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-3",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-04",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-4",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-05",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-5",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-06",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-6",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-07",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-7",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-08",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-8",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-09",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-9",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-10",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-10",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-11",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-11",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-12",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-12",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-13",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-13",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-14",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-14",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L1-2024-15",
+      "lineaId": "L1",
+      "titulo": "Publicación demostrativa construcción sustentable 2024-15",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2022-01",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2022-1",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L2-2022-02",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2022-2",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L2-2022-03",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2022-3",
+      "tipo": "Informe",
+      "anio": 2022
+    },
+    {
+      "id": "U-L2-2022-04",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2022-4",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L2-2023-01",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-1",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-02",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-2",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-03",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-3",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-04",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-4",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-05",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-5",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-06",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-6",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2023-07",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2023-7",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L2-2024-01",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-1",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-02",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-2",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-03",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-3",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-04",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-4",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-05",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-5",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-06",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-6",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-07",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-7",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-08",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-8",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-09",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-9",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-10",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-10",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L2-2024-11",
+      "lineaId": "L2",
+      "titulo": "Publicación demostrativa biomateriales de madera 2024-11",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2022-01",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-1",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-02",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-2",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-03",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-3",
+      "tipo": "Informe",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-04",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-4",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-05",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-5",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-06",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-6",
+      "tipo": "Informe",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-07",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-7",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2022-08",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2022-8",
+      "tipo": "Artículo",
+      "anio": 2022
+    },
+    {
+      "id": "U-L3-2023-01",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-1",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-02",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-2",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-03",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-3",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-04",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-4",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-05",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-5",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-06",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-6",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-07",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-7",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-08",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-8",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-09",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-9",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-10",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-10",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-11",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-11",
+      "tipo": "Artículo",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2023-12",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2023-12",
+      "tipo": "Informe",
+      "anio": 2023
+    },
+    {
+      "id": "U-L3-2024-01",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-1",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-02",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-2",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-03",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-3",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-04",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-4",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-05",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-5",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-06",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-6",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-07",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-7",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-08",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-8",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-09",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-9",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-10",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-10",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-11",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-11",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-12",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-12",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-13",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-13",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-14",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-14",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-15",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-15",
+      "tipo": "Informe",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-16",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-16",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-17",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-17",
+      "tipo": "Artículo",
+      "anio": 2024
+    },
+    {
+      "id": "U-L3-2024-18",
+      "lineaId": "L3",
+      "titulo": "Publicación demostrativa procesos industriales 2024-18",
+      "tipo": "Informe",
+      "anio": 2024
+    }
+  ]
+}

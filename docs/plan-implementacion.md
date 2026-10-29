@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01 completada: plano de doce vistas y mapa de navegación revisados; el propietario autorizó su commit el 2026-10-22. T02 está en curso: los diez contratos de modelos de la sección 7 están presentes en `main`; el control de IDs duplicados de líneas tiene tres pruebas JUnit y `tieneProyectosConLineaInexistente` tiene una prueba de referencia ausente. Faltan los casos de referencia válida y lista vacía, las demás reglas de integridad de la sección 8 y sus pruebas. Próxima actividad: completar T02 y ejecutar una compilación/pruebas actuales; en paralelo de equipo, asignar T18–T20 y preparar la integración de T03–T06. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T03 completadas; T03 quedó en el commit `f6344f3` y la rama local coincide con `origin/main` al comenzar T04. T04 está implementada en el árbol local: las cinco métricas, sus históricos y variaciones se derivan de las entidades validadas; las pruebas incluyen los impactos 78,0 / 54,0 / 96,0 de 2024. Próxima actividad: T05, conectar Repository y cálculos con el estado MVVM del panel; en paralelo de equipo, asignar T18–T20 y preparar la integración de T06. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -29,7 +29,7 @@ El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las 
 
 Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
-Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. En el checkout del 2026-10-28 se comprobaron por lectura esos cuatro modelos y también `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto`; `TipoIndicador.kt` contiene las cinco opciones sin los caracteres de formato del mensaje. La presencia de los otros tres archivos no acredita por sí sola comprensión del usuario. El usuario escribió `VinculacionInvestigador` y, tras una corrección guiada, identificó como duplicado repetir el mismo par `(lineaId, anio)`. También escribió `Investigador` y reconoció que tres pares distintos de línea/año requieren tres elementos en `vinculaciones`. Estos modelos y `Publicacion` están ahora en `main`; el usuario explicó que una publicación de 2023 no aparece con el filtro 2024. Escribió y corrigió `tieneIdsDuplicados` para líneas; explicó correctamente los casos de IDs distintos, repetidos y lista vacía. Creó y ejecutó con éxito tres pruebas JUnit para esos casos. `tieneProyectosConLineaInexistente` y su primer test de referencia ausente se añadieron a partir del código entregado por Codex por solicitud expresa; la prueba pasó, pero falta comprobar la comprensión del usuario y los otros casos. Próximo ejercicio: probar una referencia válida y explicar su resultado. La revisión de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente; la práctica estática no acredita el dashboard completo ni MVVM. Introducir Repository y ViewModel antes de filtros interactivos.
+Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. En el checkout del 2026-10-28 se comprobaron por lectura esos cuatro modelos y también `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto`; `TipoIndicador.kt` contiene las cinco opciones sin los caracteres de formato del mensaje. La presencia de los otros tres archivos no acredita por sí sola comprensión del usuario. El usuario escribió `VinculacionInvestigador` y, tras una corrección guiada, identificó como duplicado repetir el mismo par `(lineaId, anio)`. También escribió `Investigador` y reconoció que tres pares distintos de línea/año requieren tres elementos en `vinculaciones`. Estos modelos y `Publicacion` están ahora en `main`; el usuario explicó que una publicación de 2023 no aparece con el filtro 2024. Escribió y corrigió `tieneIdsDuplicados` para líneas; explicó correctamente los casos de IDs distintos, repetidos y lista vacía. Creó y ejecutó con éxito tres pruebas JUnit para esos casos. `tieneProyectosConLineaInexistente` y su primer test de referencia ausente se añadieron a partir del código entregado por Codex por solicitud expresa; la prueba pasó. A solicitud expresa de implementación, Codex completó las demás reglas y pruebas de T02. El cierre técnico no acredita comprensión del código nuevo; próxima lección: distinguir un año cubierto sin entidades de un año sin cobertura en T03. La revisión de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente; la práctica estática no acredita el dashboard completo ni MVVM. Introducir Repository y ViewModel antes de filtros interactivos.
 
 ## Etapas y tareas
 
@@ -39,9 +39,9 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | --- | --- | --- |
 | 1. Alcance | Confirmar flujo, líneas, indicadores, años y aceptación. | Definido en la especificación. |
 | 2. Base Android | Crear/configurar proyecto y ejecutar la pantalla inicial. | Proyecto existente; ejecución inicial registrada en tutoría. No recrearlo. |
-| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Parcial: Compose/Material 3, Lifecycle ViewModel y pruebas de acceso/plantilla; sin Navigation Compose ni lector JSON explícitos. Cada cambio de Gradle debe compilar. |
-| 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | En curso: diez contratos versionados; control de IDs duplicados de líneas con tres pruebas JUnit y control de referencias proyecto–línea con una prueba. Faltan más casos y las demás reglas de IDs, referencias, relaciones temporales y rangos. |
-| 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Pendiente. Datos coherentes, funcionamiento offline y carga/éxito/vacío/error diferenciados. |
+| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Parcial: Compose/Material 3, Lifecycle ViewModel y lector Gson; aún sin Navigation Compose ni coroutines explícitas. Cada cambio de Gradle debe compilar. |
+| 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Completado y registrado en el commit local `0dffc3d`; compilación y pruebas JVM correctas. |
+| 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas implementadas en T03. Cálculo de cinco indicadores, históricos y variaciones implementado en T04; la UI todavía no usa el Repository. |
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | Parcial: acceso login/registro/invitado existente; flujo del panel pendiente. Definir rutas al preparar el flujo; completar conservación de filtros después del paso 7. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Parcial: acceso implementado; dashboard y detalles pendientes. Incorporarlo antes de filtros interactivos; restaurar selección con SavedStateHandle. |
 | 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Parcial: primera vista estática implementada. Faltan datos desde Repository/ViewModel, selectores interactivos, métrica seleccionable, acceso al detalle y validación visual Android. |
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01 está completada; T02 está en curso; T03–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T03 están completadas; T04 está implementada en el árbol local y pendiente de commit; T05–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -90,25 +90,27 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T02 — Implementar los modelos del panel
 
 - **Prioridad:** P0 · **Objetivo:** 21/10 · **Estimación:** 3–4 h · **Depende de:** nada.
-- **Estado al 28/10:** en curso. Los diez modelos están versionados en `main`. `tieneIdsDuplicados` comprueba IDs de líneas y `tieneProyectosConLineaInexistente` comprueba referencias de proyectos a líneas; la clase JUnit suma cuatro pruebas, cero fallos y cero errores según el reporte local. Falta cubrir referencia válida y lista vacía.
+- **Estado al 28/10:** completada y registrada en el commit local `0dffc3d`. Los diez modelos están versionados en `main`; `validarIntegridadDatos` comprueba IDs únicos por entidad, referencias a líneas, seguimientos y vinculaciones únicos, avances finitos de 0 a 100, indicadores únicos por línea/tipo y valores únicos por año. Se conservan los dos controles previos. La clase JUnit tiene 13 pruebas sin fallos; `assembleDebug` y `testDebugUnitTest` pasaron.
 - [x] Escribir los contratos de la sección 7 por estructura.
-- [ ] Validar la integridad de la sección 8.
-- [ ] Probar IDs, referencias, duplicados temporales y avances fuera de rango.
+- [x] Validar la integridad de la sección 8 en los modelos; la cobertura temporal y carga JSON corresponden a T03.
+- [x] Probar IDs, referencias, duplicados temporales y avances fuera de rango.
 - **Aceptación:** modelos independientes de Compose; no se introducen relaciones proyecto–autor–publicación ajenas al contrato.
 
 ### T03 — Crear datos JSON y Repository local
 
 - **Prioridad:** P0 · **Objetivo:** 22/10 · **Estimación:** 4–6 h · **Depende de:** T02.
-- [ ] Generar entidades y cobertura declarada para tres líneas y 2022–2024; reproducir los conteos de la muestra 2024.
-- [ ] Añadir lector y Repository; incorporar solo las dependencias necesarias en el catálogo y comprobar compilación.
-- [ ] Diferenciar carga, éxito, vacío, falta de cobertura y error; probar archivo inválido y funcionamiento offline.
+- **Estado al 28/10:** completada en el commit `f6344f3`. El JSON contiene entidades y cobertura 2022–2024 para las tres líneas; el Repository consulta por línea/año y diferencia carga, datos, conjunto vacío, falta de cobertura y error. El lector aplica la validación de T02. Ocho pruebas JVM del Repository pasan, incluida lectura del archivo real; la UI aún no está conectada.
+- [x] Generar entidades y cobertura declarada para tres líneas y 2022–2024; reproducir los conteos de la muestra 2024.
+- [x] Añadir lector y Repository; incorporar solo las dependencias necesarias en el catálogo y comprobar compilación.
+- [x] Diferenciar carga, éxito, vacío, falta de cobertura y error; probar archivo inválido y lectura offline.
 - **Aceptación:** entidades consultables por línea/año; ningún conteo manual independiente sustituye los datos.
 
 ### T04 — Implementar cálculos y sus pruebas
 
 - **Prioridad:** P0 · **Objetivo:** 23/10 · **Estimación:** 4–6 h · **Depende de:** T03.
-- [ ] Calcular las cinco métricas, históricos y variaciones conforme a la sección 8.
-- [ ] Cubrir la batería de reglas de negocio de la sección 14: ausencias, base cero, año anterior exacto, puntos porcentuales, deduplicación, cobertura e impacto.
+- **Estado al 28/10:** implementada en el árbol local, pendiente de commit. El modelo calcula valores anuales e históricos sin redondear; el Repository expone los cinco indicadores por línea/año y los contenidos relacionados según el tipo. Once pruebas nuevas pasan, incluidos la muestra 2024, el año anterior exacto, ceros, ausencias, avance y metas superadas. La UI aún no consume estos resultados.
+- [x] Calcular las cinco métricas, históricos y variaciones conforme a la sección 8.
+- [x] Cubrir la batería de reglas de negocio de la sección 14: ausencias, base cero, año anterior exacto, puntos porcentuales, deduplicación, cobertura e impacto.
 - **Aceptación:** 2024 reproduce 78,0 / 54,0 / 96,0 puntos de impacto y los conteos de la muestra; listas y valores coinciden, sin ceros inventados ni infinitos.
 
 ### T05 — Implementar estado MVVM del panel

@@ -6,6 +6,8 @@ Su público principal son estudiantes que quieren explorar líneas de investigac
 
 La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard estático presenta cuatro indicadores y una comparación entre líneas para 2024. Los valores son demostrativos; los filtros interactivos y la navegación se incorporarán después con Repository y ViewModel.
 
+La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; el dashboard todavía usa cifras fijas. La conexión con la interfaz corresponde a T05.
+
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
 ## Documentación y continuidad
@@ -43,13 +45,14 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | Compose | BOM 2026.02.01; UI, graphics, preview y Material 3 | Catálogo y módulo `app` |
 | AndroidX | Core KTX 1.10.1; Lifecycle Runtime KTX 2.6.1; Activity Compose 1.8.0 | Catálogo |
 | Pruebas | JUnit 4.13.2; AndroidX JUnit 1.1.5; Espresso 3.5.1; Compose UI test | Catálogo y módulo `app` |
+| Lectura JSON | Gson 2.14.0 | Catálogo y módulo `app` |
 | Resolución de toolchains | Foojay resolver convention 1.0.0 | `settings.gradle.kts` |
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).
 
 Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal. Configuration Cache activada; heap Gradle configurado en 2 GB. Un único módulo `:app`. No hay backend, servicios externos ni variables `.env` requeridas por el código actual.
 
-**SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24. La última validación Gradle exitosa registrada es del 18-10-2026; no acredita una compilación de los cambios posteriores.
+**SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24. La validación Gradle actual de T03 se registra en [estado-actual.md](docs/estado-actual.md); no acredita ejecución en dispositivo.
 
 ## Instalación en otro computador
 
