@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
+import androidx.navigation.NavHostController
 import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,9 +43,9 @@ fun AppNavigation(
     loginViewModel: LoginViewModel,
     registerViewModel: RegisterViewModel,
     dashboardViewModel: DashboardViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController()
 ) {
-    val navController = rememberNavController()
     val estado = dashboardViewModel.uiState
 
     fun limpiarAcceso() {
