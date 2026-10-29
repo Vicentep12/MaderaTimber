@@ -1,4 +1,4 @@
-package com.duoc.madertimber.ui.screens.auth
+package com.duoc.madertimber.ui.screens.acceso
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,57 +41,57 @@ import androidx.compose.ui.unit.dp
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 
 @Composable
-fun LoginScreen(
-    state: AuthUiState,
-    onEvent: (AuthEvent) -> Unit,
-    onRegister: () -> Unit,
-    onGuest: () -> Unit,
+fun InicioSesionScreen(
+    estado: AccesoUiState,
+    onEvent: (AccesoEvento) -> Unit,
+    onRegistro: () -> Unit,
+    onInvitado: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    AuthForm(false, state, onEvent, onRegister, onGuest, modifier)
+    FormularioAcceso(false, estado, onEvent, onRegistro, onInvitado, modifier)
 }
 
 @Composable
-fun RegisterScreen(
-    state: AuthUiState,
-    onEvent: (AuthEvent) -> Unit,
-    onLogin: () -> Unit,
-    onGuest: () -> Unit,
+fun RegistroScreen(
+    estado: AccesoUiState,
+    onEvent: (AccesoEvento) -> Unit,
+    onInicioSesion: () -> Unit,
+    onInvitado: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    AuthForm(true, state, onEvent, onLogin, onGuest, modifier)
+    FormularioAcceso(true, estado, onEvent, onInicioSesion, onInvitado, modifier)
 }
 
 @Composable
-private fun AuthForm(
-    registering: Boolean,
-    state: AuthUiState,
-    onEvent: (AuthEvent) -> Unit,
-    onSwitch: () -> Unit,
-    onGuest: () -> Unit,
+private fun FormularioAcceso(
+    registrando: Boolean,
+    estado: AccesoUiState,
+    onEvent: (AccesoEvento) -> Unit,
+    onCambiarFormulario: () -> Unit,
+    onInvitado: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val emailFocus = remember { FocusRequester() }
-    val passwordFocus = remember { FocusRequester() }
-    val confirmationFocus = remember { FocusRequester() }
+    val administradorFoco = LocalFocusManager.current
+    val controladorTeclado = LocalSoftwareKeyboardController.current
+    val correoFoco = remember { FocusRequester() }
+    val contrasenaFoco = remember { FocusRequester() }
+    val confirmacionFoco = remember { FocusRequester() }
 
-    LaunchedEffect(state.showNotice) {
-        focusManager.clearFocus(force = true)
-        keyboardController?.hide()
+    LaunchedEffect(estado.mostrarAviso) {
+        administradorFoco.clearFocus(force = true)
+        controladorTeclado?.hide()
     }
 
-    fun submit() {
-        focusManager.clearFocus(force = true)
-        keyboardController?.hide()
-        onEvent(AuthEvent.Submit)
+    fun enviar() {
+        administradorFoco.clearFocus(force = true)
+        controladorTeclado?.hide()
+        onEvent(AccesoEvento.Enviar)
     }
 
-    fun leaveForm(onLeave: () -> Unit) {
-        focusManager.clearFocus(force = true)
-        keyboardController?.hide()
-        onLeave()
+    fun salirDelFormulario(alSalir: () -> Unit) {
+        administradorFoco.clearFocus(force = true)
+        controladorTeclado?.hide()
+        alSalir()
     }
 
     Column(
@@ -103,9 +103,9 @@ private fun AuthForm(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        if (registering) {
+        if (registrando) {
             TextButton(
-                onClick = { leaveForm(onSwitch) },
+                onClick = { salirDelFormulario(onCambiarFormulario) },
                 modifier = Modifier.align(Alignment.Start)
             ) {
                 Text("← Volver al inicio")
@@ -116,7 +116,7 @@ private fun AuthForm(
         Card(modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth()) {
             Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    if (registering) "Crea tu cuenta" else "Bienvenido de nuevo",
+                    if (registrando) "Crea tu cuenta" else "Bienvenido de nuevo",
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Card(
@@ -130,126 +130,126 @@ private fun AuthForm(
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
-                if (registering) {
+                if (registrando) {
                     OutlinedTextField(
-                        value = state.name, onValueChange = { onEvent(AuthEvent.NameChanged(it)) },
+                        value = estado.nombre, onValueChange = { onEvent(AccesoEvento.NombreCambiado(it)) },
                         label = { Text("Nombre completo") }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                        keyboardActions = KeyboardActions(onNext = { emailFocus.requestFocus() }),
-                        isError = state.errors.name,
-                        supportingText = { if (state.errors.name) Text("Ingresa tu nombre.") },
+                        keyboardActions = KeyboardActions(onNext = { correoFoco.requestFocus() }),
+                        isError = estado.errores.nombre,
+                        supportingText = { if (estado.errores.nombre) Text("Ingresa tu nombre.") },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
                 OutlinedTextField(
-                    value = state.email, onValueChange = { onEvent(AuthEvent.EmailChanged(it)) },
+                    value = estado.correo, onValueChange = { onEvent(AccesoEvento.CorreoCambiado(it)) },
                     label = { Text("Correo electrónico") }, singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
                         imeAction = ImeAction.Next
                     ),
-                    keyboardActions = KeyboardActions(onNext = { passwordFocus.requestFocus() }),
-                    isError = state.errors.email,
-                    supportingText = { if (state.errors.email) Text("Ingresa un correo válido.") },
-                    modifier = Modifier.fillMaxWidth().focusRequester(emailFocus)
+                    keyboardActions = KeyboardActions(onNext = { contrasenaFoco.requestFocus() }),
+                    isError = estado.errores.correo,
+                    supportingText = { if (estado.errores.correo) Text("Ingresa un correo válido.") },
+                    modifier = Modifier.fillMaxWidth().focusRequester(correoFoco)
                 )
-                PasswordField(
-                    value = state.password, onValueChange = { onEvent(AuthEvent.PasswordChanged(it)) }, label = "Contraseña",
-                    visible = state.showPassword, onToggle = { onEvent(AuthEvent.TogglePassword) },
-                    error = state.errors.password,
-                    message = if (registering) "Usa al menos 8 caracteres." else "Ingresa tu contraseña.",
-                    hint = if (registering) "Mínimo 8 caracteres" else null,
-                    imeAction = if (registering) ImeAction.Next else ImeAction.Done,
-                    onImeAction = {
-                        if (registering) confirmationFocus.requestFocus() else submit()
+                CampoContrasena(
+                    valor = estado.contrasena, alCambiar = { onEvent(AccesoEvento.ContrasenaCambiada(it)) }, etiqueta = "Contraseña",
+                    visible = estado.mostrarContrasena, alAlternar = { onEvent(AccesoEvento.AlternarContrasena) },
+                    error = estado.errores.contrasena,
+                    mensaje = if (registrando) "Usa al menos 8 caracteres." else "Ingresa tu contraseña.",
+                    pista = if (registrando) "Mínimo 8 caracteres" else null,
+                    accionTeclado = if (registrando) ImeAction.Next else ImeAction.Done,
+                    alAccionTeclado = {
+                        if (registrando) confirmacionFoco.requestFocus() else enviar()
                     },
-                    modifier = Modifier.focusRequester(passwordFocus)
+                    modifier = Modifier.focusRequester(contrasenaFoco)
                 )
-                if (registering) {
-                    PasswordField(
-                        value = state.confirmation, onValueChange = { onEvent(AuthEvent.ConfirmationChanged(it)) },
-                        label = "Confirma tu contraseña", visible = state.showConfirmation,
-                        onToggle = { onEvent(AuthEvent.ToggleConfirmation) },
-                        error = state.errors.confirmation,
-                        message = "Las contraseñas no coinciden.",
-                        imeAction = ImeAction.Done,
-                        onImeAction = ::submit,
-                        modifier = Modifier.focusRequester(confirmationFocus)
+                if (registrando) {
+                    CampoContrasena(
+                        valor = estado.confirmacion, alCambiar = { onEvent(AccesoEvento.ConfirmacionCambiada(it)) },
+                        etiqueta = "Confirma tu contraseña", visible = estado.mostrarConfirmacion,
+                        alAlternar = { onEvent(AccesoEvento.AlternarConfirmacion) },
+                        error = estado.errores.confirmacion,
+                        mensaje = "Las contraseñas no coinciden.",
+                        accionTeclado = ImeAction.Done,
+                        alAccionTeclado = ::enviar,
+                        modifier = Modifier.focusRequester(confirmacionFoco)
                     )
                 }
                 Button(
-                    onClick = ::submit, modifier = Modifier.fillMaxWidth()
-                ) { Text(if (registering) "Crear cuenta" else "Iniciar sesión") }
-                TextButton(onClick = { leaveForm(onSwitch) }, modifier = Modifier.fillMaxWidth()) {
-                    Text(if (registering) "Ya tengo cuenta · Iniciar sesión" else "No tengo cuenta · Registrarme")
+                    onClick = ::enviar, modifier = Modifier.fillMaxWidth()
+                ) { Text(if (registrando) "Crear cuenta" else "Iniciar sesión") }
+                TextButton(onClick = { salirDelFormulario(onCambiarFormulario) }, modifier = Modifier.fillMaxWidth()) {
+                    Text(if (registrando) "Ya tengo cuenta · Iniciar sesión" else "No tengo cuenta · Registrarme")
                 }
             }
         }
-        TextButton(onClick = { leaveForm(onGuest) }) { Text("Explorar como invitado") }
-        if (!registering) {
+        TextButton(onClick = { salirDelFormulario(onInvitado) }) { Text("Explorar como invitado") }
+        if (!registrando) {
             Text(
                 "Enviar datos válidos abre el aviso de demostración.",
                 style = MaterialTheme.typography.bodySmall
             )
         }
     }
-    if (state.showNotice) {
+    if (estado.mostrarAviso) {
         AlertDialog(
-            onDismissRequest = { onEvent(AuthEvent.DismissNotice) },
+            onDismissRequest = { onEvent(AccesoEvento.CerrarAviso) },
             title = { Text("Demostración") },
             text = { Text("El acceso con cuenta todavía no está disponible. No se ha creado ninguna cuenta ni iniciado sesión. Puedes explorar el panel como invitado.") },
             confirmButton = {
-                TextButton(onClick = { onEvent(AuthEvent.DismissNotice); onGuest() }) { Text("Explorar panel") }
+                TextButton(onClick = { onEvent(AccesoEvento.CerrarAviso); onInvitado() }) { Text("Explorar panel") }
             },
             dismissButton = {
-                TextButton(onClick = { onEvent(AuthEvent.DismissNotice) }) { Text("Volver") }
+                TextButton(onClick = { onEvent(AccesoEvento.CerrarAviso) }) { Text("Volver") }
             }
         )
     }
 }
 
 @Composable
-private fun PasswordField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
+private fun CampoContrasena(
+    valor: String,
+    alCambiar: (String) -> Unit,
+    etiqueta: String,
     visible: Boolean,
-    onToggle: () -> Unit,
+    alAlternar: () -> Unit,
     error: Boolean,
-    message: String,
-    imeAction: ImeAction,
-    onImeAction: () -> Unit,
+    mensaje: String,
+    accionTeclado: ImeAction,
+    alAccionTeclado: () -> Unit,
     modifier: Modifier = Modifier,
-    hint: String? = null
+    pista: String? = null
 ) {
     val controlDebajo = LocalConfiguration.current.screenWidthDp < 360 ||
         LocalDensity.current.fontScale > 1.3f
     val controlVisibilidad: @Composable () -> Unit = {
         TextButton(
-            onClick = onToggle,
+            onClick = alAlternar,
             modifier = Modifier.semantics {
-                contentDescription = "${if (visible) "Ocultar" else "Mostrar"}: $label"
+                contentDescription = "${if (visible) "Ocultar" else "Mostrar"}: $etiqueta"
             }
         ) { Text(if (visible) "Ocultar" else "Mostrar") }
     }
     Column(modifier = modifier.fillMaxWidth()) {
         OutlinedTextField(
-            value = value, onValueChange = onValueChange,
-            label = { Text(label) }, singleLine = true,
+            value = valor, onValueChange = alCambiar,
+            label = { Text(etiqueta) }, singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
-                imeAction = imeAction
+                imeAction = accionTeclado
             ),
             keyboardActions = KeyboardActions(
-                onNext = { onImeAction() },
-                onDone = { onImeAction() }
+                onNext = { alAccionTeclado() },
+                onDone = { alAccionTeclado() }
             ),
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = if (controlDebajo) null else controlVisibilidad,
             isError = error,
             supportingText = {
-                if (error) Text(message)
-                else if (hint != null) Text(hint)
+                if (error) Text(mensaje)
+                else if (pista != null) Text(pista)
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -259,12 +259,12 @@ private fun PasswordField(
 
 @Preview(showBackground = true)
 @Composable
-private fun LoginPreview() {
-    MaderTimberTheme { LoginScreen(AuthUiState(), onEvent = {}, onRegister = {}, onGuest = {}) }
+private fun InicioSesionPreview() {
+    MaderTimberTheme { InicioSesionScreen(AccesoUiState(), onEvent = {}, onRegistro = {}, onInvitado = {}) }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun RegisterPreview() {
-    MaderTimberTheme { RegisterScreen(AuthUiState(), onEvent = {}, onLogin = {}, onGuest = {}) }
+private fun RegistroPreview() {
+    MaderTimberTheme { RegistroScreen(AccesoUiState(), onEvent = {}, onInicioSesion = {}, onInvitado = {}) }
 }

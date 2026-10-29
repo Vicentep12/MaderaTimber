@@ -37,10 +37,10 @@ import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.AppDatabase
 import com.duoc.madertimber.data.repository.SeleccionRepository
 import com.duoc.madertimber.data.repository.UsuarioRepository
-import com.duoc.madertimber.ui.screens.auth.LoginScreen
-import com.duoc.madertimber.ui.screens.auth.LoginViewModel
-import com.duoc.madertimber.ui.screens.auth.RegisterScreen
-import com.duoc.madertimber.ui.screens.auth.RegisterViewModel
+import com.duoc.madertimber.ui.screens.acceso.InicioSesionScreen
+import com.duoc.madertimber.ui.screens.acceso.InicioSesionViewModel
+import com.duoc.madertimber.ui.screens.acceso.RegistroScreen
+import com.duoc.madertimber.ui.screens.acceso.RegistroViewModel
 import com.duoc.madertimber.ui.screens.camara.CamaraScreen
 import com.duoc.madertimber.ui.screens.dashboard.DashboardEvent
 import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
@@ -63,11 +63,11 @@ class MainActivity : ComponentActivity() {
             SeleccionRepository(baseDatos.seleccionDao())
         )
     }
-    private val loginViewModel: LoginViewModel by viewModels {
-        viewModelFactory { initializer { LoginViewModel(usuarioRepository) } }
+    private val inicioSesionViewModel: InicioSesionViewModel by viewModels {
+        viewModelFactory { initializer { InicioSesionViewModel(usuarioRepository) } }
     }
-    private val registerViewModel: RegisterViewModel by viewModels {
-        viewModelFactory { initializer { RegisterViewModel(usuarioRepository) } }
+    private val registroViewModel: RegistroViewModel by viewModels {
+        viewModelFactory { initializer { RegistroViewModel(usuarioRepository) } }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
-                AppNavigation(loginViewModel, registerViewModel, dashboardViewModel)
+                AppNavigation(inicioSesionViewModel, registroViewModel, dashboardViewModel)
             }
         }
     }
@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
 
 // Nombres de las rutas y funciones para armar las que llevan datos
 object Rutas {
-    const val LOGIN = "login"
+    const val INICIO_SESION = "inicio_sesion"
     const val REGISTRO = "registro"
     const val DASHBOARD = "dashboard"
     const val CAMARA = "camara"
@@ -115,21 +115,21 @@ object Rutas {
 // Define todas las pantallas de la app y cómo se pasa de una a otra
 @Composable
 fun AppNavigation(
-    loginViewModel: LoginViewModel,
-    registerViewModel: RegisterViewModel,
+    inicioSesionViewModel: InicioSesionViewModel,
+    registroViewModel: RegistroViewModel,
     dashboardViewModel: DashboardViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
     fun limpiarAcceso() {
-        loginViewModel.reset()
-        registerViewModel.reset()
+        inicioSesionViewModel.reiniciar()
+        registroViewModel.reiniciar()
     }
 
     fun abrirDashboard() {
         limpiarAcceso()
         navController.navigate(Rutas.DASHBOARD) {
-            popUpTo(Rutas.LOGIN) { inclusive = false }
+            popUpTo(Rutas.INICIO_SESION) { inclusive = false }
             launchSingleTop = true
         }
     }
@@ -146,27 +146,27 @@ fun AppNavigation(
     Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Rutas.LOGIN,
+            startDestination = Rutas.INICIO_SESION,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Rutas.LOGIN) {
-                LoginScreen(
-                    state = loginViewModel.uiState,
-                    onEvent = loginViewModel::onEvent,
-                    onRegister = {
+            composable(Rutas.INICIO_SESION) {
+                InicioSesionScreen(
+                    estado = inicioSesionViewModel.uiState,
+                    onEvent = inicioSesionViewModel::onEvent,
+                    onRegistro = {
                         limpiarAcceso()
                         navController.navigate(Rutas.REGISTRO)
                     },
-                    onGuest = ::abrirDashboard
+                    onInvitado = ::abrirDashboard
                 )
             }
             composable(Rutas.REGISTRO) {
-                BackHandler(enabled = !registerViewModel.uiState.showNotice, onBack = ::salir)
-                RegisterScreen(
-                    state = registerViewModel.uiState,
-                    onEvent = registerViewModel::onEvent,
-                    onLogin = ::salir,
-                    onGuest = ::abrirDashboard
+                BackHandler(enabled = !registroViewModel.uiState.mostrarAviso, onBack = ::salir)
+                RegistroScreen(
+                    estado = registroViewModel.uiState,
+                    onEvent = registroViewModel::onEvent,
+                    onInicioSesion = ::salir,
+                    onInvitado = ::abrirDashboard
                 )
             }
             composable(Rutas.DASHBOARD) {

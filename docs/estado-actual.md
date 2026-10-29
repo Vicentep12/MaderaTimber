@@ -2,6 +2,10 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Nombres en español en el acceso - 2026-10-29
+
+Las clases y campos del login y registro pasaron a español: `ui/screens/acceso` (`AccesoScreen.kt`, `AccesoViewModel.kt`), `AccesoUiState`, `AccesoEvento`, `AccesoValidador`, `AccesoErrores`, `InicioSesionViewModel`, `RegistroViewModel`, `InicioSesionScreen` y `RegistroScreen`. La ruta `login` pasó a `inicio_sesion`. Las menciones anteriores a los nombres en inglés en este documento y en `plan-implementacion.md` son históricas.
+
 ## Room en el login y comentarios - 2026-10-29
 
 Por la pauta del profesor, el login y el registro guardan nombre y correo en Room (`UsuarioRoom.kt`) tras un envío válido; el login vuelve a mostrar el último correo. La contraseña no se guarda. La base pasó a ser única (`AppDatabase.kt`, archivo `madertimber.db`), por lo que la selección guardada antes en `seleccion-panel.db` no se migra. Se eliminaron `tieneIdsDuplicados` y `tieneProyectosConLineaInexistente`, que no se usaban, y se añadieron comentarios cortos en las funciones clave. Pendiente: probar en el dispositivo que el correo reaparece tras cerrar y abrir la app.
