@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                             )
                             "lista-publicaciones" -> ListaPublicacionesScreen(
                                 onVolverClick = {navigateTo("dashboard")},
-                                onPublicacionClick = {navigateTo("dashboard")},
+                                onPublicacionClick = {navigateTo("ficha-publicacion")},
                                 modifier = modifier
 
                             )
