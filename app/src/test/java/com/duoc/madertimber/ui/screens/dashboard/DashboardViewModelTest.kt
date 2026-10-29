@@ -73,6 +73,37 @@ class DashboardViewModelTest {
     }
 
     @Test
+    fun aplicaAmbosFiltrosDeUnaVezYLosRestauraSinCambiarLaMetrica() = ejecutar {
+        val guardado = SavedStateHandle()
+        val repositorio = LocalPanelRepository { StringReader(datosDePrueba()) }
+        val modelo = DashboardViewModel(guardado, repositorio, StandardTestDispatcher(testScheduler))
+        advanceUntilIdle()
+        modelo.onEvent(DashboardEvent.MetricaComparada(TipoIndicador.IMPACTO_ESTIMADO))
+
+        modelo.onEvent(DashboardEvent.FiltrosAplicados("L2", 2023))
+        assertEquals("L2", modelo.uiState.lineaId)
+        assertEquals(2023, modelo.uiState.anio)
+        assertEquals(EstadoDashboard.SIN_COBERTURA, modelo.uiState.estado)
+        assertEquals(TipoIndicador.IMPACTO_ESTIMADO, modelo.uiState.tipoComparacion)
+        assertEquals("L2", guardado.get<String>("dashboard.lineaId"))
+        assertEquals(2023, guardado.get<Int>("dashboard.anio"))
+
+        modelo.onEvent(DashboardEvent.FiltrosAplicados("L9", 2024))
+        assertEquals("L2", modelo.uiState.lineaId)
+        assertEquals(2023, modelo.uiState.anio)
+
+        val restaurado = DashboardViewModel(
+            guardado,
+            LocalPanelRepository { StringReader(datosDePrueba()) },
+            StandardTestDispatcher(testScheduler)
+        )
+        advanceUntilIdle()
+        assertEquals("L2", restaurado.uiState.lineaId)
+        assertEquals(2023, restaurado.uiState.anio)
+        assertEquals(TipoIndicador.IMPACTO_ESTIMADO, restaurado.uiState.tipoComparacion)
+    }
+
+    @Test
     fun restauraSeleccionGuardadaYPreparaIndicadorYRelacionados() = ejecutar {
         val guardado = SavedStateHandle(mapOf(
             "dashboard.lineaId" to "L1",

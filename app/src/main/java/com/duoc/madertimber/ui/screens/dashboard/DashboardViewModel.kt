@@ -57,6 +57,7 @@ data class DashboardUiState(
 sealed interface DashboardEvent {
     data class LineaSeleccionada(val id: String) : DashboardEvent
     data class AnioSeleccionado(val anio: Int) : DashboardEvent
+    data class FiltrosAplicados(val lineaId: String, val anio: Int) : DashboardEvent
     data class MetricaComparada(val tipo: TipoIndicador) : DashboardEvent
     data class IndicadorSeleccionado(val tipo: TipoIndicador) : DashboardEvent
     data object ReintentarCarga : DashboardEvent
@@ -100,6 +101,14 @@ class DashboardViewModel(
                 if (evento.anio !in uiState.aniosDisponibles) return
                 guardado[CLAVE_ANIO] = evento.anio
                 uiState = uiState.copy(anio = evento.anio)
+            }
+            is DashboardEvent.FiltrosAplicados -> {
+                if (uiState.lineas.none { it.id == evento.lineaId } ||
+                    evento.anio !in uiState.aniosDisponibles
+                ) return
+                guardado[CLAVE_LINEA] = evento.lineaId
+                guardado[CLAVE_ANIO] = evento.anio
+                uiState = uiState.copy(lineaId = evento.lineaId, anio = evento.anio)
             }
             is DashboardEvent.MetricaComparada -> {
                 guardado[CLAVE_COMPARACION] = evento.tipo.name

@@ -2,13 +2,19 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Filtros modales — T08 — 2026-10-29
+
+Rama `main`, HEAD `29f9459` y árbol limpio antes de T08. El dashboard abre `FiltrosPanelDialog` con las líneas y años disponibles y la selección actual. Los cambios dentro del modal permanecen en un borrador local: Cancelar o cerrar con Atrás lo descarta. Aplicar emite un solo evento `FiltrosAplicados` con línea y año; `DashboardViewModel` valida ambos valores, los guarda en `SavedStateHandle` y actualiza la consulta. La métrica comparada permanece intacta. Los filtros rápidos de T07 siguen disponibles.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --quiet --max-workers=2`, **salida 0**. Los resultados JVM registran **50 pruebas, 0 fallos y 0 errores**. En emulador Pixel_10_Pro API 37, `:app:connectedDebugAndroidTest --quiet --max-workers=2` pasó **5 pruebas, 0 fallos y 0 errores**. Las pruebas nuevas comprueban Cancelar, Atrás y Aplicar, el filtro efectivo en detalle, el regreso al panel y la recreación de actividad; una prueba del ViewModel comprueba la restauración conjunta de línea, año y métrica. Esta comprobación no incluye todavía la persistencia entre sesiones, prevista para T18. T08 está implementada en el árbol local y pendiente de commit; sigue T09.
+
 ## Dashboard y comparación — T07 — 2026-10-29
 
 Rama `main`, HEAD `c372e32` y árbol limpio antes de T07. `DashboardScreen` incorpora una imagen local de investigación en madera con descripción accesible, controles rápidos de línea/año que pueden ocultarse, transición animada de los valores de las tarjetas y animación de las barras al cambiar métrica o año. Las barras anuncian línea, métrica, año, valor y selección; una línea sin valor muestra “Sin datos” sin dibujar una barra de cero. Conserva las cinco métricas, cuatro tarjetas calculadas y acceso al detalle. El modal con aplicar/cancelar sigue en T08.
 
 Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. En emulador Pixel_10_Pro API 37, `:app:connectedDebugAndroidTest` pasó **3 pruebas, 0 fallos y 0 errores**, incluidas la navegación T06 y la accesibilidad/evento del dashboard. Se abrió la app como invitado y se revisaron capturas: la imagen se ve en el panel, y al cambiar la comparación de proyectos a publicaciones se actualizan las tres barras y la unidad sin cambiar las tarjetas de la línea seleccionada. La transición está implementada y se ejercitó en el emulador; las capturas son estados puntuales, no una medición de fotogramas o rendimiento.
 
-El primer intento de pruebas Android falló antes de abrir las pantallas porque Espresso 3.5.1 buscó por reflexión `InputManager.getInstance`, ausente en el emulador. Se actualizó solo la dependencia de pruebas a Espresso 3.7.0; las [notas oficiales de AndroidX](https://developer.android.com/jetpack/androidx/releases/test) registran la corrección de ese acceso. La repetición terminó correctamente. T07 está implementada en el árbol local y pendiente de commit; T08 es el siguiente incremento.
+El primer intento de pruebas Android falló antes de abrir las pantallas porque Espresso 3.5.1 buscó por reflexión `InputManager.getInstance`, ausente en el emulador. Se actualizó solo la dependencia de pruebas a Espresso 3.7.0; las [notas oficiales de AndroidX](https://developer.android.com/jetpack/androidx/releases/test) registran la corrección de ese acceso. La repetición terminó correctamente. T07 quedó versionada en `29f9459`; el estado posterior de T08 se registra arriba.
 
 ## Navegación del panel — T06 — 2026-10-29
 

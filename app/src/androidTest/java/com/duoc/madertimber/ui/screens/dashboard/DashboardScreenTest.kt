@@ -1,11 +1,13 @@
 package com.duoc.madertimber.ui.screens.dashboard
 
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.espresso.Espresso
 import com.duoc.madertimber.data.model.LineaInvestigacion
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -52,6 +54,48 @@ class DashboardScreenTest {
         composeRule.onNodeWithText("Biomateriales de madera").performScrollTo().performClick()
         composeRule.runOnIdle {
             assertEquals(DashboardEvent.LineaSeleccionada("L2"), ultimoEvento)
+        }
+    }
+
+    @Test
+    fun modalDescartaCambiosAlCancelarOCerrarYAplicaAmbosFiltrosJuntos() {
+        val lineas = listOf(
+            LineaInvestigacion("L1", "Construcción sustentable", "A", "#008000"),
+            LineaInvestigacion("L2", "Biomateriales de madera", "B", "#008000"),
+            LineaInvestigacion("L3", "Procesos industriales", "C", "#008000")
+        )
+        val eventos = mutableListOf<DashboardEvent>()
+        composeRule.setContent {
+            DashboardScreen(
+                state = DashboardUiState(
+                    estado = EstadoDashboard.LISTO,
+                    lineaId = "L1",
+                    lineas = lineas,
+                    anio = 2024,
+                    aniosDisponibles = listOf(2022, 2023, 2024)
+                ),
+                onEvent = { eventos.add(it) }
+            )
+        }
+
+        composeRule.onNodeWithText("Filtros").performClick()
+        composeRule.onNodeWithTag("filtro-linea-L2").performClick()
+        composeRule.onNodeWithTag("filtro-anio-2023").performClick()
+        composeRule.onNodeWithText("Cancelar").performClick()
+        composeRule.runOnIdle { assertEquals(emptyList<DashboardEvent>(), eventos) }
+
+        composeRule.onNodeWithText("Filtros").performClick()
+        composeRule.onNodeWithTag("filtro-linea-L2").performClick()
+        Espresso.pressBack()
+        composeRule.onNodeWithTag("modal-filtros").assertDoesNotExist()
+        composeRule.runOnIdle { assertEquals(emptyList<DashboardEvent>(), eventos) }
+
+        composeRule.onNodeWithText("Filtros").performClick()
+        composeRule.onNodeWithTag("filtro-linea-L2").performClick()
+        composeRule.onNodeWithTag("filtro-anio-2023").performClick()
+        composeRule.onNodeWithTag("filtro-aplicar").performClick()
+        composeRule.runOnIdle {
+            assertEquals(listOf(DashboardEvent.FiltrosAplicados("L2", 2023)), eventos)
         }
     }
 }

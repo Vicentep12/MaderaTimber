@@ -14,7 +14,7 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/AndroidManifest.xml | Launcher MainActivity, configuración de ventana y backup. |
 | app/src/main/java/com/duoc/madertimber/MainActivity.kt | Actividad, tema e inicialización de los ViewModels; entrega el flujo a AppNavigation. |
 | app/src/main/java/com/duoc/madertimber/ui/navigation/ | Rutas, argumentos y NavHost; conecta acceso, dashboard, detalles, contenidos relacionados y fichas, con regreso y error para argumentos inválidos. |
-| app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt | Vista del panel: renderiza DashboardUiState, muestra imagen, tarjetas animadas, filtros rápidos, barras accesibles y estados; emite DashboardEvent sin consultar datos directamente. |
+| app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardScreen.kt y FiltrosPanelDialog.kt | Vista del panel: renderiza DashboardUiState, muestra imagen, tarjetas animadas, filtros rápidos, modal de selección, barras accesibles y estados; emite DashboardEvent sin consultar datos directamente. El modal mantiene un borrador hasta Aplicar. |
 | app/src/main/java/com/duoc/madertimber/ui/screens/dashboard/DashboardViewModel.kt | Estado observable, eventos, carga asíncrona, selección guardada y coordinación de indicadores y contenidos relacionados. |
 | app/src/main/java/com/duoc/madertimber/data/model/ | Los diez contratos de la sección 7 están versionados. `IntegridadDatos.kt` valida entidades al cargar; `CalculosIndicadores.kt` deriva métricas, históricos y variaciones desde esas entidades, sin depender de Compose. |
 | app/src/main/assets/cenamad_datos.json | Entidades sintéticas de tres líneas, cobertura declarada 2022–2024 y ninguna cifra de indicador mantenida a mano. |
@@ -26,7 +26,7 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/java/com/duoc/madertimber/model/auth/AuthValidator.kt | Reglas de validación y errores de los formularios. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
-| app/src/test/ y app/src/androidTest/ | Seis pruebas JVM de acceso, trece de integridad, ocho de T03, once de T04, seis del DashboardViewModel y ejemplos de plantilla JVM/instrumentado; sin pruebas UI del flujo. |
+| app/src/test/ y app/src/androidTest/ | Pruebas JVM de acceso, integridad, datos, cálculos, rutas y DashboardViewModel; pruebas Android del dashboard, filtros y navegación. Los resultados actuales constan en estado-actual.md. |
 
 La documentación vive en docs/. Builds, cachés y local.properties son locales por equipo.
 
@@ -34,7 +34,7 @@ La documentación vive en docs/. Builds, cachés y local.properties son locales 
 
 MainActivity activa edge-to-edge, crea los ViewModels y monta el tema. AppNavigation contiene el Scaffold y el NavHost de Navigation Compose. Inicia en LoginScreen, permite registro y entrada como invitado, y conecta dashboard → línea → indicador → relacionados → ficha. Los destinos llevan ID, año y tipo opcional; las funciones puras de `data/model/ValidacionRutasPanel.kt` comprueban contexto, indicador y ficha antes de mostrar contenido, con regreso ante error. El NavController conserva la pila y DashboardViewModel, ligado a la actividad, conserva línea, año y métrica en SavedStateHandle. Al abandonar acceso o cerrar sesión se limpian ambos formularios; contraseñas no se persisten. El acceso sigue siendo demostrativo.
 
-El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. DashboardScreen recibe DashboardUiState y emite eventos; T07 añadió una imagen local, transiciones de tarjeta y barras, controles rápidos y descripciones accesibles. DetalleLineaScreen y DetalleIndicadorScreen muestran identificación y valor reales del contexto, y la pantalla relacionada recibe listas filtradas desde el ViewModel. El filtro modal, el histórico y el contenido completo de los detalles permanecen en T08–T14. La navegación T06 y el dashboard T07 se comprobaron con pruebas Android en emulador API 37; la revisión completa de la entrega sigue pendiente.
+El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior cuando están habilitados. DashboardScreen recibe DashboardUiState y emite eventos; T07 añadió una imagen local, transiciones de tarjeta y barras, controles rápidos y descripciones accesibles. T08 añadió un modal con selección provisional de línea y año que solo envía el evento conjunto al aplicar. DetalleLineaScreen y DetalleIndicadorScreen muestran identificación y valor reales del contexto, y la pantalla relacionada recibe listas filtradas desde el ViewModel. El histórico y el contenido completo de los detalles permanecen en T09–T14. La navegación T06 y el dashboard T07–T08 se comprobaron con pruebas Android en emulador API 37; la revisión completa de la entrega sigue pendiente.
 
 ## Responsabilidades objetivo
 
@@ -48,4 +48,4 @@ El tema utiliza modo oscuro/claro y colores dinámicos en Android 12 o superior 
 
 La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. Room es requisito de la entrega y se incorporará para persistir la selección mediante Repository; casos de uso e Hilt siguen siendo opcionales.
 
-El acceso demostrativo separa View, ViewModel y reglas del modelo. El dashboard y los contenidos relacionados siguen View → ViewModel → Repository: las vistas representan estado y envían eventos, el ViewModel coordina la carga y el Repository consulta datos y cálculos. Falta comprobar el recorrido visual en Android y completar las vistas de detalle de T10–T14.
+El acceso demostrativo separa View, ViewModel y reglas del modelo. El dashboard y los contenidos relacionados siguen View → ViewModel → Repository: las vistas representan estado y envían eventos, el ViewModel coordina la carga y el Repository consulta datos y cálculos. Falta completar las vistas de detalle de T10–T14 y revisar visualmente el recorrido completo.

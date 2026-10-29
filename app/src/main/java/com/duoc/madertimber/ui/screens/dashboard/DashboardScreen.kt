@@ -61,6 +61,20 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     var mostrarFiltros by rememberSaveable { mutableStateOf(true) }
+    var modalFiltrosVisible by rememberSaveable { mutableStateOf(false) }
+    if (modalFiltrosVisible && state.estado in setOf(EstadoDashboard.LISTO, EstadoDashboard.SIN_COBERTURA)) {
+        FiltrosPanelDialog(
+            lineas = state.lineas,
+            anios = state.aniosDisponibles,
+            lineaIdActual = state.lineaId,
+            anioActual = state.anio,
+            onAplicar = { lineaId, anio ->
+                onEvent(DashboardEvent.FiltrosAplicados(lineaId, anio))
+                modalFiltrosVisible = false
+            },
+            onCancelar = { modalFiltrosVisible = false }
+        )
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -88,11 +102,22 @@ fun DashboardScreen(
                 }
             }
             EstadoDashboard.LISTO, EstadoDashboard.SIN_COBERTURA -> {
-                OutlinedButton(
-                    onClick = { mostrarFiltros = !mostrarFiltros },
-                    modifier = Modifier.fillMaxWidth()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(if (mostrarFiltros) "Ocultar filtros" else "Cambiar filtros")
+                    Button(
+                        onClick = { modalFiltrosVisible = true },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Filtros")
+                    }
+                    OutlinedButton(
+                        onClick = { mostrarFiltros = !mostrarFiltros },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(if (mostrarFiltros) "Ocultar rápidos" else "Mostrar rápidos")
+                    }
                 }
                 if (mostrarFiltros) {
                     Text("Filtros rápidos", style = MaterialTheme.typography.titleMedium)
