@@ -19,6 +19,7 @@ import com.google.gson.stream.JsonToken
 import java.io.Reader
 
 object LectorDatosPanel {
+    // Lee el JSON y arma los modelos revisando que los datos sean correctos
     fun leer(entrada: Reader): DatosPanel {
         val lectorJson = JsonReader(entrada).apply { strictness = Strictness.STRICT }
         val raiz = JsonParser.parseReader(lectorJson).comoObjeto("raíz")

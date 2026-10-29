@@ -15,7 +15,7 @@ data class ErrorIntegridadDatos(
     val detalle: String
 )
 
-/** Comprueba las relaciones y restricciones de los modelos antes de usar un conjunto de datos. */
+// Revisa que las relaciones entre los datos sean correctas antes de usarlos
 fun validarIntegridadDatos(
     lineas: List<LineaInvestigacion>,
     proyectos: List<Proyecto>,
@@ -125,24 +125,5 @@ private fun <T> registrarIdsDuplicados(
         if (!ids.add(id)) {
             errores += ErrorIntegridadDatos(TipoErrorIntegridad.ID_DUPLICADO, "$entidad $id")
         }
-    }
-}
-
-fun tieneIdsDuplicados(lineas: List<LineaInvestigacion>): Boolean {
-
-    val ids = lineas.map { it.id }
-    val idsUnicos = ids.distinct()
-
-    return ids.size != idsUnicos.size
-}
-
-fun tieneProyectosConLineaInexistente(
-    proyectos: List<Proyecto>,
-    lineas: List<LineaInvestigacion>
-): Boolean {
-    val idsLineas = lineas.map { it.id }
-
-    return proyectos.any { proyecto ->
-        proyecto.lineaId !in idsLineas
     }
 }

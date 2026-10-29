@@ -2,6 +2,7 @@ package com.duoc.madertimber.data.model
 
 enum class CategoriaRelacionada { PROYECTOS, INVESTIGADORES, PUBLICACIONES }
 
+// Qué listas se muestran según el indicador: proyectos, investigadores o publicaciones
 fun categoriasRelacionadas(tipo: TipoIndicador?): List<CategoriaRelacionada> = when (tipo) {
     null, TipoIndicador.IMPACTO_ESTIMADO -> CategoriaRelacionada.entries
     TipoIndicador.PROYECTOS_ACTIVOS, TipoIndicador.AVANCE_PROMEDIO ->
@@ -12,6 +13,7 @@ fun categoriasRelacionadas(tipo: TipoIndicador?): List<CategoriaRelacionada> = w
         listOf(CategoriaRelacionada.PUBLICACIONES)
 }
 
+// Devuelve un mensaje de error si la línea o el año de la ruta no existen; si está bien, null
 fun validarContextoRuta(
     lineaId: String?,
     anio: Int?,
@@ -29,6 +31,7 @@ fun validarContextoRuta(
     else -> null
 }
 
+// Error si el indicador de la ruta no existe en esta línea
 fun validarIndicadorRuta(indicadorId: String?, indicadores: List<IndicadorCalculado>): String? =
     if (indicadorId == null || indicadores.none { it.indicador.id == indicadorId }) {
         "El indicador solicitado no existe para esta línea."
@@ -36,6 +39,7 @@ fun validarIndicadorRuta(indicadorId: String?, indicadores: List<IndicadorCalcul
         null
     }
 
+// Error si la ficha pedida no existe o no corresponde al indicador
 fun validarFichaRuta(
     categoria: CategoriaRelacionada?,
     itemId: String?,

@@ -12,7 +12,7 @@ data class HistoricoIndicador(
     val puntos: List<PuntoHistorico>
 )
 
-/** Prepara el eje anual sin convertir años ausentes en valores cero. */
+// Prepara los años del gráfico; si falta un año queda sin dato, no como cero
 fun prepararHistorico(
     indicador: IndicadorCalculado,
     aniosDisponibles: List<Int>

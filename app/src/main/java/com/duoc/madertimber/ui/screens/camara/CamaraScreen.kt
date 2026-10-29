@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import java.io.File
 
+// Pantalla de la cámara: pide el permiso, abre la cámara y muestra la foto tomada
 @Composable
 fun CamaraScreen(onVolverClick: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -46,6 +47,7 @@ fun CamaraScreen(onVolverClick: () -> Unit, modifier: Modifier = Modifier) {
         mensaje = if (exito) null else "No se tomó la foto."
     }
 
+    // Crea un archivo temporal en la caché y se lo pasa a la cámara con FileProvider
     fun abrirCamara() {
         try {
             val archivo = File.createTempFile("madertimber_foto", ".jpg", context.cacheDir)
@@ -63,6 +65,7 @@ fun CamaraScreen(onVolverClick: () -> Unit, modifier: Modifier = Modifier) {
         if (concedido) abrirCamara() else mensaje = "Permiso de cámara denegado. Actívalo en los ajustes para tomar fotos."
     }
 
+    // Si ya hay permiso abre la cámara; si no, lo pide primero
     fun solicitarCamara() {
         mensaje = null
         val permiso = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
@@ -70,6 +73,7 @@ fun CamaraScreen(onVolverClick: () -> Unit, modifier: Modifier = Modifier) {
         else pedirPermiso.launch(Manifest.permission.CAMERA)
     }
 
+    // Carga la foto en tamaño reducido para no gastar tanta memoria
     val imagen = remember(fotoUri, fotoTomada) {
         val uri = fotoUri
         if (!fotoTomada || uri == null) {

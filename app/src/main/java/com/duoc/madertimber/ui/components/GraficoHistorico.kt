@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.duoc.madertimber.data.model.HistoricoIndicador
 import java.util.Locale
 
+// Gráfico de línea con la evolución del indicador año a año
 @Composable
 fun GraficoHistorico(
     historico: HistoricoIndicador,

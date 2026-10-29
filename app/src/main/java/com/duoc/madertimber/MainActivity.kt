@@ -19,7 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavType
@@ -33,8 +34,9 @@ import com.duoc.madertimber.data.model.validarContextoRuta
 import com.duoc.madertimber.data.model.validarFichaRuta
 import com.duoc.madertimber.data.model.validarIndicadorRuta
 import com.duoc.madertimber.data.repository.LocalPanelRepository
-import com.duoc.madertimber.data.repository.SeleccionDatabase
+import com.duoc.madertimber.data.repository.AppDatabase
 import com.duoc.madertimber.data.repository.SeleccionRepository
+import com.duoc.madertimber.data.repository.UsuarioRepository
 import com.duoc.madertimber.ui.screens.auth.LoginScreen
 import com.duoc.madertimber.ui.screens.auth.LoginViewModel
 import com.duoc.madertimber.ui.screens.auth.RegisterScreen
@@ -52,17 +54,24 @@ import com.duoc.madertimber.ui.screens.relacionados.RelacionadosScreen
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 
 class MainActivity : ComponentActivity() {
+    private val baseDatos by lazy { AppDatabase.obtener(applicationContext) }
+    private val usuarioRepository by lazy { UsuarioRepository(baseDatos.usuarioDao()) }
+
     private val dashboardViewModel: DashboardViewModel by viewModels {
         DashboardViewModel.factory(
             LocalPanelRepository(applicationContext),
-            SeleccionRepository(SeleccionDatabase.obtener(applicationContext).seleccionDao())
+            SeleccionRepository(baseDatos.seleccionDao())
         )
+    }
+    private val loginViewModel: LoginViewModel by viewModels {
+        viewModelFactory { initializer { LoginViewModel(usuarioRepository) } }
+    }
+    private val registerViewModel: RegisterViewModel by viewModels {
+        viewModelFactory { initializer { RegisterViewModel(usuarioRepository) } }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        val registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
@@ -72,6 +81,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Nombres de las rutas y funciones para armar las que llevan datos
 object Rutas {
     const val LOGIN = "login"
     const val REGISTRO = "registro"
@@ -102,6 +112,7 @@ object Rutas {
         (tipo?.let { "?tipo=${it.name}" } ?: "")
 }
 
+// Define todas las pantallas de la app y cómo se pasa de una a otra
 @Composable
 fun AppNavigation(
     loginViewModel: LoginViewModel,
@@ -204,6 +215,7 @@ private fun NavBackStackEntry.texto(nombre: String): String? = arguments?.getStr
 
 private fun NavBackStackEntry.anio(): Int? = texto("anio")?.toIntOrNull()
 
+// Error si el tipo de la ruta no es válido o ya no coincide con el seleccionado
 private fun errorDeTipo(tipoTexto: String?, tipo: TipoIndicador?, estado: DashboardUiState): String? = when {
     tipoTexto != null && tipo == null -> "El tipo de indicador no es válido."
     tipo != null && tipo != estado.tipoIndicador -> "La selección cambió. Vuelve al panel."
@@ -364,6 +376,7 @@ private fun DestinoFicha(
     }
 }
 
+// Muestra carga o error según el estado; la pantalla solo se ve si la línea y el año de la ruta son válidos
 @Composable
 private fun ContenidoContextual(
     estado: DashboardUiState,
@@ -388,6 +401,7 @@ private fun ContenidoContextual(
     }
 }
 
+// Pantalla simple con el mensaje de error y el botón Volver
 @Composable
 private fun ErrorRutaScreen(mensaje: String, onVolver: () -> Unit) {
     Column(

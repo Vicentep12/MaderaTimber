@@ -86,6 +86,7 @@ sealed interface DashboardEvent {
     data object ReintentarCarga : DashboardEvent
 }
 
+// Guarda el estado del dashboard (línea, año y filtros) y decide qué se muestra
 class DashboardViewModel(
     private val guardado: SavedStateHandle,
     private val repositorio: LocalPanelRepository,
@@ -107,6 +108,7 @@ class DashboardViewModel(
     )
         private set
 
+    // Arranca la cola que guarda la selección en Room y carga los datos
     init {
         viewModelScope.launch(dispatcherCarga) {
             for (seleccion in escrituras) {
@@ -122,6 +124,7 @@ class DashboardViewModel(
         cargar()
     }
 
+    // Recibe lo que hace el usuario en la pantalla y actualiza el estado
     fun onEvent(evento: DashboardEvent) {
         if (evento == DashboardEvent.ReintentarCarga) {
             cargar()
@@ -170,6 +173,7 @@ class DashboardViewModel(
         ) guardarSeleccion()
     }
 
+    // Primero lee la selección guardada en Room y después carga los datos del JSON
     private fun cargar() {
         carga?.cancel()
         uiState = uiState.copy(estado = EstadoDashboard.CARGANDO, mensaje = null)
@@ -225,6 +229,7 @@ class DashboardViewModel(
         }
     }
 
+    // Revisa que la línea y el año elegidos existan; si no, usa unos por defecto
     private fun prepararDatos(resultado: EstadoCargaPanel.Listo) {
         val datos = resultado.datos
         val lineas = datos.lineas
@@ -248,12 +253,14 @@ class DashboardViewModel(
         guardarSeleccion()
     }
 
+    // Manda la selección a la cola para guardarla en Room sin trabar la pantalla
     private fun guardarSeleccion() {
         val lineaId = uiState.lineaId ?: return
         escrituras.trySend(SeleccionGuardada(lineaId = lineaId, anio = uiState.anio,
             metrica = uiState.tipoComparacion.name))
     }
 
+    // Vuelve a calcular indicadores, comparación y listas con la selección actual
     private fun actualizarConsulta() {
         val lineaId = uiState.lineaId ?: return
         val consulta = repositorio.consultarIndicadores(lineaId, uiState.anio)
@@ -301,6 +308,7 @@ class DashboardViewModel(
         }
     }
 
+    // Trae proyectos, investigadores y publicaciones; devuelve null si no se pudo consultar
     private fun consultarRelacionados(
         lineaId: String,
         tipo: TipoIndicador? = null
@@ -310,6 +318,7 @@ class DashboardViewModel(
         else -> null
     }
 
+    // Arma las barras del gráfico; la línea con el valor más alto queda al 100 %
     private fun compararLineas(): List<BarraIndicador> {
         val valores = uiState.lineas.map { linea ->
             val consulta = repositorio.consultarIndicadores(linea.id, uiState.anio)
@@ -333,6 +342,7 @@ class DashboardViewModel(
         }
     }
 
+    // Recupera el tipo de indicador guardado; si no hay, usa proyectos activos
     private fun tipoGuardado(clave: String): TipoIndicador {
         val nombre: String? = guardado[clave]
         return TipoIndicador.entries.find { it.name == nombre }

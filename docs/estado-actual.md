@@ -2,6 +2,10 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Room en el login y comentarios - 2026-10-29
+
+Por la pauta del profesor, el login y el registro guardan nombre y correo en Room (`UsuarioRoom.kt`) tras un envío válido; el login vuelve a mostrar el último correo. La contraseña no se guarda. La base pasó a ser única (`AppDatabase.kt`, archivo `madertimber.db`), por lo que la selección guardada antes en `seleccion-panel.db` no se migra. Se eliminaron `tieneIdsDuplicados` y `tieneProyectosConLineaInexistente`, que no se usaban, y se añadieron comentarios cortos en las funciones clave. Pendiente: probar en el dispositivo que el correo reaparece tras cerrar y abrir la app.
+
 ## Limpieza de código sin uso - 2026-10-29
 
 Se eliminaron las maquetas previas de listas y fichas (`ui/screens/proyectos`, `investigadores` y `publicaciones`, seis archivos) y el marcador vacío `SeleccionFiltros.kt`. Ningún archivo del flujo las usaba: las listas y fichas reales están en `ui/screens/relacionados/RelacionadosScreen.kt`. Las menciones anteriores a esas maquetas en este documento son históricas. Además, `AuthValidator` pasó de `model/auth` a `data/model` (una sola carpeta de modelo) y `AppNavigation` en `MainActivity.kt` se dividió en funciones por destino (`DestinoDashboard`, `DestinoLinea`, `DestinoIndicador`, `DestinoRelacionados`, `DestinoFicha`) con ayudantes comunes para argumentos y validación del tipo; el comportamiento no cambia. Pendiente: compilar en Android Studio para confirmar que no quedó ninguna referencia.

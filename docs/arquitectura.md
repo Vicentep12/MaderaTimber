@@ -27,7 +27,9 @@ Un módulo Android :app. Archivos principales, relativos a la raíz Git:
 | app/src/main/java/com/duoc/madertimber/data/model/AuthValidator.kt | Reglas de validación y errores de los formularios. |
 | app/src/main/java/com/duoc/madertimber/ui/theme/ | Paletas, tipografía y tema Compose. |
 | app/src/main/res/ | Recursos de ventana, etiqueta, iconos y backup de plantilla. |
-| app/src/main/java/com/duoc/madertimber/data/repository/SeleccionRoom.kt | Entidad, DAO, base Room y SeleccionRepository para guardar la última línea, año y métrica de comparación. MainActivity entrega el repositorio a DashboardViewModel. |
+| app/src/main/java/com/duoc/madertimber/data/repository/AppDatabase.kt | Base Room única (`madertimber.db`) con las tablas de selección y de usuario. |
+| app/src/main/java/com/duoc/madertimber/data/repository/SeleccionRoom.kt | Entidad, DAO y SeleccionRepository para guardar la última línea, año y métrica de comparación. MainActivity entrega el repositorio a DashboardViewModel. |
+| app/src/main/java/com/duoc/madertimber/data/repository/UsuarioRoom.kt | Entidad, DAO y UsuarioRepository para guardar nombre y correo del usuario; nunca la contraseña. Los ViewModels de login y registro lo reciben desde MainActivity. |
 
 La documentación vive en docs/. Builds, cachés y local.properties son locales por equipo.
 
@@ -47,6 +49,6 @@ El tema utiliza modo oscuro/claro y una paleta verde fija alineada con la refere
 | JSON en assets | Entidades sintéticas y cobertura temporal declarada. |
 | Navegación | Transmitir IDs/año/tipo válidos y conservar el contexto del flujo. |
 
-La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. `SeleccionRepository` utiliza Room para persistir línea, año y métrica; DashboardViewModel coordina la recuperación y la escritura. La validación de T18 sigue en curso. Casos de uso e Hilt siguen siendo opcionales.
+La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. `SeleccionRepository` utiliza Room para persistir línea, año y métrica; DashboardViewModel coordina la recuperación y la escritura. `UsuarioRepository` guarda nombre y correo tras un login o registro válido, y el login vuelve a escribir el último correo; la contraseña no se persiste. La validación de T18 sigue en curso. Casos de uso e Hilt siguen siendo opcionales.
 
 El acceso demostrativo separa View, ViewModel y reglas del modelo. El dashboard y los contenidos relacionados siguen View → ViewModel → Repository: las vistas representan estado y envían eventos, el ViewModel coordina la carga y el Repository consulta datos y cálculos. La revisión visual de T15 está completada; faltan los casos integrados de T16 y los requisitos restantes de entrega.

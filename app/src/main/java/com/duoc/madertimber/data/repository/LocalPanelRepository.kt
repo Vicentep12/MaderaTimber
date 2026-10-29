@@ -39,6 +39,7 @@ sealed interface ResultadoIndicadoresPanel {
     data class Error(val mensaje: String) : ResultadoIndicadoresPanel
 }
 
+// Lee el JSON de assets y responde las consultas de la pantalla
 class LocalPanelRepository(private val abrirDatos: () -> Reader) {
     constructor(context: Context) : this({
         context.assets.open(ARCHIVO_DATOS).bufferedReader(Charsets.UTF_8)
@@ -46,6 +47,7 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
 
     private var estado: EstadoCargaPanel = EstadoCargaPanel.Cargando
 
+    // Abre el JSON y deja guardado si quedó listo, vacío o con error
     fun cargar(): EstadoCargaPanel {
         estado = EstadoCargaPanel.Cargando
         estado = try {
@@ -57,6 +59,7 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
         return estado
     }
 
+    // Junta proyectos, investigadores y publicaciones de una línea y año; avisa si ese año no tiene datos
     fun consultar(lineaId: String, anio: Int): ResultadoConsultaPanel {
         return when (val actual = estado) {
             EstadoCargaPanel.Cargando -> ResultadoConsultaPanel.Cargando
@@ -93,6 +96,7 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
         }
     }
 
+    // Calcula los indicadores de una línea y año, o avisa si ese año no tiene cobertura
     fun consultarIndicadores(lineaId: String, anio: Int): ResultadoIndicadoresPanel {
         return when (val actual = estado) {
             EstadoCargaPanel.Cargando -> ResultadoIndicadoresPanel.Cargando
@@ -115,6 +119,7 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
         }
     }
 
+    // Igual que consultar, pero deja solo lo que corresponde al indicador elegido
     fun consultarRelacionados(
         lineaId: String,
         anio: Int,

@@ -12,6 +12,7 @@ data class AuthErrors(
 }
 
 object AuthValidator {
+    // Marca cada campo con error; nombre, largo de la clave y confirmación solo se revisan al registrarse
     fun validate(
         registering: Boolean,
         name: String,

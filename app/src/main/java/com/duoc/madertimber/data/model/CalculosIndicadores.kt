@@ -19,7 +19,7 @@ data class IndicadorCalculado(
         get() = indicador.valores.filter { it.anio <= anioSeleccionado }
 }
 
-/** Deriva indicadores desde entidades validadas; no guarda conteos independientes. */
+// Calcula los cinco indicadores desde los datos, sin guardar conteos aparte
 fun calcularIndicadores(datos: DatosPanel, lineaId: String, anioSeleccionado: Int): List<IndicadorCalculado> {
     val anios = datos.coberturaPorLinea[lineaId].orEmpty().sorted()
     val resumenes = anios.associateWith { anio -> resumirAnio(datos, lineaId, anio) }
@@ -48,6 +48,7 @@ fun calcularIndicadores(datos: DatosPanel, lineaId: String, anioSeleccionado: In
     }
 }
 
+// Cambio respecto al año anterior: en puntos si es avance y en porcentaje en el resto
 fun calcularVariacion(tipo: TipoIndicador, actual: Double?, anterior: Double?): VariacionIndicador {
     if (actual == null || anterior == null) return VariacionIndicador.SinComparacion
     if (tipo == TipoIndicador.AVANCE_PROMEDIO) {
@@ -63,6 +64,7 @@ private data class ResumenAnual(
     val investigadores: Int,
     val avancePromedio: Double?
 ) {
+    // Valor de cada indicador; el impacto estimado es un índice demostrativo con pesos fijos
     fun valor(tipo: TipoIndicador): Double? = when (tipo) {
         TipoIndicador.PROYECTOS_ACTIVOS -> proyectosActivos.toDouble()
         TipoIndicador.PUBLICACIONES_GENERADAS -> publicaciones.toDouble()
@@ -97,6 +99,7 @@ private fun resumirAnio(datos: DatosPanel, lineaId: String, anio: Int): ResumenA
     )
 }
 
+// Proyectos de la línea que estuvieron activos ese año
 fun proyectosActivos(proyectos: List<Proyecto>, lineaId: String, anio: Int): List<Proyecto> =
     proyectos.filter { proyecto ->
         proyecto.lineaId == lineaId && proyecto.seguimientos.any {
