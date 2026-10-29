@@ -21,7 +21,7 @@
 
 - Mantener estilo Kotlin oficial, cuatro espacios, composables con Modifier cuando corresponda y rutas existentes bajo src/.../java/.
 - Declarar versiones en gradle/libs.versions.toml y utilizar el Wrapper. El proyecto usa Kotlin integrado en AGP; no añadir otro plugin Kotlin Android por asumir que falta.
-- Ejecutar comprobaciones pertinentes al código/build modificado; incorporar pruebas de comportamiento cuando exista funcionalidad. Comandos en README.
+- Ejecutar comprobaciones pertinentes al código/build modificado (compilación, Lint y revisión en Android). Desde el 2026-10-29 el repositorio no incluye pruebas automatizadas, por instrucción del usuario; no añadirlas salvo petición explícita. Comandos en README.
 - Para documentación, comprobar enlaces, rutas, coherencia y git diff --check. Distinguir lectura estática, ejecución reportada y comandos ejecutados; no inventar cobertura ni presentar la plantilla como MVP validado.
 - No cambiar versiones/SDK para ocultar fallos de entorno. Registrar causa y evidencia antes de proponer un cambio.
 - No publicar, hacer push, merge ni cambiar remotos sin autorización explícita. Un commit local no sincroniza otro dispositivo.

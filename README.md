@@ -44,11 +44,11 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | Compatibilidad de código Java | 11 (source/target); distinta del JDK del daemon | `app/build.gradle.kts` |
 | Compose | BOM 2026.02.01; UI, graphics, animation, preview y Material 3 | Catálogo y módulo `app` |
 | AndroidX | Core KTX 1.10.1; Lifecycle Runtime KTX 2.6.1; Activity Compose 1.8.0 | Catálogo |
-| Pruebas | JUnit 4.13.2; AndroidX JUnit 1.1.5; Espresso 3.7.0; Compose UI test | Catálogo y módulo `app` |
+| Pruebas | No incluidas: se retiraron el 29-10-2026 junto con sus librerías porque la asignatura no las exige | — |
 | Lectura JSON | Gson 2.14.0 | Catálogo y módulo `app` |
-| Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android/test 1.10.2 | Catálogo y módulo `app` |
+| Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android 1.10.2 | Catálogo y módulo `app` |
 | Navegación | Navigation Compose 2.10.2 | Catálogo y módulo `app` |
-| Persistencia | Room 2.8.5 y KSP 2.3.12 | Catálogo y módulo `app`; validación T18 en curso |
+| Persistencia | Room 2.8.5 y KSP 2.3.12 | Catálogo y módulo `app`; guarda la última selección del panel (T18) |
 | Resolución de toolchains | Foojay resolver convention 1.0.0 | `settings.gradle.kts` |
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).
@@ -76,7 +76,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
    $env:JAVA_HOME = 'C:/ruta/al/jdk-25'
    $env:ANDROID_HOME = 'C:/ruta/al/Android/Sdk'
    .\gradlew.bat --version
-   .\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain
+   .\gradlew.bat :app:assembleDebug :app:lintDebug --console=plain
    ```
 
    Estas variables duran solo esa terminal; configurar cada equipo por separado. Si se usa `ANDROID_SDK_ROOT` además de `ANDROID_HOME`, ambas deben señalar el mismo SDK.
@@ -89,24 +89,22 @@ En Linux/macOS, con JDK/SDK ya instalados:
 export JAVA_HOME=/ruta/al/jdk-25
 export ANDROID_HOME=/ruta/al/Android/Sdk
 bash ./gradlew --version
-bash ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain
+bash ./gradlew :app:assembleDebug :app:lintDebug --console=plain
 ```
 
 `gradlew` está versionado sin permiso ejecutable; `bash ./gradlew` funciona sin cambiar el índice Git. `.gitattributes` fija LF para este script y Markdown, y CRLF para el script Windows.
 
-## Compilar, probar e instalar
+## Compilar e instalar
 
 | Acción | PowerShell desde la raíz |
 | --- | --- |
 | APK debug | `.\gradlew.bat :app:assembleDebug` |
-| Prueba local de ejemplo | `.\gradlew.bat :app:testDebugUnitTest` |
 | Análisis Android Lint | `.\gradlew.bat :app:lintDebug` |
 | Instalar en dispositivo conectado | `.\gradlew.bat :app:installDebug` |
-| Prueba instrumentada | `.\gradlew.bat :app:connectedDebugAndroidTest` |
 
-APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes de pruebas: `app/build/reports/tests/`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
+APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
 
-Además de las dos pruebas de plantilla (suma e identidad del paquete), hay pruebas JVM de los ViewModels de acceso para validaciones, aviso demostrativo, estados independientes y limpieza al salir. Las dependencias Compose Test no significan que existan pruebas de la interfaz. Consultar [estado actual](docs/estado-actual.md) para los resultados realmente obtenidos.
+El repositorio no incluye pruebas automatizadas: se retiraron el 29-10-2026 porque la asignatura no las exige. La validación se hace compilando, con Lint y revisando la app en emulador o dispositivo; los resultados constan en [estado actual](docs/estado-actual.md).
 
 **Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí. La última validación Cloud registrada (18-10-2026) informa APK, siete pruebas JVM sin fallos y Lint con cero errores y 13 advertencias; no se repitió durante la revisión documental del 20-10-2026. Ejecución visual e instrumentada Cloud pendientes; detalle y procedencia en [estado actual](docs/estado-actual.md).
 
@@ -156,8 +154,8 @@ La revisión Cloud anterior registró helpers externos al checkout en /workspace
     bash /workspace/.maderatimber-env/configure-trust.sh
     source /workspace/.maderatimber-env/activate.sh
     bash ./gradlew --version --console=plain
-    bash ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --max-workers=4 --console=plain
+    bash ./gradlew :app:assembleDebug :app:lintDebug --max-workers=4 --console=plain
 
 Estas rutas no pertenecen al repositorio ni garantizan que los helpers estén disponibles en otro entorno. Si faltan, preparar JDK/SDK conforme a la instalación anterior. Mantener el proxy, TLS y checksums del entorno. Registrar resultados reales en estado-actual.md; una tarea UP-TO-DATE reutiliza resultados.
 
-Configurar el inicio de las nuevas tareas para leer AGENTS.md desde la raíz Git. Editar estos documentos no modifica la configuración publicada del servicio. Las pruebas instrumentadas requieren un dispositivo/emulador disponible.
+Configurar el inicio de las nuevas tareas para leer AGENTS.md desde la raíz Git. Editar estos documentos no modifica la configuración publicada del servicio.

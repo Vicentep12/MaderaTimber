@@ -20,7 +20,7 @@ Login y registro se comprobaron en emulador Android durante T14: errores, teclad
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T15 están versionadas en `main`; T15 quedó en `709d6b3`, con ajustes de legibilidad y revisión Android de las doce vistas en tres perfiles de pantalla. T16 está completada para el flujo actual, con sus casos UI y evidencia documentados. Coordinar T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T15 están versionadas en `main`; T15 quedó en `709d6b3`, con ajustes de legibilidad y revisión Android de las doce vistas en tres perfiles de pantalla. T16 está completada para el flujo actual, con sus casos UI y evidencia documentados. T18 (Room) está implementada en código; su cierre depende de la comprobación manual descrita en [estado-actual.md](estado-actual.md#persistencia-de-selección--t18--2026-10-29). T19 (selector nativo) no está iniciada y T20 (Git/Trello) la gestiona el usuario. El 29/10, por instrucción del usuario, se retiraron del repositorio las pruebas automatizadas y sus librerías, porque el profesor no las exige; las referencias a pruebas JVM o instrumentadas de etapas anteriores quedan como evidencia histórica. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -39,7 +39,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | --- | --- | --- |
 | 1. Alcance | Confirmar flujo, líneas, indicadores, años y aceptación. | Definido en la especificación. |
 | 2. Base Android | Crear/configurar proyecto y ejecutar la pantalla inicial. | Proyecto existente; ejecución inicial registrada en tutoría. No recrearlo. |
-| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Compose/Material 3, Lifecycle ViewModel, coroutines, Gson y Navigation Compose configurados; Room pendiente para T18. Cada cambio de Gradle debe compilar. |
+| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Compose/Material 3, Lifecycle ViewModel, coroutines, Gson, Navigation Compose y Room/KSP configurados. Librerías de prueba retiradas el 29/10 junto con las pruebas. Cada cambio de Gradle debe compilar. |
 | 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Completado y registrado en el commit local `0dffc3d`; compilación y pruebas JVM correctas. |
 | 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas en T03; cinco indicadores, históricos y variaciones en T04. La vista del panel consume los resultados por medio del ViewModel desde T05. |
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | T06 versionada; su prueba instrumentada de regreso conservando año pasó en emulador API 37. El recorrido completo se revisará al integrar T08–T14. |
@@ -48,14 +48,14 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | T10 implementada: selector y navegación comprobados en Android; revisión visual de T15 completada. |
 | 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | T11 implementada en código; compilación correcta. Revisión visual de T15 completada. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | T15 completada: doce vistas en Android, tamaño pequeño/grande, texto ampliado y paleta clara/oscura; evidencia y límites en estado-actual.md. |
-| 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
+| 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | T18 implementada: Room guarda línea, año y métrica de comparación y el panel la recupera al iniciar. No sustituye SavedStateHandle, que tiene prioridad durante el flujo. Cierre sujeto a la comprobación manual tras reiniciar la app. |
 
 Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. T12–T13 los conectaron con datos del modelo en la pantalla común; las maquetas antiguas de investigadores siguen estáticas y fuera del flujo. La revisión visual completa se registró en T15.
 
 ## Validación y entrega
 
-- [ ] Ejecutar las pruebas de comportamiento de la sección 14: cálculo, filtros, integridad, ausencias, restauración y navegación.
-- [ ] Comprobar build, pruebas JVM y Lint; con Android disponible, pruebas UI y revisión visual.
+- [ ] Comprobar manualmente en Android los comportamientos de la sección 14: cálculo, filtros, ausencias, restauración y navegación. Las pruebas automatizadas se retiraron el 29/10 por instrucción del usuario.
+- [ ] Comprobar build y Lint; con Android disponible, revisión visual.
 - [ ] Verificar todos los criterios de la sección 12 y realizar el recorrido de demostración.
 - [ ] Preparar los entregables completos de la sección 15: código/datos, instrucciones, arquitectura/modelo, capturas, casos y video o demostración.
 - [ ] Comprobar en dispositivo imagen, animación, modal y selector nativo de archivos; verificar recuperación de la selección guardada en Room tras reiniciar.
@@ -233,12 +233,13 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 
 ### T18 — Guardar la selección con Room
 
-- **Estado al 29/10:** en curso. Room y KSP configurados; entidad, DAO, base y Repository conectados al ViewModel. Prueba Android con base en memoria: escritura, recuperación y selección inválida correctas. Falta verificar recuperación tras cerrar y abrir el proceso y repetir la comprobación de recreación con Room; detalles en estado-actual.md.
+- **Estado al 29/10:** implementada en código y revisada por lectura. Room y KSP configurados; entidad, DAO, base y Repository conectados al ViewModel desde `MainActivity`. Antes de retirar las pruebas, `SeleccionRoomTest` pasó en emulador (escritura, recuperación y selección inválida con base en memoria). Falta solo la comprobación manual de recuperación tras cerrar y abrir la app; pasos en [estado-actual.md](estado-actual.md#persistencia-de-selección--t18--2026-10-29).
 - **Prioridad:** P0 · **Objetivo:** 29/10 · **Estimación adicional:** 4–7 h · **Depende de:** T05.
 - [x] Añadir Room en el catálogo y el módulo, sin cambiar versiones/SDK para ocultar fallos; compilar tras configurar las dependencias.
 - [x] Crear entidad, DAO, base de datos y Repository para línea, año y métrica seleccionados; recuperar la selección al iniciar y actualizarla al cambiar filtros.
 - [x] Mantener las reglas y validación fuera de composables; no guardar correo ni contraseñas del acceso demostrativo.
-- [ ] Probar escritura, lectura, selección inválida y recuperación tras cerrar y abrir la app; comprobar que SavedStateHandle sigue cubriendo recreación y navegación.
+- [x] Probar escritura, lectura y selección inválida (`SeleccionRoomTest`, antes de retirar las pruebas).
+- [ ] Comprobar manualmente la recuperación tras cerrar y abrir la app y que la selección se conserva al navegar y volver.
 - **Aceptación:** Room persiste una selección válida entre sesiones y la UI la refleja sin confundir persistencia con autenticación.
 
 ### T19 — Importar datos con el selector nativo de archivos

@@ -2,11 +2,26 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
-## Persistencia de selección — T18 en curso — 2026-10-29
+## Persistencia de selección — T18 — 2026-10-29
 
-En `main`, HEAD `e73d7ef` y árbol limpio al iniciar, se incorporaron Room 2.8.5 y KSP 2.3.12, entidad, DAO, base y Repository para línea, año y métrica de comparación. DashboardViewModel recupera la selección, da prioridad a SavedStateHandle cuando contiene valores y valida línea, año y métrica disponibles antes de usarla. Las escrituras se procesan en orden fuera del hilo principal. No se almacenan credenciales. Los errores de Room se registran en Logcat; la persistencia no presenta todavía un aviso al usuario.
+En `main`, HEAD `e73d7ef` y árbol limpio al iniciar, se incorporaron Room 2.8.5 y KSP 2.3.12, entidad, DAO, base y Repository para línea, año y métrica de comparación (`data/repository/SeleccionRoom.kt`). `MainActivity` crea la base en disco (`seleccion-panel.db`) y la entrega a DashboardViewModel. El ViewModel lee la selección guardada antes de la primera carga, da prioridad a SavedStateHandle cuando contiene valores y valida línea, año y métrica contra los datos disponibles antes de usarla. Cada cambio de línea, año, filtros o métrica de comparación se guarda en orden fuera del hilo principal. No se almacenan credenciales. Los errores de Room se registran en Logcat; la persistencia no presenta un aviso al usuario.
 
-El Wrapper ejecutó `:app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2`: BUILD SUCCESSFUL, 0 errores y 25 advertencias de Lint. La prueba instrumentada `SeleccionRoomTest` pasó en Pixel_10_Pro API 37: escritura, lectura por un nuevo ViewModel y recuperación ante datos inválidos usando una base en memoria. No se ejecutaron pruebas unitarias. **T18 sigue abierta**: falta verificar la recuperación de la base en disco tras cerrar y abrir el proceso y la recreación/navegación con Room activo.
+El Wrapper ejecutó `:app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2`: BUILD SUCCESSFUL, 0 errores y 25 advertencias de Lint. La prueba instrumentada `SeleccionRoomTest` pasó en Pixel_10_Pro API 37: escritura, lectura por un nuevo ViewModel y recuperación ante datos inválidos usando una base en memoria. Esa prueba se retiró después junto con las demás (ver sección siguiente).
+
+Revisión por lectura del 29/10, posterior al commit `a368c53`: el flujo de lectura, validación y escritura es coherente con la aceptación de T18 y no requirió cambios de código. Esta revisión no ejecutó la app: el entorno de revisión no tenía Android SDK.
+
+**Comprobación manual pendiente para cerrar T18** (emulador o dispositivo):
+
+1. Ejecutar la app, entrar como invitado y en el panel elegir una línea distinta de la inicial, el año 2023 y otra métrica de comparación.
+2. Cerrar la app por completo (quitarla de recientes o detenerla desde Android Studio) y volver a abrirla.
+3. Entrar como invitado: el panel debe mostrar la misma línea, año y métrica.
+4. Abrir el detalle de línea y volver: la selección debe mantenerse.
+
+Registrar aquí fecha, dispositivo y resultado al completarla.
+
+## Retiro de pruebas automatizadas — 2026-10-29
+
+Por instrucción del usuario, porque el profesor no las exige, se eliminaron las 18 clases de `app/src/test` y `app/src/androidTest` y se retiraron del catálogo y del módulo `app` JUnit, AndroidX JUnit, Espresso, Compose UI Test (junit4 y manifest), kotlinx-coroutines-test y `testInstrumentationRunner`. El código de `app/src/main` no usaba esas librerías. Los resultados de pruebas citados en secciones anteriores son históricos y ya no se pueden reproducir con el repositorio actual. Tras este cambio no se ejecutó Gradle en el entorno de revisión (sin Android SDK); debe comprobarse `:app:assembleDebug :app:lintDebug` en Android Studio antes de la entrega.
 
 ## Flujo integrado — T16 — 2026-10-29
 
