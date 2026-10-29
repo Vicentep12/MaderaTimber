@@ -233,10 +233,11 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 
 ### T18 — Guardar la selección con Room
 
+- **Estado al 29/10:** en curso. Room y KSP configurados; entidad, DAO, base y Repository conectados al ViewModel. Prueba Android con base en memoria: escritura, recuperación y selección inválida correctas. Falta verificar recuperación tras cerrar y abrir el proceso y repetir la comprobación de recreación con Room; detalles en estado-actual.md.
 - **Prioridad:** P0 · **Objetivo:** 29/10 · **Estimación adicional:** 4–7 h · **Depende de:** T05.
-- [ ] Añadir Room en el catálogo y el módulo, sin cambiar versiones/SDK para ocultar fallos; compilar tras configurar las dependencias.
-- [ ] Crear entidad, DAO, base de datos y Repository para línea, año y métrica seleccionados; recuperar la selección al iniciar y actualizarla al cambiar filtros.
-- [ ] Mantener las reglas y validación fuera de composables; no guardar correo ni contraseñas del acceso demostrativo.
+- [x] Añadir Room en el catálogo y el módulo, sin cambiar versiones/SDK para ocultar fallos; compilar tras configurar las dependencias.
+- [x] Crear entidad, DAO, base de datos y Repository para línea, año y métrica seleccionados; recuperar la selección al iniciar y actualizarla al cambiar filtros.
+- [x] Mantener las reglas y validación fuera de composables; no guardar correo ni contraseñas del acceso demostrativo.
 - [ ] Probar escritura, lectura, selección inválida y recuperación tras cerrar y abrir la app; comprobar que SavedStateHandle sigue cubriendo recreación y navegación.
 - **Aceptación:** Room persiste una selección válida entre sesiones y la UI la refleja sin confundir persistencia con autenticación.
 

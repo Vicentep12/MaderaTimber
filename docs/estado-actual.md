@@ -2,6 +2,12 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Persistencia de selección — T18 en curso — 2026-10-29
+
+En `main`, HEAD `e73d7ef` y árbol limpio al iniciar, se incorporaron Room 2.8.5 y KSP 2.3.12, entidad, DAO, base y Repository para línea, año y métrica de comparación. DashboardViewModel recupera la selección, da prioridad a SavedStateHandle cuando contiene valores y valida línea, año y métrica disponibles antes de usarla. Las escrituras se procesan en orden fuera del hilo principal. No se almacenan credenciales. Los errores de Room se registran en Logcat; la persistencia no presenta todavía un aviso al usuario.
+
+El Wrapper ejecutó `:app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2`: BUILD SUCCESSFUL, 0 errores y 25 advertencias de Lint. La prueba instrumentada `SeleccionRoomTest` pasó en Pixel_10_Pro API 37: escritura, lectura por un nuevo ViewModel y recuperación ante datos inválidos usando una base en memoria. No se ejecutaron pruebas unitarias. **T18 sigue abierta**: falta verificar la recuperación de la base en disco tras cerrar y abrir el proceso y la recreación/navegación con Room activo.
+
 ## Flujo integrado — T16 — 2026-10-29
 
 Continuación en `main`, HEAD `ca7c5b0`, árbol limpio al iniciar: se permitió proporcionar el controlador de navegación a `AppNavigation` para comprobar rutas en Android; la aplicación sigue creando el suyo por defecto. `EscenariosIntegradosTest` cargó una copia del JSON con 2025 cubierto solo para L1: el comparativo mostró cero para L1 y “Sin datos” para L2. Una ruta con línea inexistente mostró el error y el botón Volver regresó al panel conservando 2025. En Pixel_10_Pro API 37, **1 prueba instrumentada, 0 fallos**. `:app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2` terminó **BUILD SUCCESSFUL** (17 tareas ejecutadas y 59 reutilizadas). No se ejecutaron pruebas unitarias. La ruta inválida probada es la de línea; las demás validaciones se revisaron por lectura. T16 queda completada para el flujo actual; Room y selector nativo siguen pendientes en T18–T19.

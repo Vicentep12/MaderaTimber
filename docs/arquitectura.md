@@ -49,6 +49,6 @@ El tema utiliza modo oscuro/claro y una paleta verde fija alineada con la refere
 | JSON en assets | Entidades sintéticas y cobertura temporal declarada. |
 | Navegación | Transmitir IDs/año/tipo válidos y conservar el contexto del flujo. |
 
-La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. Room es requisito de la entrega y se incorporará para persistir la selección mediante Repository; casos de uso e Hilt siguen siendo opcionales.
+La sección 6 de la especificación contiene el árbol objetivo del paquete existente com.duoc.madertimber. Mantener :app; módulos adicionales no están aprobados. `SeleccionRepository` utiliza Room para persistir línea, año y métrica; DashboardViewModel coordina la recuperación y la escritura. La validación de T18 sigue en curso. Casos de uso e Hilt siguen siendo opcionales.
 
 El acceso demostrativo separa View, ViewModel y reglas del modelo. El dashboard y los contenidos relacionados siguen View → ViewModel → Repository: las vistas representan estado y envían eventos, el ViewModel coordina la carga y el Repository consulta datos y cálculos. La revisión visual de T15 está completada; faltan los casos integrados de T16 y los requisitos restantes de entrega.

@@ -20,10 +20,14 @@ import com.duoc.madertimber.data.repository.EstadoCargaPanel
 import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.ResultadoConsultaPanel
 import com.duoc.madertimber.data.repository.ResultadoIndicadoresPanel
+import com.duoc.madertimber.data.repository.SeleccionGuardada
+import com.duoc.madertimber.data.repository.SeleccionRepository
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaUiState
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -85,9 +89,12 @@ sealed interface DashboardEvent {
 class DashboardViewModel(
     private val guardado: SavedStateHandle,
     private val repositorio: LocalPanelRepository,
-    private val dispatcherCarga: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcherCarga: CoroutineDispatcher = Dispatchers.IO,
+    private val seleccionRepository: SeleccionRepository? = null
 ) : ViewModel() {
     private var carga: Job? = null
+    private val escrituras = Channel<SeleccionGuardada>(Channel.UNLIMITED)
+    private var seleccionLeida = false
 
     var uiState by mutableStateOf(
         DashboardUiState(
@@ -101,6 +108,17 @@ class DashboardViewModel(
         private set
 
     init {
+        viewModelScope.launch(dispatcherCarga) {
+            for (seleccion in escrituras) {
+                try {
+                    seleccionRepository?.guardar(seleccion)
+                } catch (error: CancellationException) {
+                    throw error
+                } catch (error: Exception) {
+                    android.util.Log.e("DashboardViewModel", "No se pudo guardar la selección", error)
+                }
+            }
+        }
         cargar()
     }
 
@@ -147,12 +165,40 @@ class DashboardViewModel(
             DashboardEvent.ReintentarCarga -> Unit
         }
         actualizarConsulta()
+        if (evento is DashboardEvent.LineaSeleccionada || evento is DashboardEvent.AnioSeleccionado ||
+            evento is DashboardEvent.FiltrosAplicados || evento is DashboardEvent.MetricaComparada
+        ) guardarSeleccion()
     }
 
     private fun cargar() {
         carga?.cancel()
         uiState = uiState.copy(estado = EstadoDashboard.CARGANDO, mensaje = null)
         carga = viewModelScope.launch {
+            if (!seleccionLeida) {
+                val seleccion = withContext(dispatcherCarga) {
+                    try {
+                        seleccionRepository?.leer()
+                    } catch (error: CancellationException) {
+                        throw error
+                    } catch (error: Exception) {
+                        android.util.Log.e("DashboardViewModel", "No se pudo leer la selección", error)
+                        null
+                    }
+                }
+                if (seleccion != null) {
+                    uiState = uiState.copy(
+                        lineaId = uiState.lineaId ?: seleccion.lineaId,
+                        anio = if (guardado.contains(CLAVE_ANIO)) uiState.anio else seleccion.anio,
+                        tipoComparacion = if (guardado.contains(CLAVE_COMPARACION)) {
+                            uiState.tipoComparacion
+                        } else {
+                            TipoIndicador.entries.find { it.name == seleccion.metrica }
+                                ?: TipoIndicador.PROYECTOS_ACTIVOS
+                        }
+                    )
+                }
+                seleccionLeida = true
+            }
             val resultado = withContext(dispatcherCarga) { repositorio.cargar() }
             when (resultado) {
                 is EstadoCargaPanel.Listo -> prepararDatos(resultado)
@@ -199,6 +245,13 @@ class DashboardViewModel(
             aniosDisponibles = anios
         )
         actualizarConsulta()
+        guardarSeleccion()
+    }
+
+    private fun guardarSeleccion() {
+        val lineaId = uiState.lineaId ?: return
+        escrituras.trySend(SeleccionGuardada(lineaId = lineaId, anio = uiState.anio,
+            metrica = uiState.tipoComparacion.name))
     }
 
     private fun actualizarConsulta() {
@@ -298,9 +351,9 @@ class DashboardViewModel(
         private const val CLAVE_INDICADOR = "dashboard.tipoIndicador"
         private const val CLAVE_HISTORICO_LINEA = "dashboard.tipoHistoricoLinea"
 
-        fun factory(repositorio: LocalPanelRepository): ViewModelProvider.Factory = viewModelFactory {
+        fun factory(repositorio: LocalPanelRepository, seleccion: SeleccionRepository? = null): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                DashboardViewModel(createSavedStateHandle(), repositorio)
+                DashboardViewModel(createSavedStateHandle(), repositorio, seleccionRepository = seleccion)
             }
         }
     }
