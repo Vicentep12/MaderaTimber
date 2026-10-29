@@ -2,6 +2,47 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Revisión visual y accesibilidad — T15 — 2026-10-29
+
+Rama `main`, HEAD `76b8f50` y árbol limpio al iniciar. Se contrastaron las doce vistas del flujo activo con el plano de la sección 2.2 de la especificación. Se conservaron la paleta, jerarquía de títulos, datos demostrativos y navegación. Las diferencias numéricas respecto al boceto (por ejemplo, avance real de la muestra frente al ejemplo gráfico) siguen los datos del Repository, sin sustituirlos por constantes.
+
+Correcciones: el detalle del indicador recibe y muestra el nombre de la línea; los controles de visibilidad anuncian el campo de contraseña correspondiente y pasan debajo del campo con ancho menor de 360 dp o escala de fuente mayor de 1,3; las cuatro tarjetas del dashboard pasan a una columna bajo esas mismas condiciones para evitar palabras partidas. Las filas de selección del modal tienen mínimo 48 dp y su contenedor declara el grupo de selección. Son ajustes de presentación y semántica: los eventos y reglas siguen en los ViewModels/modelo existentes; no se añadieron validaciones ni acceso a datos a las vistas.
+
+Validación ejecutada con JDK 25.0.2 y Wrapper: `:app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --quiet --max-workers=2`, salida **0**. Lint: **0 errores y 23 advertencias** (incluye avisos de versiones y recursos existentes). No se añadieron ni ejecutaron pruebas unitarias. `RevisionVisualTest` se ejecutó mediante `adb shell am instrument -w -e class com.duoc.madertimber.ui.navigation.RevisionVisualTest -e perfil <perfil> com.duoc.madertimber.test/androidx.test.runner.AndroidJUnitRunner`: **1 prueba, 0 fallos en cada uno de los tres perfiles finales**. Verifica desplazamiento hasta las acciones, selección del año en el modal, visibilidad independiente de confirmación, apertura de las doce vistas y regreso desde las fichas al acceso. Un intento intermedio falló por un selector de prueba ambiguo entre la tarjeta y el chip de impacto; se corrigió el selector y se repitió. Las capturas iniciales tomadas durante transiciones se reemplazaron esperando también al compositor Android.
+
+Perfiles verticales del mismo emulador Pixel_10_Pro API 37:
+
+| Perfil | Resolución / densidad | Texto y tema | Resultado visual |
+| --- | --- | --- | --- |
+| Normal | 1280 × 2856 px / 480 dpi (≈427 × 952 dp) | 100 %, claro | Doce vistas, cuatro tarjetas, gráficos, modal, listas, fichas y formularios legibles. |
+| Pequeño | 960 × 1920 px / 480 dpi (320 × 640 dp) | 150 %, claro | Formularios y tarjetas corregidos; contenido y acciones alcanzables por desplazamiento, etiquetas sin palabras partidas por los controles de contraseña. |
+| Grande | 1800 × 2700 px / 320 dpi (900 × 1350 dp) | 100 %, oscuro | Doce vistas sin recortes esenciales; formulario centrado, listas y gráficos disponibles. |
+
+Se revisaron las capturas, incluidos estados desplazados, errores y teclado del login. Los selectores horizontales permiten alcanzar las opciones fuera del área visible; las pantallas largas conservan desplazamiento vertical. La configuración original del emulador se restauró después. Son perfiles de un emulador, no tres dispositivos físicos.
+
+Accesibilidad: imagen con descripción, barras con línea/año/valor/selección, histórico con años, asterisco y resumen textual, errores con mensaje además del color, controles con texto y roles de Compose. Se comprobaron los nombres de los controles de contraseña mediante semántica instrumentada. Contraste calculado por luminancia sRGB de las parejas principales del tema: blanco/verde **6,56:1**, texto/tarjeta clara **13,44:1**, texto/contenedor verde claro **10,13:1**, texto/botón oscuro **7,56:1**, texto/tarjeta oscura **10,29:1** y texto/contenedor verde oscuro **8,18:1**. No es una medición exhaustiva de cada píxel, una certificación de accesibilidad ni una prueba manual con TalkBack.
+
+Revisión de mantenimiento: nombres y textos del flujo activo corresponden a los contenidos; README sigue describiendo la aplicación real. Las maquetas anteriores bajo `ui/screens/proyectos`, `investigadores` y `publicaciones` y el marcador `SeleccionFiltros.kt` no forman parte de `AppNavigation`; se conservan como trabajo previo, sin usarlas como evidencia de las doce vistas. No hubo reorganización de responsabilidades ni aprendizaje nuevo demostrado por el usuario.
+
+Capturas: **24 por perfil, 72 PNG** en [normal](capturas/t15/normal), [pequeño con texto ampliado](capturas/t15/pequeno-texto150) y [grande oscuro](capturas/t15/grande-oscuro). Cada perfil conserva los mismos nombres; los sufijos indican posiciones desplazadas o estados auxiliares. Índice de las doce vistas en el perfil normal:
+
+| Vista | Captura |
+| --- | --- |
+| 1. Dashboard | [Tarjetas](capturas/t15/normal/01-dashboard-indicadores.png) y [comparación](capturas/t15/normal/01-dashboard-comparacion.png) |
+| 2. Filtros | [Modal](capturas/t15/normal/02-filtros.png) |
+| 3. Detalle de línea | [Inicio](capturas/t15/normal/03-linea.png) y [histórico](capturas/t15/normal/03-linea-historico.png) |
+| 4. Detalle de indicador | [Indicador](capturas/t15/normal/04-indicador.png) |
+| 5. Proyectos | [Lista](capturas/t15/normal/5-lista-proyectos.png) |
+| 6. Proyecto | [Ficha](capturas/t15/normal/6-ficha-proyectos.png) |
+| 7. Investigadores | [Lista](capturas/t15/normal/7-lista-investigadores.png) |
+| 8. Investigador | [Ficha](capturas/t15/normal/8-ficha-investigadores.png) |
+| 9. Publicaciones | [Lista](capturas/t15/normal/9-lista-publicaciones.png) |
+| 10. Publicación | [Ficha](capturas/t15/normal/10-ficha-publicaciones.png) |
+| 11. Login | [Formulario](capturas/t15/normal/11-login.png) y [teclado](capturas/t15/normal/11-login-teclado.png) |
+| 12. Registro | [Formulario](capturas/t15/normal/12-registro.png) y [texto ampliado](capturas/t15/pequeno-texto150/12-registro-inferior.png) |
+
+T15 completada en el árbol local, pendiente de commit. T16 conserva la validación integral de ausencias, errores, restauración y demás casos funcionales; Room, importación nativa y evidencia de Git/Trello siguen en T18–T20. Este resultado no acredita entrega completa.
+
 ## Acceso y registro — T14 — 2026-10-29
 
 Rama `main`, HEAD `d89b602` y árbol limpio antes de T14. `AuthScreen` conserva estado y eventos en `LoginViewModel`/`RegisterViewModel`, y validación en `AuthValidator`. Los formularios añaden acciones de teclado Siguiente/Listo, desplazamiento con teclado, foco liberado al mostrar/cerrar el aviso, botones de regreso y acceso invitado, visibilidad independiente de contraseña y confirmación, indicación de mínimo ocho caracteres y aviso demostrativo destacado. El tema aplica una paleta verde estable en claro/oscuro para coincidir con la referencia. `AppNavigation` evita que Atrás salga de registro mientras el aviso está abierto. El cambio de formulario y la entrada al panel limpian ambos estados de acceso.

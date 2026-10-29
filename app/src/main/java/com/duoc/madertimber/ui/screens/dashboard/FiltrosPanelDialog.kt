@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FilterChip
@@ -52,13 +53,15 @@ fun FiltrosPanelDialog(
         title = { Text("Filtros del panel") },
         text = {
             Column(
-                modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()),
+                modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())
+                    .selectableGroup(),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text("Línea de investigación", style = MaterialTheme.typography.titleSmall)
                 lineas.forEach { linea ->
                     Row(
                         modifier = Modifier.fillMaxWidth()
+                            .heightIn(min = 48.dp)
                             .testTag("filtro-linea-${linea.id}")
                             .selectable(
                                 selected = lineaBorrador == linea.id,

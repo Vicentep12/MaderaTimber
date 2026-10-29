@@ -11,6 +11,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -48,6 +52,7 @@ import com.duoc.madertimber.data.model.unidad
 import com.duoc.madertimber.ui.theme.MaderTimberTheme
 import java.util.Locale
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DashboardScreen(
     state: DashboardUiState,
@@ -60,6 +65,8 @@ fun DashboardScreen(
     onCerrarSesionClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val tarjetasEnColumna = LocalConfiguration.current.screenWidthDp < 360 ||
+        LocalDensity.current.fontScale > 1.3f
     var mostrarFiltros by rememberSaveable { mutableStateOf(true) }
     var modalFiltrosVisible by rememberSaveable { mutableStateOf(false) }
     if (modalFiltrosVisible && state.estado in setOf(EstadoDashboard.LISTO, EstadoDashboard.SIN_COBERTURA)) {
@@ -163,7 +170,11 @@ fun DashboardScreen(
                     val publicaciones = state.valor(TipoIndicador.PUBLICACIONES_GENERADAS)
                     val investigadores = state.valor(TipoIndicador.INVESTIGADORES_ASOCIADOS)
                     val impacto = state.valor(TipoIndicador.IMPACTO_ESTIMADO)
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        maxItemsInEachRow = if (tarjetasEnColumna) 1 else 2
+                    ) {
                         IndicadorCard(
                             "Proyectos activos",
                             formatoValor(TipoIndicador.PROYECTOS_ACTIVOS, proyectos),
@@ -176,8 +187,6 @@ fun DashboardScreen(
                             Modifier.weight(1f),
                             onClick = onVerPublicacionesClick
                         )
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         IndicadorCard(
                             "Investigadores",
                             formatoValor(TipoIndicador.INVESTIGADORES_ASOCIADOS, investigadores),

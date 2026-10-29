@@ -27,7 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -218,26 +222,39 @@ private fun PasswordField(
     modifier: Modifier = Modifier,
     hint: String? = null
 ) {
-    OutlinedTextField(
-        value = value, onValueChange = onValueChange,
-        label = { Text(label) }, singleLine = true,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = imeAction
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = { onImeAction() },
-            onDone = { onImeAction() }
-        ),
-        visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
-        trailingIcon = { TextButton(onClick = onToggle) { Text(if (visible) "Ocultar" else "Mostrar") } },
-        isError = error,
-        supportingText = {
-            if (error) Text(message)
-            else if (hint != null) Text(hint)
-        },
-        modifier = modifier.fillMaxWidth()
-    )
+    val controlDebajo = LocalConfiguration.current.screenWidthDp < 360 ||
+        LocalDensity.current.fontScale > 1.3f
+    val controlVisibilidad: @Composable () -> Unit = {
+        TextButton(
+            onClick = onToggle,
+            modifier = Modifier.semantics {
+                contentDescription = "${if (visible) "Ocultar" else "Mostrar"}: $label"
+            }
+        ) { Text(if (visible) "Ocultar" else "Mostrar") }
+    }
+    Column(modifier = modifier.fillMaxWidth()) {
+        OutlinedTextField(
+            value = value, onValueChange = onValueChange,
+            label = { Text(label) }, singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = imeAction
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { onImeAction() },
+                onDone = { onImeAction() }
+            ),
+            visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon = if (controlDebajo) null else controlVisibilidad,
+            isError = error,
+            supportingText = {
+                if (error) Text(message)
+                else if (hint != null) Text(hint)
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+        if (controlDebajo) controlVisibilidad()
+    }
 }
 
 @Preview(showBackground = true)

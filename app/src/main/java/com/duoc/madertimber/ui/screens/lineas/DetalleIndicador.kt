@@ -27,6 +27,7 @@ fun DetalleIndicadorScreen(
     historico: HistoricoIndicador,
     onVolverClick: () -> Unit,
     onVerRelacionadosClick: () -> Unit,
+    lineaNombre: String = "",
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -34,6 +35,7 @@ fun DetalleIndicadorScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(indicador.indicador.nombre, style = MaterialTheme.typography.headlineLarge)
+        if (lineaNombre.isNotEmpty()) Text(lineaNombre)
         Text("${indicador.anioSeleccionado} · Datos demostrativos")
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

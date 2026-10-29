@@ -189,6 +189,7 @@ fun AppNavigation(
                     } else {
                         DetalleIndicadorScreen(
                             indicador = indicador,
+                            lineaNombre = estado.lineaSeleccionada?.nombre.orEmpty(),
                             historico = historico,
                             onVolverClick = ::volver,
                             onVerRelacionadosClick = {
