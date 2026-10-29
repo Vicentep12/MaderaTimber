@@ -1,5 +1,6 @@
 package com.duoc.madertimber.ui.screens.dashboard
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,12 @@ import java.util.Locale
 fun DashboardScreen(
     state: DashboardUiState,
     onEvent: (DashboardEvent) -> Unit,
+    onVerLineaClick: () -> Unit = {},
+    onVerIndicadorClick: () -> Unit = {},
+    onVerProyectosClick: () -> Unit = {},
+    onVerInvestigadoresClick: () -> Unit = {},
+    onVerPublicacionesClick: () -> Unit = {},
+    onCerrarSesionClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -69,7 +76,7 @@ fun DashboardScreen(
                     onSeleccionar = { onEvent(DashboardEvent.AnioSeleccionado(it)) }
                 )
 
-                Card(modifier = Modifier.fillMaxWidth()) {
+                Card(modifier = Modifier.fillMaxWidth().clickable(onClick = onVerLineaClick)) {
                     Column(
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -94,24 +101,28 @@ fun DashboardScreen(
                         IndicadorCard(
                             "Proyectos activos",
                             formatoValor(TipoIndicador.PROYECTOS_ACTIVOS, proyectos),
-                            Modifier.weight(1f)
+                            Modifier.weight(1f),
+                            onClick = onVerProyectosClick
                         )
                         IndicadorCard(
                             "Publicaciones",
                             formatoValor(TipoIndicador.PUBLICACIONES_GENERADAS, publicaciones),
-                            Modifier.weight(1f)
+                            Modifier.weight(1f),
+                            onClick = onVerPublicacionesClick
                         )
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         IndicadorCard(
                             "Investigadores",
                             formatoValor(TipoIndicador.INVESTIGADORES_ASOCIADOS, investigadores),
-                            Modifier.weight(1f)
+                            Modifier.weight(1f),
+                            onClick = onVerInvestigadoresClick
                         )
                         IndicadorCard(
                             "Impacto estimado",
                             formatoValor(TipoIndicador.IMPACTO_ESTIMADO, impacto),
-                            Modifier.weight(1f)
+                            Modifier.weight(1f),
+                            onClick = onVerIndicadorClick
                         )
                     }
                     Text(
@@ -148,7 +159,13 @@ fun DashboardScreen(
                         }
                     }
                 }
+                Button(onClick = onVerLineaClick, modifier = Modifier.fillMaxWidth()) {
+                    Text("Ver línea")
+                }
             }
+        }
+        Button(onClick = onCerrarSesionClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Cerrar sesión / Salir")
         }
     }
 }
@@ -193,8 +210,13 @@ private fun <T> SelectorOpciones(
 }
 
 @Composable
-private fun IndicadorCard(titulo: String, valor: String, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
+private fun IndicadorCard(
+    titulo: String,
+    valor: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Card(modifier = modifier.clickable(onClick = onClick)) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
