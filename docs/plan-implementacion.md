@@ -1,6 +1,6 @@
 # Plan de implementación y continuidad
 
-Actualización: 2026-10-28. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
+Actualización: 2026-10-29. Esta es la única lista de etapas, tareas abiertas y próxima actividad. Los requisitos y los doce pasos técnicos completos están en [especificacion.md](especificacion.md); el recorrido pedagógico completo, en [aprendizaje.md](aprendizaje.md).
 
 ## Retomar una sesión
 
@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T04 completadas; T04 quedó en el commit `4d7009e` y la rama local coincidía con `origin/main` al comenzar T05. T05 está implementada en el árbol local: DashboardViewModel carga los datos, guarda línea/año/métrica, coordina indicadores y comparación, y la vista recibe estado y emite eventos. Próxima actividad: T06, navegación y regreso entre pantallas; en paralelo de equipo, asignar T18–T20 y preparar T07–T08. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T05 están versionadas en `main`; T05 quedó en `4328a5a` y se integró con la navegación aportada por el equipo en `0fad2d0`. T06 tiene rutas, argumentos, regreso y fichas conectados en el árbol local; compilación, pruebas JVM y Lint pasan, pero no hubo dispositivo Android conectado para comprobar visualmente el recorrido. Próxima actividad: T07–T08 para completar dashboard y filtro modal; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -29,7 +29,7 @@ El público principal confirmado el 2026-10-15 son estudiantes. Al preparar las 
 
 Por petición explícita de implementación, Codex creó la primera vista estática: título, “Construcción sustentable”, año 2024, cuatro tarjetas, etiqueta “Datos demostrativos” y comparación de proyectos activos entre las tres líneas. Valores fijos de la muestra del plan; sin filtros interactivos ni navegación.
 
-Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. En el checkout del 2026-10-28 se comprobaron por lectura esos cuatro modelos y también `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto`; `TipoIndicador.kt` contiene las cinco opciones sin los caracteres de formato del mensaje. La presencia de los otros tres archivos no acredita por sí sola comprensión del usuario. El usuario escribió `VinculacionInvestigador` y, tras una corrección guiada, identificó como duplicado repetir el mismo par `(lineaId, anio)`. También escribió `Investigador` y reconoció que tres pares distintos de línea/año requieren tres elementos en `vinculaciones`. Estos modelos y `Publicacion` están ahora en `main`; el usuario explicó que una publicación de 2023 no aparece con el filtro 2024. Escribió y corrigió `tieneIdsDuplicados` para líneas; explicó correctamente los casos de IDs distintos, repetidos y lista vacía. Creó y ejecutó con éxito tres pruebas JUnit para esos casos. `tieneProyectosConLineaInexistente` y su primer test de referencia ausente se añadieron a partir del código entregado por Codex por solicitud expresa; la prueba pasó. A solicitud expresa de implementación, Codex completó las demás reglas y pruebas de T02. El cierre técnico no acredita comprensión del código nuevo; próxima lección: distinguir un año cubierto sin entidades de un año sin cobertura en T03. La revisión pedagógica de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente. T05 ya conectó ViewModel y Repository; la navegación, el filtro modal y la validación visual del dashboard continúan pendientes.
+Tutoría retomada el 2026-10-22 por petición del usuario con T02: él escribe el código y Codex guía y revisa un ejercicio a la vez. Se revisaron en el chat `LineaInvestigacion`, `ValorIndicador`, las opciones de `TipoIndicador` e `Indicador`; se comprobó la comprensión del ID estable, de las opciones limitadas del enum y de la asociación entre año y resultado en la lista de valores. En el checkout del 2026-10-28 se comprobaron por lectura esos cuatro modelos y también `EstadoProyecto`, `SeguimientoProyecto` y `Proyecto`; `TipoIndicador.kt` contiene las cinco opciones sin los caracteres de formato del mensaje. La presencia de los otros tres archivos no acredita por sí sola comprensión del usuario. El usuario escribió `VinculacionInvestigador` y, tras una corrección guiada, identificó como duplicado repetir el mismo par `(lineaId, anio)`. También escribió `Investigador` y reconoció que tres pares distintos de línea/año requieren tres elementos en `vinculaciones`. Estos modelos y `Publicacion` están ahora en `main`; el usuario explicó que una publicación de 2023 no aparece con el filtro 2024. Escribió y corrigió `tieneIdsDuplicados` para líneas; explicó correctamente los casos de IDs distintos, repetidos y lista vacía. Creó y ejecutó con éxito tres pruebas JUnit para esos casos. `tieneProyectosConLineaInexistente` y su primer test de referencia ausente se añadieron a partir del código entregado por Codex por solicitud expresa; la prueba pasó. A solicitud expresa de implementación, Codex completó las demás reglas y pruebas de T02. El cierre técnico no acredita comprensión del código nuevo; próxima lección: distinguir un año cubierto sin entidades de un año sin cobertura en T03. La revisión pedagógica de DashboardScreen, Column, Card, Modifier y funciones reutilizables sigue pendiente. T05 conectó ViewModel y Repository; T06 conectó la navegación en código. El filtro modal y la validación visual del dashboard continúan pendientes.
 
 ## Etapas y tareas
 
@@ -39,10 +39,10 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | --- | --- | --- |
 | 1. Alcance | Confirmar flujo, líneas, indicadores, años y aceptación. | Definido en la especificación. |
 | 2. Base Android | Crear/configurar proyecto y ejecutar la pantalla inicial. | Proyecto existente; ejecución inicial registrada en tutoría. No recrearlo. |
-| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Parcial: Compose/Material 3, Lifecycle ViewModel, coroutines y lector Gson; aún sin Navigation Compose. Cada cambio de Gradle debe compilar. |
+| 3. Dependencias | Completar navegación, ViewModel, coroutines y lectura JSON según cada incremento. | Compose/Material 3, Lifecycle ViewModel, coroutines, Gson y Navigation Compose configurados; Room pendiente para T18. Cada cambio de Gradle debe compilar. |
 | 4. Modelos | Implementar contratos de la sección 7 e integridad de la sección 8. | Completado y registrado en el commit local `0dffc3d`; compilación y pruebas JVM correctas. |
 | 5. Fuente local | JSON, lector y Repository; calcular indicadores desde entidades. | Fuente JSON, cobertura, lectura y consultas en T03; cinco indicadores, históricos y variaciones en T04. La vista del panel consume los resultados por medio del ViewModel desde T05. |
-| 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | Parcial: acceso login/registro/invitado existente; flujo del panel pendiente. Definir rutas al preparar el flujo; completar conservación de filtros después del paso 7. |
+| 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | T06 implementada en código con rutas y pila de Navigation Compose, validación de argumentos, regreso y selección conservada en el ViewModel; falta recorrido visual Android al integrar T07–T14. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Acceso y dashboard implementados; DashboardViewModel guarda selección en SavedStateHandle y coordina datos, comparación y errores. ViewModels de detalles pendientes al integrar esas vistas. |
 | 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | Parcial: cuatro tarjetas y comparación usan datos del ViewModel; hay selección básica de línea, año y métrica. Faltan acceso al detalle, imagen, animación, filtro modal y validación visual Android. |
 | 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | Pendiente. Aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
@@ -50,7 +50,7 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
 | 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
 
-Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. Implementarlos con los detalles de los pasos 9–10. La lista y ficha de investigadores existentes son vistas estáticas sin conexión al flujo ni datos del modelo; T12–T13 siguen abiertos.
+Los contenidos relacionados incluyen las pestañas según el indicador de origen y fichas breves, aunque no tengan un paso numerado independiente. Implementarlos con los detalles de los pasos 9–10. Las maquetas antiguas de investigadores siguen estáticas; T06 usa una pantalla común con datos del modelo, mientras T12–T14 conservan el contenido completo pendiente.
 
 ## Validación y entrega
 
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T04 están completadas; T05 está implementada en el árbol local y pendiente de commit; T06–T20 tienen trabajo pendiente. T07, T12, T13 y T14 aprovechan código parcial existente, sin que las vistas estáticas cierren T12–T13. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T05 están versionadas; T06 está implementada en el árbol local y pendiente de commit y revisión visual Android. T07–T20 conservan trabajo pendiente. Las fichas de T12–T14 ya se pueden abrir con datos básicos, pero su contenido completo sigue pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -116,7 +116,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T05 — Implementar estado MVVM del panel
 
 - **Prioridad:** P0 · **Objetivo:** 23/10 · **Estimación:** 4–6 h · **Depende de:** T03, T04.
-- **Estado al 28/10:** implementada en el árbol local, pendiente de commit. DashboardViewModel carga el Repository en segundo plano, expone estado observable y eventos, prepara datos para el panel y conserva línea/año/métrica en SavedStateHandle. La vista renderiza tarjetas, comparación y estados de carga, vacío, falta de cobertura y error; seis pruebas JVM del ViewModel pasan. La navegación completa y las vistas de detalle siguen en T06–T14.
+- **Estado al 29/10:** versionada en `4328a5a` e integrada con la navegación del equipo en `0fad2d0`. DashboardViewModel carga el Repository en segundo plano, expone estado observable y eventos, prepara datos para el panel y conserva línea/año/métrica en SavedStateHandle. La vista renderiza tarjetas, comparación y estados de carga, vacío, falta de cobertura y error; seis pruebas JVM del ViewModel pasaron. El contenido completo de detalles sigue en T10–T14.
 - [x] Crear DashboardViewModel y estados/eventos necesarios para detalles; conectar Repository.
 - [x] Guardar línea, año y métrica con SavedStateHandle; iniciar con 2024 y proyectos activos.
 - [x] Probar cambios de selección, carga, vacío, error y restauración; mantener cálculos fuera de composables.
@@ -125,12 +125,12 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T06 — Completar navegación y regreso
 
 - **Prioridad:** P0 · **Objetivo:** 26/10 · **Estimación:** 3–5 h · **Depende de:** T05.
-- **Pendiente añadido el 22/10 por solicitud del usuario:** organizar las rutas y su conexión con las pantallas en `com.duoc.madertimber.ui.navigation`. Esta subtarea forma parte de T06; no está implementada.
-- [ ] Crear `Rutas.kt` para definir los destinos y argumentos del flujo.
-- [ ] Crear `AppNavigation.kt` para conectar destinos y pantallas; trasladar allí la selección y navegación actualmente en `MainActivity`, manteniendo la inicialización de la actividad y el tema en su lugar.
-- [ ] Integrar el acceso existente con rutas de dashboard, línea, indicador y relacionados de la sección 11; habilitar apertura/cierre de fichas.
-- [ ] Transmitir y validar IDs, año y tipo; ofrecer regreso ante argumentos inválidos.
-- [ ] Conservar selección al volver y limpiar formularios al salir del acceso.
+- **Estado al 29/10:** implementada en código, pendiente de commit y recorrido visual Android. `MainActivity` conserva inicialización y tema; `ui/navigation` contiene las rutas y el flujo. Las listas y fichas relacionadas usan IDs y datos del ViewModel, mientras sus contenidos completos siguen en T10–T14. Cuatro pruebas JVM nuevas, compilación, Lint y compilación de la prueba instrumentada pasan; no había dispositivo conectado para ejecutarla.
+- [x] Crear `Rutas.kt` para definir los destinos y argumentos del flujo.
+- [x] Crear `AppNavigation.kt` para conectar destinos y pantallas; trasladar allí la selección y navegación actualmente en `MainActivity`, manteniendo la inicialización de la actividad y el tema en su lugar.
+- [x] Integrar el acceso existente con rutas de dashboard, línea, indicador y relacionados de la sección 11; habilitar apertura/cierre de fichas.
+- [x] Transmitir y validar IDs, año y tipo; ofrecer regreso ante argumentos inválidos.
+- [x] Conservar selección al volver y limpiar formularios al salir del acceso.
 - **Aceptación:** rutas y pila de regreso preparadas; verificar el recorrido completo cuando T07–T14 estén integradas. No cerrar solo por tener destinos vacíos.
 
 ### T07 — Completar dashboard y comparación (vista 1)

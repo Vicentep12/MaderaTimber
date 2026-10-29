@@ -4,7 +4,7 @@ Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para 
 
 Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
 
-La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard muestra cuatro indicadores calculados y una comparación entre líneas para el año elegido. Tiene selección básica de línea, año y métrica; el flujo de detalles, el filtro modal y la navegación completa siguen pendientes.
+La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AuthValidator; validan los campos y permiten mostrar u ocultar contraseñas; no autentican ni crean cuentas. El dashboard muestra cuatro indicadores calculados y una comparación entre líneas para el año elegido. La navegación abre detalles, contenidos relacionados y fichas con línea/año conservados; el filtro modal y el contenido completo de las vistas de detalle siguen pendientes.
 
 La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; `DashboardViewModel` entrega esos resultados a la vista y conserva la selección durante recreaciones.
 
@@ -47,6 +47,7 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | Pruebas | JUnit 4.13.2; AndroidX JUnit 1.1.5; Espresso 3.5.1; Compose UI test | Catálogo y módulo `app` |
 | Lectura JSON | Gson 2.14.0 | Catálogo y módulo `app` |
 | Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android/test 1.10.2 | Catálogo y módulo `app` |
+| Navegación | Navigation Compose 2.10.2 | Catálogo y módulo `app` |
 | Resolución de toolchains | Foojay resolver convention 1.0.0 | `settings.gradle.kts` |
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).

@@ -1,6 +1,14 @@
 # Estado técnico y validación
 
-Última comprobación técnica: 2026-10-28. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
+
+## Navegación del panel — T06 — 2026-10-29
+
+Rama `main`, árbol limpio en `0fad2d0` antes de T06; ese commit integra T05 con las rutas añadidas por el equipo. Se incorporó Navigation Compose 2.10.2 desde el catálogo. `MainActivity` conserva inicialización y tema; `ui/navigation/Rutas.kt` construye destinos con IDs y año, y `AppNavigation.kt` monta el NavHost para acceso, dashboard, línea, indicador, relacionados y fichas. El regreso usa la pila del NavController; el DashboardViewModel ligado a la actividad conserva filtros en SavedStateHandle. Los formularios se limpian al cambiar entre acceso y panel o al volver/cerrar sesión.
+
+Las rutas de detalle comprueban línea, año e indicador; la ruta de relacionados comprueba el tipo opcional, y cada ficha comprueba categoría e ID dentro de los datos filtrados. Argumentos inválidos muestran un mensaje y botón Volver. Las pantallas de línea e indicador muestran nombre/año y valor del contexto real. La pantalla relacionada ofrece las categorías aplicables y fichas básicas con datos del ViewModel; el contenido completo de T10–T14 sigue pendiente. Se conservaron las maquetas estáticas previas, fuera de este flujo.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2`, **BUILD SUCCESSFUL**. `ValidacionRutasPanelTest` registra **4 pruebas, 0 fallos, 0 errores y 0 omitidas** para contexto, IDs de fichas, categorías e indicador. La prueba instrumentada `AppNavigationTest` compila con `:app:assembleDebugAndroidTest`; no había dispositivo conectado según `adb devices`, por lo que no se ejecutó el recorrido visual ni esa prueba. T06 está implementada en código y pendiente de commit; el siguiente incremento es T07–T08, además de T18–T20 para la entrega.
 
 ## Estado MVVM del panel — T05 — 2026-10-28
 

@@ -44,6 +44,7 @@ data class DashboardUiState(
     val indicadores: List<IndicadorCalculado> = emptyList(),
     val barras: List<BarraIndicador> = emptyList(),
     val relacionados: DatosRelacionados? = null,
+    val relacionadosSinFiltro: DatosRelacionados? = null,
     val mensaje: String? = null
 ) {
     val lineaSeleccionada: LineaInvestigacion?
@@ -125,13 +126,15 @@ class DashboardViewModel(
                     lineas = emptyList(),
                     indicadores = emptyList(),
                     barras = emptyList(),
-                    relacionados = null
+                    relacionados = null,
+                    relacionadosSinFiltro = null
                 )
                 is EstadoCargaPanel.Error -> uiState = uiState.copy(
                     estado = EstadoDashboard.ERROR,
                     indicadores = emptyList(),
                     barras = emptyList(),
                     relacionados = null,
+                    relacionadosSinFiltro = null,
                     mensaje = resultado.mensaje
                 )
                 EstadoCargaPanel.Cargando -> Unit
@@ -166,6 +169,13 @@ class DashboardViewModel(
         val barras = compararLineas()
         when (consulta) {
             is ResultadoIndicadoresPanel.Disponible -> {
+                val relacionadosSinFiltro = when (val resultado = repositorio.consultarRelacionados(
+                    lineaId, uiState.anio
+                )) {
+                    is ResultadoConsultaPanel.Disponible -> resultado.datos
+                    is ResultadoConsultaPanel.Vacio -> resultado.datos
+                    else -> null
+                }
                 val relacionados = when (val resultado = repositorio.consultarRelacionados(
                     lineaId, uiState.anio, uiState.tipoIndicador
                 )) {
@@ -178,6 +188,7 @@ class DashboardViewModel(
                     indicadores = consulta.indicadores,
                     barras = barras,
                     relacionados = relacionados,
+                    relacionadosSinFiltro = relacionadosSinFiltro,
                     mensaje = null
                 )
             }
@@ -186,6 +197,7 @@ class DashboardViewModel(
                 indicadores = emptyList(),
                 barras = barras,
                 relacionados = null,
+                relacionadosSinFiltro = null,
                 mensaje = "Sin datos para esta línea y año"
             )
             is ResultadoIndicadoresPanel.Error -> uiState = uiState.copy(
@@ -193,13 +205,15 @@ class DashboardViewModel(
                 indicadores = emptyList(),
                 barras = emptyList(),
                 relacionados = null,
+                relacionadosSinFiltro = null,
                 mensaje = consulta.mensaje
             )
             ResultadoIndicadoresPanel.Cargando -> uiState = uiState.copy(
                 estado = EstadoDashboard.CARGANDO,
                 indicadores = emptyList(),
                 barras = emptyList(),
-                relacionados = null
+                relacionados = null,
+                relacionadosSinFiltro = null
             )
         }
     }
