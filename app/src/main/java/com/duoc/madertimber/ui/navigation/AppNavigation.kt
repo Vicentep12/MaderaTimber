@@ -82,7 +82,7 @@ fun AppNavigation(
                 )
             }
             composable(Rutas.REGISTRO) {
-                BackHandler {
+                BackHandler(enabled = !registerViewModel.uiState.showNotice) {
                     limpiarAcceso()
                     volver()
                 }

@@ -14,13 +14,13 @@ Actualización: 2026-10-29. Esta es la única lista de etapas, tareas abiertas y
 
 Implementadas las vistas de login y registro con estado y eventos en LoginViewModel/RegisterViewModel, reglas en AuthValidator, validación local, contraseñas ocultables, navegación entre formularios y entrada al dashboard como invitado. Los envíos válidos muestran un aviso de demostración: no se crean cuentas ni se inicia una sesión real. No se añade backend ni almacenamiento de credenciales.
 
-Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, regreso y acceso como invitado. La separación MVVM del acceso no acredita aprendizaje ni sustituye las etapas MVVM del dashboard. Se añadieron pruebas JVM de los eventos y validaciones de los formularios.
+Login y registro se comprobaron en emulador Android durante T14: errores, teclado, aviso modal, regreso y acceso como invitado. La separación MVVM del acceso no acredita aprendizaje ni sustituye las etapas MVVM del dashboard. Las pruebas JVM de los eventos y validaciones existen, pero no se repitieron por instrucción del usuario.
 
 ## Objetivo de entrega y próxima actividad
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T12 están versionadas en `main`; T12 quedó en `a1e5380` con listas relacionadas, totales, vacíos y acceso por ID. T13 está implementada en el árbol local: fichas de proyecto, investigador y publicación con datos de la selección; `assembleDebug` pasó. Próxima actividad: T14, ajustar y validar el acceso; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T13 están versionadas en `main`; T13 quedó en `d89b602`. T14 está implementada en el árbol local: formularios ajustados y comprobados en emulador Android, con `assembleDebug` correcto. Próxima actividad: T15, revisión visual y de accesibilidad de las doce vistas; coordinar T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -74,7 +74,7 @@ Backend, autenticación real, Google Play y sincronización externa permanecen f
 
 ## Tarjetas para Trello
 
-Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T12 están versionadas; T13 está implementada en el árbol local y pendiente de commit. T14–T20 conservan trabajo pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
+Copiar cada título como tarjeta y su contenido como descripción/checklist. Listas sugeridas: **Por hacer → En curso → Por validar → Hecho**. T01–T13 están versionadas; T14 está implementada en el árbol local y pendiente de commit. T15–T20 conservan trabajo pendiente. Asignar un responsable al tomar cada tarjeta y actualizarla durante el trabajo, con enlace al commit o evidencia verificable. P0 indica un requisito o dependencia indispensable; P1 también forma parte del alcance acordado. No se han creado tarjetas en Trello desde este plan.
 
 Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concentrado; T18–T20 añaden trabajo no incluido en ese total. Son estimaciones, no evidencia de avance. Ante el plazo del 29/10, acordar responsables y capacidad del equipo hoy; registrar cualquier requisito que no llegue a verificarse y no declarar una entrega completa sin compilación y recorrido comprobados.
 
@@ -188,7 +188,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T13 — Implementar las tres fichas (vistas 6, 8 y 10)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 3–5 h · **Depende de:** T12.
-- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. El flujo usa `FichaRelacionadaScreen` alimentada por `DatosRelacionados`; la maqueta fija previa de investigador permanece fuera del flujo. Proyecto, investigador y publicación muestran los campos de la selección y un regreso a la lista; la publicación se identifica como ficticia sin inventar fuentes. Los IDs inválidos usan el error recuperable de navegación. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
+- **Estado al 29/10:** versionada en `d89b602`. El flujo usa `FichaRelacionadaScreen` alimentada por `DatosRelacionados`; la maqueta fija previa de investigador permanece fuera del flujo. Proyecto, investigador y publicación muestran los campos de la selección y un regreso a la lista; la publicación se identifica como ficticia sin inventar fuentes. Los IDs inválidos usan el error recuperable de navegación. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
 - [x] Proyecto: título, línea/año, estado y avance del seguimiento seleccionado.
 - [x] Investigador: nombre, especialidad y vinculación de la selección.
 - [x] Publicación: título, tipo, año y línea; identificar registro ficticio sin inventar fuentes.
@@ -197,11 +197,12 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T14 — Ajustar y validar login y registro (vistas 11 y 12)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 2–4 h · **Depende de:** T01, T06.
-- [ ] Reutilizar AuthScreen, LoginViewModel, RegisterViewModel y AuthValidator existentes; alinear su apariencia con T01.
-- [ ] Verificar campos vacíos, correo inválido, contraseña de registro mínima y confirmación, visibilidad, aviso demo y acceso invitado.
-- [ ] Comprobar que el aviso demostrativo se muestra como modal y se puede cerrar con teclado, Atrás o su botón según corresponda.
-- [ ] Revisar teclado, desplazamiento, Atrás, cambio de formulario y limpieza de credenciales al salir.
-- **Aceptación:** ambas vistas funcionan en Android y conservan MVVM; sin crear cuentas ni afirmar autenticación real. Las seis pruebas JVM existentes siguen pasando.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. Login y registro usan `AuthValidator` y los ViewModels existentes, con foco y acciones del teclado, contraseñas ocultables por separado, aviso modal y paleta verde del diseño. En Pixel_10_Pro API 37 se comprobaron formularios vacíos, correo inválido, contraseña corta y confirmación distinta, envío válido desde ambos, cierre del aviso con Atrás, desplazamiento con teclado, cambio de formulario, limpieza al volver y entrada como invitado. `:app:assembleDebug` pasó; las pruebas unitarias existentes no se repitieron por instrucción del usuario. Capturas en `docs/capturas/`.
+- [x] Reutilizar AuthScreen, LoginViewModel, RegisterViewModel y AuthValidator existentes; alinear su apariencia con T01.
+- [x] Verificar campos vacíos, correo inválido, contraseña de registro mínima y confirmación, visibilidad, aviso demo y acceso invitado.
+- [x] Comprobar que el teclado puede enviar el formulario y abrir el aviso modal; el aviso se cierra con Atrás o su botón.
+- [x] Revisar teclado, desplazamiento, Atrás, cambio de formulario y limpieza de credenciales al salir.
+- **Aceptación:** ambas vistas funcionan en Android y conservan MVVM; sin crear cuentas ni afirmar autenticación real. Las seis pruebas JVM existentes permanecen sin ejecutar por instrucción del usuario.
 
 ### T15 — Revisar diseño y accesibilidad de las doce vistas
 
@@ -211,10 +212,10 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 - [ ] Revisar pantallas pequeñas/grandes, texto ampliado, contraste, desplazamiento, teclado y descripciones de controles/gráficos.
 - **Aceptación:** doce vistas verificadas en Android con capturas; sin contenido esencial cortado ni información comunicada solo por color.
 
-### T16 — Ejecutar pruebas integradas y corregir fallos
+### T16 — Comprobar el flujo integrado y corregir fallos
 
 - **Prioridad:** P1 · **Objetivo:** 29/10 · **Estimación:** 6–8 h · **Depende de:** T06–T15.
-- [ ] Ejecutar assembleDebug, testDebugUnitTest y lintDebug mediante Wrapper; registrar resultados nuevos y causas de fallos.
+- [ ] Ejecutar assembleDebug y lintDebug mediante Wrapper; registrar resultados nuevos y causas de fallos. Por instrucción del usuario, no añadir ni ejecutar más pruebas unitarias.
 - [ ] Ejecutar casos UI de la sección 14 en dispositivo/emulador, además del acceso y las tres fichas.
 - [ ] Verificar offline, filtros, navegación, recreación, argumentos inválidos, vacíos, errores, huecos históricos y coincidencia de listas/indicadores.
 - **Aceptación:** fallos que impiden los criterios de la sección 12 corregidos y comprobados de nuevo; evidencia con fecha, dispositivo, casos y resultado. Un build exitoso solo no cierra esta tarjeta.

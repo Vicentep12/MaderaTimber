@@ -2,11 +2,17 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Acceso y registro — T14 — 2026-10-29
+
+Rama `main`, HEAD `d89b602` y árbol limpio antes de T14. `AuthScreen` conserva estado y eventos en `LoginViewModel`/`RegisterViewModel`, y validación en `AuthValidator`. Los formularios añaden acciones de teclado Siguiente/Listo, desplazamiento con teclado, foco liberado al mostrar/cerrar el aviso, botones de regreso y acceso invitado, visibilidad independiente de contraseña y confirmación, indicación de mínimo ocho caracteres y aviso demostrativo destacado. El tema aplica una paleta verde estable en claro/oscuro para coincidir con la referencia. `AppNavigation` evita que Atrás salga de registro mientras el aviso está abierto. El cambio de formulario y la entrada al panel limpian ambos estados de acceso.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. En emulador Pixel_10_Pro API 37, instalación y apertura correctas; se observaron errores al enviar campos vacíos, correo inválido, contraseña de siete caracteres y confirmación distinta. Login y registro válidos mostraron el modal sin crear cuenta. Atrás cerró el modal; tras ajustar el foco, el teclado quedó oculto y el formulario permaneció en registro. Se comprobó el desplazamiento con teclado, el acceso invitado desde registro y el regreso a login con campos vacíos. Capturas: [login](capturas/t14-login.png), [registro](capturas/t14-registro.png) y [aviso](capturas/t14-aviso.png). No se añadieron ni ejecutaron pruebas unitarias por instrucción del usuario. La revisión de las doce vistas y tamaños adicionales sigue en T15; T14 está pendiente de commit.
+
 ## Fichas relacionadas — T13 — 2026-10-29
 
 Rama `main`, HEAD `a1e5380` y árbol limpio antes de T13. `FichaRelacionadaScreen` presenta el proyecto con título, línea, año, estado y avance del seguimiento seleccionado; el investigador con nombre, especialidad y vinculación a línea/año; y la publicación con título, tipo, año, línea y una nota explícita de registro ficticio sin fuente bibliográfica real. Las tres fichas conservan el botón de regreso a la lista. `AppNavigation` ya valida categoría, ID, línea, año y tipo antes de mostrar la ficha; un ID inválido abre un mensaje recuperable con Volver. La maqueta fija previa de investigador permanece fuera del flujo.
 
-Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó completar la vista y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android en este incremento; sigue en T15. T13 está implementada en el árbol local y pendiente de commit; sigue T14.
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó completar la vista y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android en ese incremento; sigue en T15. T13 quedó versionada en `d89b602`; el estado de T14 se registra arriba.
 
 ## Listas relacionadas — T12 — 2026-10-29
 

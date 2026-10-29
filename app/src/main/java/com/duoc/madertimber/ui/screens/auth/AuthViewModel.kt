@@ -13,6 +13,7 @@ data class AuthUiState(
     val password: String = "",
     val confirmation: String = "",
     val showPassword: Boolean = false,
+    val showConfirmation: Boolean = false,
     val submitted: Boolean = false,
     val showNotice: Boolean = false,
     val errors: AuthErrors = AuthErrors()
@@ -24,6 +25,7 @@ sealed interface AuthEvent {
     data class PasswordChanged(val value: String) : AuthEvent
     data class ConfirmationChanged(val value: String) : AuthEvent
     data object TogglePassword : AuthEvent
+    data object ToggleConfirmation : AuthEvent
     data object Submit : AuthEvent
     data object DismissNotice : AuthEvent
 }
@@ -40,6 +42,7 @@ abstract class AuthViewModel(private val registering: Boolean) : ViewModel() {
             is AuthEvent.PasswordChanged -> uiState.copy(password = event.value)
             is AuthEvent.ConfirmationChanged -> uiState.copy(confirmation = event.value)
             AuthEvent.TogglePassword -> uiState.copy(showPassword = !uiState.showPassword)
+            AuthEvent.ToggleConfirmation -> uiState.copy(showConfirmation = !uiState.showConfirmation)
             AuthEvent.Submit -> uiState.copy(submitted = true)
             AuthEvent.DismissNotice -> uiState.copy(showNotice = false)
         }
