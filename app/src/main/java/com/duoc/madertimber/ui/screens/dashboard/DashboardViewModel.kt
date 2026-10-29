@@ -11,9 +11,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.duoc.madertimber.data.model.DatosRelacionados
+import com.duoc.madertimber.data.model.HistoricoIndicador
 import com.duoc.madertimber.data.model.IndicadorCalculado
 import com.duoc.madertimber.data.model.LineaInvestigacion
 import com.duoc.madertimber.data.model.TipoIndicador
+import com.duoc.madertimber.data.model.prepararHistorico
 import com.duoc.madertimber.data.repository.EstadoCargaPanel
 import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.ResultadoConsultaPanel
@@ -42,6 +44,7 @@ data class DashboardUiState(
     val lineas: List<LineaInvestigacion> = emptyList(),
     val aniosDisponibles: List<Int> = emptyList(),
     val indicadores: List<IndicadorCalculado> = emptyList(),
+    val historicos: Map<TipoIndicador, HistoricoIndicador> = emptyMap(),
     val barras: List<BarraIndicador> = emptyList(),
     val relacionados: DatosRelacionados? = null,
     val relacionadosSinFiltro: DatosRelacionados? = null,
@@ -134,6 +137,7 @@ class DashboardViewModel(
                     estado = EstadoDashboard.VACIO,
                     lineas = emptyList(),
                     indicadores = emptyList(),
+                    historicos = emptyMap(),
                     barras = emptyList(),
                     relacionados = null,
                     relacionadosSinFiltro = null
@@ -141,6 +145,7 @@ class DashboardViewModel(
                 is EstadoCargaPanel.Error -> uiState = uiState.copy(
                     estado = EstadoDashboard.ERROR,
                     indicadores = emptyList(),
+                    historicos = emptyMap(),
                     barras = emptyList(),
                     relacionados = null,
                     relacionadosSinFiltro = null,
@@ -195,6 +200,9 @@ class DashboardViewModel(
                 uiState = uiState.copy(
                     estado = EstadoDashboard.LISTO,
                     indicadores = consulta.indicadores,
+                    historicos = consulta.indicadores.associate { indicador ->
+                        indicador.indicador.tipo to prepararHistorico(indicador, uiState.aniosDisponibles)
+                    },
                     barras = barras,
                     relacionados = relacionados,
                     relacionadosSinFiltro = relacionadosSinFiltro,
@@ -204,6 +212,7 @@ class DashboardViewModel(
             is ResultadoIndicadoresPanel.SinCobertura -> uiState = uiState.copy(
                 estado = EstadoDashboard.SIN_COBERTURA,
                 indicadores = emptyList(),
+                historicos = emptyMap(),
                 barras = barras,
                 relacionados = null,
                 relacionadosSinFiltro = null,
@@ -212,6 +221,7 @@ class DashboardViewModel(
             is ResultadoIndicadoresPanel.Error -> uiState = uiState.copy(
                 estado = EstadoDashboard.ERROR,
                 indicadores = emptyList(),
+                historicos = emptyMap(),
                 barras = emptyList(),
                 relacionados = null,
                 relacionadosSinFiltro = null,
@@ -220,6 +230,7 @@ class DashboardViewModel(
             ResultadoIndicadoresPanel.Cargando -> uiState = uiState.copy(
                 estado = EstadoDashboard.CARGANDO,
                 indicadores = emptyList(),
+                historicos = emptyMap(),
                 barras = emptyList(),
                 relacionados = null,
                 relacionadosSinFiltro = null

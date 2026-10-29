@@ -173,15 +173,17 @@ fun AppNavigation(
                 val id = entrada.arguments?.getString("indicadorId")
                 val anio = entrada.arguments?.getString("anio")?.toIntOrNull()
                 val indicador = estado.indicadores.find { it.indicador.id == id }
+                val historico = indicador?.let { estado.historicos[it.indicador.tipo] }
                 ContenidoContextual(
                     estado, indicador?.indicador?.lineaId ?: estado.lineaId, anio, ::volver
                 ) {
                     val error = validarIndicadorRuta(id, estado.indicadores)
-                    if (error != null || indicador == null) {
+                    if (error != null || indicador == null || historico == null) {
                         ErrorRutaScreen(error ?: "El indicador solicitado no existe.", ::volver)
                     } else {
                         DetalleIndicadorScreen(
                             indicador = indicador,
+                            historico = historico,
                             onVolverClick = ::volver,
                             onVerRelacionadosClick = {
                                 dashboardViewModel.onEvent(

@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T07 están versionadas en `main`; T07 quedó en `29f9459` con imagen, animación, filtros rápidos, cinco métricas y barras accesibles. T08 está implementada en el árbol local: filtro modal con aplicar/cancelar, selección conjunta de línea y año y pruebas Android en emulador API 37. Próxima actividad: T09, gráfico histórico reutilizable; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T08 están versionadas en `main`; T08 quedó en `a0e6c76` con filtro modal y aplicación conjunta de línea y año. T09 está implementada en el árbol local: histórico anual reutilizable, huecos sin interpolación, resumen textual e integración en el detalle de indicador; pruebas y revisión visual pasaron en emulador API 37. Próxima actividad: T10, detalle de línea; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -45,8 +45,8 @@ La numeración conserva los doce pasos de la sección 11 de la especificación. 
 | 6. Navegación | Definir rutas y argumentos, montar pantallas y validar regreso. | T06 versionada; su prueba instrumentada de regreso conservando año pasó en emulador API 37. El recorrido completo se revisará al integrar T08–T14. |
 | 7. ViewModel | Estado observable, eventos y coordinación de datos/filtros. | Acceso y dashboard implementados; DashboardViewModel guarda selección en SavedStateHandle y coordina datos, comparación y errores. ViewModels de detalles pendientes al integrar esas vistas. |
 | 8. Dashboard | Completar selectores, cuatro tarjetas, comparativo y acceso al detalle. | T07–T08 implementadas: cuatro tarjetas, cinco métricas, barras accesibles, imagen, animación, filtros rápidos y modal; comprobadas en emulador. |
-| 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | Pendiente. Aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
-| 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Pendiente. Aplicar reglas de ausencia, base cero y puntos porcentuales de la sección 8. |
+| 9. Detalle de línea | Cinco indicadores, histórico y entidades relacionadas. | T10 pendiente. El gráfico reutilizable de T09 está preparado; aplicar línea/año y estados vacíos según secciones 9.2 y 9.4. |
+| 10. Detalle de indicador | Valor seleccionado, variación, histórico e interpretación. | Histórico de T09 integrado; T11 aún debe completar variación, interpretación y estados según la sección 8. |
 | 11. Diseño y accesibilidad | Contraste, legibilidad, descripciones y pantallas pequeñas/grandes. | Pendiente para el producto. Validar durante cada pantalla y en la revisión final. |
 | 12. Persistencia Room | Última línea, año y métrica entre sesiones; favoritos o historial opcionales. | Obligatoria para la entrega; T18. No sustituye SavedStateHandle para restaurar el estado durante el flujo. |
 
@@ -146,7 +146,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T08 — Implementar selección de filtros (vista 2)
 
 - **Prioridad:** P1 · **Objetivo:** 26/10 · **Estimación:** 2–3 h · **Depende de:** T05, T07.
-- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. Compilación, 50 pruebas JVM, Lint y cinco pruebas Android correctas en emulador API 37. La prueba de interfaz verifica Aplicar, Cancelar, Atrás, regreso desde detalle y recreación de actividad; la prueba del ViewModel verifica restauración de línea, año y métrica.
+- **Estado al 29/10:** versionada en `a0e6c76`. Compilación, 50 pruebas JVM, Lint y cinco pruebas Android correctas en emulador API 37. La prueba de interfaz verifica Aplicar, Cancelar, Atrás, regreso desde detalle y recreación de actividad; la prueba del ViewModel verifica restauración de línea, año y métrica.
 - [x] Implementar selector/modal con tres líneas, años 2022–2024 y selección actual.
 - [x] Aplicar cambios mediante eventos; cancelar/cerrar sin cambiar la selección aplicada.
 - **Aceptación:** filtros efectivos en dashboard y detalles; regresar o recrear conserva línea, año y métrica.
@@ -154,8 +154,9 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T09 — Crear gráfico histórico reutilizable
 
 - **Prioridad:** P0 · **Objetivo:** 26/10 · **Estimación:** 3–5 h · **Depende de:** T01, T04.
-- [ ] Mostrar años hasta el seleccionado, valores/unidades, resaltado y resumen accesible.
-- [ ] Representar huecos sin interpolar, un valor como punto y ausencia total con mensaje.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. `prepararHistorico` genera puntos anuales desde los indicadores calculados; `GraficoHistorico` dibuja segmentos solo entre valores contiguos. El detalle de indicador ya lo presenta. Compilación, Lint, 53 pruebas JVM y ocho pruebas Android correctas; captura revisada en emulador API 37 con valores 4–6–8.
+- [x] Mostrar años hasta el seleccionado, valores/unidades, resaltado y resumen accesible.
+- [x] Representar huecos sin interpolar, un valor como punto y ausencia total con mensaje.
 - **Aceptación:** gráfico renderiza valores calculados y cubre los casos de la sección 10 sin cálculo de negocio en la vista.
 
 ### T10 — Implementar detalle de línea (vista 3)

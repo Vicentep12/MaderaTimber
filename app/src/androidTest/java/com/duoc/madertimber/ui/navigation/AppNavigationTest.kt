@@ -57,4 +57,18 @@ class AppNavigationTest {
         }
         composeRule.onNodeWithText("Año: 2023").assertExists()
     }
+
+    @Test
+    fun detalleIndicadorMuestraHistoricoCalculado() {
+        composeRule.onNodeWithText("Explorar como invitado").performClick()
+        composeRule.waitUntil(10_000) {
+            composeRule.onAllNodesWithText("Ver línea").fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText("Ver línea").performScrollTo().performClick()
+        composeRule.onNodeWithText("Ver indicador seleccionado").performScrollTo().performClick()
+
+        composeRule.onNodeWithTag("grafico-historico").performScrollTo().assertExists()
+        composeRule.onNodeWithText("Evolución de Proyectos activos").assertExists()
+        composeRule.onNodeWithText("2024 *").assertExists()
+    }
 }
