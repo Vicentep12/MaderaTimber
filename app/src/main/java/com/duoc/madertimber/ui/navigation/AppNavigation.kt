@@ -230,11 +230,19 @@ fun AppNavigation(
                         tipo != null && tipo != estado.tipoIndicador ->
                             ErrorRutaScreen("La selección cambió. Vuelve al panel.", ::volver)
                         else -> {
+                            val linea = estado.lineaSeleccionada ?: return@ContenidoContextual
                             val datos = if (tipo == null) estado.relacionadosSinFiltro
                                 else estado.relacionados
                             RelacionadosScreen(
                                 datos = datos,
+                                lineaNombre = linea.nombre,
+                                anio = estado.anio,
                                 tipo = tipo,
+                                mensaje = if (estado.estado == EstadoDashboard.SIN_COBERTURA) {
+                                    estado.mensaje
+                                } else {
+                                    null
+                                },
                                 onVolverClick = ::volver,
                                 onFichaClick = { categoria, itemId ->
                                     if (lineaId != null && anio != null) {

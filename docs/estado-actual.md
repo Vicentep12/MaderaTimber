@@ -2,11 +2,17 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Listas relacionadas — T12 — 2026-10-29
+
+Rama `main`, HEAD `5679d20` y árbol limpio antes de T12. `RelacionadosScreen` usa las listas ya filtradas por `LocalPanelRepository`: proyectos activos, investigadores vinculados y publicaciones de la línea/año. Desde la línea ofrece las tres categorías; desde un indicador presenta solo las categorías aplicables según `categoriasRelacionadas`. Muestra el contexto aun sin cobertura, evita un total cero ficticio cuando no hay consulta, presenta totales y estados vacíos, y abre cada ficha por ID conservando la ruta de línea/año/tipo. Las tarjetas añaden un dato breve y una acción visible de apertura. La maqueta antigua de investigadores sigue fuera del flujo.
+
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó la vista funcional y no se añadieron ni ejecutaron pruebas unitarias. No se hizo una nueva comprobación visual Android para T12; la revisión integral sigue en T15. T12 está implementada en el árbol local y pendiente de commit; sigue T13.
+
 ## Detalle de indicador — T11 — 2026-10-29
 
 Rama `main`, HEAD `34e2554` y árbol limpio antes de T11. `DetalleIndicadorScreen` muestra el valor del año seleccionado con su unidad, la variación frente al año calendario anterior, el gráfico histórico de T09, una explicación breve según el tipo y la nota de datos demostrativos. Usa los resultados de `IndicadorCalculado` sin recalcular la variación en Compose. Distingue “Sin datos”, “Sin comparación” y “No calculable: base anterior cero”; presenta porcentajes o puntos porcentuales con un decimal y signo positivo cuando corresponde. El acceso a contenidos relacionados conserva línea, año y tipo mediante la ruta existente.
 
-Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó completar la vista y no se añadieron ni ejecutaron pruebas unitarias para T11. No se hizo una nueva comprobación visual Android en este incremento; está prevista en la revisión de T15. T11 está implementada en el árbol local y pendiente de commit; sigue T12.
+Ejecutado con JDK 25.0.2 y el Wrapper: `:app:assembleDebug --quiet --max-workers=2`, **salida 0**. Por instrucción del usuario se priorizó completar la vista y no se añadieron ni ejecutaron pruebas unitarias para T11. No se hizo una nueva comprobación visual Android en ese incremento; está prevista en la revisión de T15. T11 quedó versionada en `5679d20`; el estado posterior de T12 se registra arriba.
 
 ## Detalle de línea — T10 — 2026-10-29
 

@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.duoc.madertimber.data.model.CategoriaRelacionada
 import com.duoc.madertimber.data.model.DatosRelacionados
@@ -30,7 +31,10 @@ import com.duoc.madertimber.data.model.categoriasRelacionadas
 @Composable
 fun RelacionadosScreen(
     datos: DatosRelacionados?,
+    lineaNombre: String,
+    anio: Int,
     tipo: TipoIndicador?,
+    mensaje: String?,
     onVolverClick: () -> Unit,
     onFichaClick: (CategoriaRelacionada, String) -> Unit,
     modifier: Modifier = Modifier
@@ -41,11 +45,17 @@ fun RelacionadosScreen(
     }
     val categoria = categorias.find { it.name == seleccion } ?: categorias.first()
     val elementos = when (categoria) {
-        CategoriaRelacionada.PROYECTOS -> datos?.proyectos.orEmpty().map { it.id to it.titulo }
+        CategoriaRelacionada.PROYECTOS -> datos?.proyectos.orEmpty().map {
+            ElementoRelacionado(it.id, it.titulo, "Proyecto activo en $anio")
+        }
         CategoriaRelacionada.INVESTIGADORES ->
-            datos?.investigadores.orEmpty().map { it.id to it.nombre }
+            datos?.investigadores.orEmpty().map {
+                ElementoRelacionado(it.id, it.nombre, "Especialidad: ${it.especialidad}")
+            }
         CategoriaRelacionada.PUBLICACIONES ->
-            datos?.publicaciones.orEmpty().map { it.id to it.titulo }
+            datos?.publicaciones.orEmpty().map {
+                ElementoRelacionado(it.id, it.titulo, "${it.tipo} · ${it.anio}")
+            }
     }
 
     Column(
@@ -53,30 +63,45 @@ fun RelacionadosScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text("Contenidos relacionados", style = MaterialTheme.typography.headlineMedium)
-        if (datos != null) {
-            Text("${datos.linea.nombre} · ${datos.anio} · Datos demostrativos")
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            categorias.forEach { opcion ->
-                FilterChip(
-                    selected = categoria == opcion,
-                    onClick = { seleccion = opcion.name },
-                    label = { Text(opcion.etiqueta()) }
-                )
-            }
-        }
-        Text("${categoria.etiqueta()}: ${elementos.size}")
-        if (elementos.isEmpty()) Text("No hay elementos para esta línea y año.")
-        elementos.forEach { (id, titulo) ->
-            Card(
-                modifier = Modifier.fillMaxWidth().clickable {
-                    onFichaClick(categoria, id)
+        Text("$lineaNombre · $anio · Datos demostrativos")
+        if (datos == null) {
+            Text(mensaje ?: "No se pudieron cargar los contenidos de esta selección.")
+        } else {
+            if (categorias.size > 1) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    categorias.forEach { opcion ->
+                        FilterChip(
+                            selected = categoria == opcion,
+                            onClick = { seleccion = opcion.name },
+                            label = { Text(opcion.etiqueta()) }
+                        )
+                    }
                 }
-            ) {
-                Text(titulo, modifier = Modifier.padding(16.dp))
+            } else {
+                Text(categoria.etiqueta(), style = MaterialTheme.typography.titleMedium)
+            }
+            Text("${categoria.etiqueta()}: ${elementos.size}")
+            if (elementos.isEmpty()) {
+                Text("No hay ${categoria.etiqueta().lowercase()} para esta línea y año.")
+            }
+            elementos.forEach { elemento ->
+                Card(
+                    modifier = Modifier.fillMaxWidth().clickable(role = Role.Button) {
+                        onFichaClick(categoria, elemento.id)
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Text(elemento.titulo, style = MaterialTheme.typography.titleMedium)
+                        Text(elemento.detalle, style = MaterialTheme.typography.bodySmall)
+                        Text("Ver ficha", style = MaterialTheme.typography.bodySmall)
+                    }
+                }
             }
         }
         Button(onClick = onVolverClick, modifier = Modifier.fillMaxWidth()) {
@@ -84,6 +109,8 @@ fun RelacionadosScreen(
         }
     }
 }
+
+private data class ElementoRelacionado(val id: String, val titulo: String, val detalle: String)
 
 @Composable
 fun FichaRelacionadaScreen(

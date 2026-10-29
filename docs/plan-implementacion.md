@@ -20,7 +20,7 @@ Pendiente comprobar visualmente ambos formularios en Android, teclado, errores, 
 
 La pauta de la asignatura compartida el 2026-10-28 fija la entrega para el **jueves 29 de octubre de 2026**. Exige formulario validado, imagen, animación, modal, Room, navegación, un recurso nativo, uso continuado de Git y Trello, MVVM y proyecto compilable. La ruta del repositorio entregada por cada integrante debe coincidir con la del Excel Oficial. Mantener el objetivo previo de las doce vistas/estados del mockup, pero revisar de inmediato la distribución del trabajo: las tareas abiertas y las estimaciones no caben de forma realista en la jornada restante de una sola persona. No presentar tareas incompletas como terminadas.
 
-T01–T10 están versionadas en `main`; T10 quedó en `34e2554` con cinco indicadores, histórico seleccionable y conteos relacionados. T11 está implementada en el árbol local: valor, unidad, variación, histórico, interpretación y acceso a contenidos según el indicador; `assembleDebug` pasó. Próxima actividad: T12, completar las listas relacionadas; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
+T01–T11 están versionadas en `main`; T11 quedó en `5679d20` con valor, variación, histórico e interpretación del indicador. T12 está implementada en el árbol local: listas relacionadas con categorías aplicables, totales, estados vacíos y acceso a fichas por ID; `assembleDebug` pasó. Próxima actividad: T13, completar las fichas; coordinar de inmediato T18–T20, que incluyen Room, selector nativo y evidencia de Git/Trello. Las tarjetas T01–T20 desglosan las etapas existentes y los requisitos nuevos de la pauta, sin reemplazar los doce pasos técnicos ni las cinco iteraciones de la especificación. Mantener acceso demostrativo y datos locales; autenticación real no está incluida.
 
 ## Continuidad de tutoría
 
@@ -171,7 +171,7 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T11 — Implementar detalle de indicador (vista 4)
 
 - **Prioridad:** P1 · **Objetivo:** 27/10 · **Estimación:** 3–5 h · **Depende de:** T05, T06, T09.
-- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. La vista usa la variación ya calculada por el modelo y presenta los mensajes especiales de ausencia y base cero. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias para T11. La comprobación visual integral sigue en T15.
+- **Estado al 29/10:** versionada en `5679d20`. La vista usa la variación ya calculada por el modelo y presenta los mensajes especiales de ausencia y base cero. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias para T11. La comprobación visual integral sigue en T15.
 - [x] Mostrar valor del año seleccionado, unidad, variación, histórico e interpretación sencilla.
 - [x] Incluir etiqueta demostrativa y acceso a los contenidos correspondientes al tipo.
 - **Aceptación:** funcionan las cinco métricas y mensajes especiales de la sección 8; abrir un detalle nunca cambia al año más reciente.
@@ -179,10 +179,10 @@ Las estimaciones originales T01–T17 suman **56–85 horas** de trabajo concent
 ### T12 — Implementar las tres listas relacionadas (vistas 5, 7 y 9)
 
 - **Prioridad:** P1 · **Objetivo:** 28/10 · **Estimación:** 4–6 h · **Depende de:** T03, T05, T06, T10, T11.
-- **Estado al 28/10:** existe `ListaInvestigadoresScreen` con tres nombres fijos y callbacks sin ID; no recibe entidades ni está conectada al flujo.
-- [ ] Mostrar proyectos activos, investigadores vinculados y publicaciones de línea/año.
-- [ ] Respetar las pestañas aplicables al indicador de origen según la sección 9.4; desde línea, ofrecer las tres.
-- [ ] Mostrar totales, estados vacíos y abrir fichas por ID.
+- **Estado al 29/10:** implementada en el árbol local, pendiente de commit. El flujo usa `RelacionadosScreen` con datos filtrados por el Repository; la maqueta fija previa de investigadores permanece fuera del flujo. La vista muestra contexto de línea/año, categorías aplicables, total, mensaje de vacío o falta de cobertura y tarjetas que abren fichas por ID. `:app:assembleDebug` pasó; por instrucción del usuario no se añadieron ni ejecutaron pruebas unitarias. La revisión visual integral sigue en T15.
+- [x] Mostrar proyectos activos, investigadores vinculados y publicaciones de línea/año.
+- [x] Respetar las pestañas aplicables al indicador de origen según la sección 9.4; desde línea, ofrecer las tres.
+- [x] Mostrar totales, estados vacíos y abrir fichas por ID.
 - **Aceptación:** todos los registros son accesibles mediante desplazamiento; los tres ejemplos visibles del mockup no limitan la lista real. Conteos coinciden con indicadores.
 
 ### T13 — Implementar las tres fichas (vistas 6, 8 y 10)
