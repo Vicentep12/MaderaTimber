@@ -260,20 +260,6 @@ class DashboardViewModel(
         val barras = compararLineas()
         when (consulta) {
             is ResultadoIndicadoresPanel.Disponible -> {
-                val relacionadosSinFiltro = when (val resultado = repositorio.consultarRelacionados(
-                    lineaId, uiState.anio
-                )) {
-                    is ResultadoConsultaPanel.Disponible -> resultado.datos
-                    is ResultadoConsultaPanel.Vacio -> resultado.datos
-                    else -> null
-                }
-                val relacionados = when (val resultado = repositorio.consultarRelacionados(
-                    lineaId, uiState.anio, uiState.tipoIndicador
-                )) {
-                    is ResultadoConsultaPanel.Disponible -> resultado.datos
-                    is ResultadoConsultaPanel.Vacio -> resultado.datos
-                    else -> null
-                }
                 uiState = uiState.copy(
                     estado = EstadoDashboard.LISTO,
                     indicadores = consulta.indicadores,
@@ -281,8 +267,8 @@ class DashboardViewModel(
                         indicador.indicador.tipo to prepararHistorico(indicador, uiState.aniosDisponibles)
                     },
                     barras = barras,
-                    relacionados = relacionados,
-                    relacionadosSinFiltro = relacionadosSinFiltro,
+                    relacionados = consultarRelacionados(lineaId, uiState.tipoIndicador),
+                    relacionadosSinFiltro = consultarRelacionados(lineaId),
                     mensaje = null
                 )
             }
@@ -313,6 +299,15 @@ class DashboardViewModel(
                 relacionadosSinFiltro = null
             )
         }
+    }
+
+    private fun consultarRelacionados(
+        lineaId: String,
+        tipo: TipoIndicador? = null
+    ): DatosRelacionados? = when (val resultado = repositorio.consultarRelacionados(lineaId, uiState.anio, tipo)) {
+        is ResultadoConsultaPanel.Disponible -> resultado.datos
+        is ResultadoConsultaPanel.Vacio -> resultado.datos
+        else -> null
     }
 
     private fun compararLineas(): List<BarraIndicador> {

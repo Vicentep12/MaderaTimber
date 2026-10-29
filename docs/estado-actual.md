@@ -2,6 +2,12 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Simplificación de consultas - 2026-10-29
+
+El repositorio reutiliza la regla de categorías relacionadas para filtrar los contenidos por indicador. El ViewModel concentra la lectura de resultados disponibles o vacíos. Se conserva MVVM y no se modifican las fórmulas ni Room. Android Studio ejecutó assembleDebug: BUILD SUCCESSFUL. La comprobación visual queda pendiente.
+
+Por decisión del usuario, no se implementará el selector nativo de archivos; Room se revisará al final.
+
 ## Persistencia de selección — T18 — 2026-10-29
 
 En `main`, HEAD `e73d7ef` y árbol limpio al iniciar, se incorporaron Room 2.8.5 y KSP 2.3.12, entidad, DAO, base y Repository para línea, año y métrica de comparación (`data/repository/SeleccionRoom.kt`). `MainActivity` crea la base en disco (`seleccion-panel.db`) y la entrega a DashboardViewModel. El ViewModel lee la selección guardada antes de la primera carga, da prioridad a SavedStateHandle cuando contiene valores y valida línea, año y métrica contra los datos disponibles antes de usarla. Cada cambio de línea, año, filtros o métrica de comparación se guarda en orden fuera del hilo principal. No se almacenan credenciales. Los errores de Room se registran en Logcat; la persistencia no presenta un aviso al usuario.

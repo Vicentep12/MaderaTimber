@@ -1,12 +1,14 @@
 package com.duoc.madertimber.data.repository
 
 import android.content.Context
+import com.duoc.madertimber.data.model.CategoriaRelacionada
 import com.duoc.madertimber.data.model.DatosPanel
 import com.duoc.madertimber.data.model.DatosRelacionados
 import com.duoc.madertimber.data.model.IndicadorCalculado
 import com.duoc.madertimber.data.model.LineaInvestigacion
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.calcularIndicadores
+import com.duoc.madertimber.data.model.categoriasRelacionadas
 import com.duoc.madertimber.data.model.proyectosActivos
 import java.io.Reader
 
@@ -123,17 +125,12 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
 
         val datos = consulta.datos
         val activos = proyectosActivos(datos.proyectos, lineaId, anio)
-        val incluirProyectos = tipo == null || tipo == TipoIndicador.PROYECTOS_ACTIVOS ||
-            tipo == TipoIndicador.AVANCE_PROMEDIO || tipo == TipoIndicador.IMPACTO_ESTIMADO
-        val incluirPublicaciones = tipo == null || tipo == TipoIndicador.PUBLICACIONES_GENERADAS ||
-            tipo == TipoIndicador.IMPACTO_ESTIMADO
-        val incluirInvestigadores = tipo == null || tipo == TipoIndicador.INVESTIGADORES_ASOCIADOS ||
-            tipo == TipoIndicador.IMPACTO_ESTIMADO
+        val categorias = categoriasRelacionadas(tipo)
         val filtrados = datos.copy(
-            proyectos = if (incluirProyectos) activos else emptyList(),
-            publicaciones = if (incluirPublicaciones) datos.publicaciones.distinctBy { it.id }
+            proyectos = if (CategoriaRelacionada.PROYECTOS in categorias) activos else emptyList(),
+            publicaciones = if (CategoriaRelacionada.PUBLICACIONES in categorias) datos.publicaciones.distinctBy { it.id }
                 else emptyList(),
-            investigadores = if (incluirInvestigadores) datos.investigadores.distinctBy { it.id }
+            investigadores = if (CategoriaRelacionada.INVESTIGADORES in categorias) datos.investigadores.distinctBy { it.id }
                 else emptyList()
         )
         return if (filtrados.estaVacio) {
