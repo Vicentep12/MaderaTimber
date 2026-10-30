@@ -1,6 +1,6 @@
 # Cenamad / MaderaTimber
 
-Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para la asignatura. Contratos y alcance en [especificacion.md](docs/especificacion.md); implementación y validación en [estado-actual.md](docs/estado-actual.md).
+Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para la asignatura. Contratos y alcance en [especificacion.md](docs/especificacion.md).
 
 Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
 
@@ -10,25 +10,32 @@ La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `Lo
 
 El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
 
-## Documentación y continuidad
+## Integrantes
 
-[AGENTS.md](AGENTS.md) establece cómo trabajar. Consultar cada tema en su fuente:
+- Diego Roble
+- Vicente (usuario de GitHub: Vicentep12)
+
+## Funcionalidades implementadas
+
+- Inicio de sesión y registro de demostración con formularios validados: íconos por campo, mensajes de error y aviso modal. Guardan nombre y correo en Room; la contraseña nunca se guarda.
+- Dashboard con imagen de portada, filtros (modal y rápidos), cuatro indicadores y comparación entre líneas.
+- Detalle de línea y de indicador, con gráfico histórico, variación respecto al año anterior y explicación.
+- Listas y fichas de proyectos, investigadores y publicaciones relacionados.
+- Persistencia local con Room de la última selección del panel (línea, año y métrica).
+- Dos recursos nativos: cámara (foto de apoyo, con permiso y FileProvider) y selector de archivos del sistema (demostrativo, no sube nada).
+- Animaciones: transiciones entre pantallas, cambio de valores en las tarjetas y barras de comparación.
+- Arquitectura MVVM: vistas Compose, ViewModels con estado y eventos, repositorios y modelo con las reglas.
+
+Los pasos para ejecutar el proyecto están en las secciones «Instalación en otro computador» y «Compilar e instalar».
+
+## Documentación
 
 | Documento | Contenido |
 | --- | --- |
-| [Especificación](docs/especificacion.md) | Contratos, modelos, cálculos, plan técnico completo, aceptación, pruebas y entregables. |
-| [Plan operativo](docs/plan-implementacion.md) | Etapas, tarjetas para Trello y entrega indicada para el jueves 29-10-2026. |
-| [Aprendizaje](docs/aprendizaje.md) | Perfil, método y recorrido pedagógico completo. |
-| [Progreso](docs/progreso.md) | Ejercicios y comprensión comprobada. |
-| [Arquitectura](docs/arquitectura.md) | Componentes actuales y responsabilidades objetivo. |
-| [Estado técnico](docs/estado-actual.md) | Implementación y evidencia de validación. |
-| [Decisiones](docs/decisiones.md) | Acuerdos que afectan arquitectura y mantenimiento. |
+| [Especificación](docs/especificacion.md) | Contratos, modelos, cálculos, plan técnico completo, aceptación y entregables. |
+| [Arquitectura](docs/arquitectura.md) | Componentes actuales y responsabilidades por capa (MVVM). |
 
-Para un chat nuevo en el clon actualizado:
-
-> Lee AGENTS.md y retoma la próxima actividad de docs/plan-implementacion.md después de consultar docs/progreso.md. Guíame paso a paso: yo escribo el código.
-
-Para continuar en otro equipo, sincronizar código y documentación por Git con autorización y comprobar el entorno Android. La instalación y la configuración Cloud se describen abajo.
+Para continuar en otro equipo, sincronizar el código por Git y comprobar el entorno Android. La instalación se describe abajo.
 
 ## Tecnologías declaradas
 
@@ -56,7 +63,7 @@ AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catá
 
 Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal. Configuration Cache activada; heap Gradle configurado en 2 GB. Un único módulo `:app`. No hay backend, servicios externos ni variables `.env` requeridas por el código actual.
 
-**SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24. La validación Gradle actual de T03 se registra en [estado-actual.md](docs/estado-actual.md); no acredita ejecución en dispositivo.
+**SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24.
 
 ## Instalación en otro computador
 
@@ -69,7 +76,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
    git status --short
    ```
 
-3. Abrir **esa carpeta** en Android Studio y Codex. En Windows el usuario trabaja bajo `E:/AnalistaProgramador/Desarrollo app moviles`; la carpeta contenedora no es la raíz Git. Los documentos de continuidad de esta entrega se conservan dentro del repositorio.
+3. Abrir **esa carpeta** en Android Studio. En Windows el usuario trabaja bajo `E:/AnalistaProgramador/Desarrollo app moviles`; la carpeta contenedora no es la raíz Git.
 4. En SDK Manager instalar Android SDK Platform 37.0 (API 37), Platform Tools y las Build Tools que requiera AGP (36.0.0 solicitadas durante esta revisión). Aceptar licencias. No usar API 24 como plataforma de compilación: es solo el mínimo para dispositivos.
 5. Configurar el JDK para Gradle y la ubicación local del SDK. Android Studio puede crear `local.properties`; debe permanecer ignorado. Alternativa de terminal (reemplazar rutas por las de tu equipo):
 
@@ -105,13 +112,13 @@ bash ./gradlew :app:assembleDebug :app:lintDebug --console=plain
 
 APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
 
-El repositorio no incluye pruebas automatizadas: se retiraron el 29-10-2026 porque la asignatura no las exige. La validación se hace compilando, con Lint y revisando la app en emulador o dispositivo; los resultados constan en [estado actual](docs/estado-actual.md).
+El repositorio no incluye pruebas automatizadas: se retiraron el 29-10-2026 porque la asignatura no las exige. La validación se hace compilando, con Lint y revisando la app en emulador o dispositivo.
 
-**Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí. La última validación Cloud registrada (18-10-2026) informa APK, siete pruebas JVM sin fallos y Lint con cero errores y 13 advertencias; no se repitió durante la revisión documental del 20-10-2026. Ejecución visual e instrumentada Cloud pendientes; detalle y procedencia en [estado actual](docs/estado-actual.md).
+**Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí.
 
 ## GitHub y archivos locales
 
-Git está inicializado; el estado observado de rama y cambios locales se registra en [estado-actual.md](docs/estado-actual.md). Comprobarlo de nuevo antes de editar o sincronizar.
+Git está inicializado. Comprobar la rama y los cambios locales antes de editar o sincronizar.
 
 `.gitignore` excluye cachés, builds, configuración local del SDK, archivos privados del IDE, `.env`, credenciales habituales y firmas. No se detectaron nombres sensibles ni patrones de secretos en los archivos de texto rastreados revisados; es una comprobación básica del árbol actual, no una auditoría de todo el historial. El Wrapper JAR sí debe conservarse.
 
@@ -120,43 +127,3 @@ La configuración XML local de `.idea/` también queda ignorada; se conserva su 
 Antes de compartir, revisar `git status --short`, `git diff`, `git diff --check`, `git ls-files` y el contenido que se vaya a incluir. Si un secreto ya está rastreado, ignorarlo no lo retira de Git: informar, rotarlo si corresponde y acordar su retirada sin borrarlo de improviso.
 
 Entre equipos: guardar código **y documentación** en el mismo commit; hacer push solo cuando esté autorizado; en el siguiente equipo usar `git pull --ff-only` con el árbol limpio. Si hay ramas divergentes o cambios sin guardar, revisar antes de integrar; no usar reset forzado. No editar simultáneamente la misma rama desde dos equipos sin coordinar o utilizar ramas separadas.
-
-## Codex Cloud: configuración y continuidad
-
-Guía consultada en la revisión Cloud anterior del 2026-10-08: [Codex Cloud](https://learn.chatgpt.com/docs/cloud) y [entornos Cloud](https://learn.chatgpt.com/docs/environments/cloud-environments). La interfaz y el acceso dependen de tu cuenta. Esa revisión registró un entorno conectado; no se verificó su disponibilidad durante la unificación local Windows. Tutoría y siguiente actividad: [plan operativo](docs/plan-implementacion.md).
-
-1. Revisar los cambios locales y subirlos a GitHub cuando lo autorices; Cloud necesita la documentación en el repositorio remoto.
-2. Iniciar sesión en ChatGPT; en web/escritorio seleccionar **Work in > Cloud > Select environment > Create environment** (también desde Settings > Codex Cloud > Environments).
-3. Conectar GitHub si se solicita y dar acceso al repositorio `Vicentep12/MaderaTimber`. Si no eres su propietario, disponer del permiso correspondiente; para cuentas de organización puede hacer falta autorización administrativa.
-4. Seleccionar el repositorio y **Get started**. Solicitar que el entorno prepare JDK 25, SDK Android API 37, licencias, Build Tools requeridas por AGP y las variables `JAVA_HOME`/`ANDROID_HOME`; usar la raíz que contenga `settings.gradle.kts`.
-5. Indicar como comprobación los comandos Linux de este README. Preparar el entorno antes de publicar su configuración; registrar las versiones efectivas y cualquier fallo en `docs/estado-actual.md`.
-6. Revisar el acceso de red para Gradle, Maven, plugins y Android SDK. Si Foojay descarga un JDK, verificar `api.foojay.io` y el proveedor al que redirige; el listado de dominios debe ajustarse a errores observados. Ningún token de la app es necesario actualmente.
-7. Revisar resultados y configuración, guardar y seleccionar **Publish** del entorno Cloud. Esto lo haces manualmente; no equivale a publicar la app Android. Iniciar una nueva tarea con el mensaje de continuidad anterior.
-8. Revisar cambios/pruebas antes de cualquier commit o PR. Actualizar y volver a publicar la configuración del entorno si cambian herramientas/dependencias; la documentación versionada sigue siendo el contexto compartido entre equipos.
-
-**Compatibilidad condicionada:** el proyecto tiene Wrapper y scripts para Linux. El registro y artefactos locales de configuración acreditan una compilación inicial en Cloud; restaurar otro entorno o usar otro equipo requiere verificar su instalación. Lectura/edición pueden realizarse; compilación, Lint y pruebas locales requieren provisionar JDK/SDK y acceso a dependencias. No asumir que la imagen Cloud trae Android SDK ni emulador. Las pruebas instrumentadas y la verificación visual necesitan un dispositivo/emulador; si Cloud no lo proporciona, realizarlas localmente y registrar el resultado.
-
-Para preparar paquetes desde Android SDK Command-Line Tools, si el entorno dispone de `sdkmanager` (el identificador de Android SDK Platform 37.0 es `platforms;android-37.0`):
-
-```bash
-sdkmanager --list
-sdkmanager --licenses
-sdkmanager "platform-tools" "platforms;android-37.0" "build-tools;36.0.0"
-# Revisar Build Tools si cambia AGP; 36.0.0 fue requerida en esta revisión.
-```
-
-Android ahora documenta `android sdk` como sucesor de `sdkmanager`; los comandos anteriores corresponden a la herramienta tradicional todavía documentada. Ver [gestión oficial del SDK](https://developer.android.com/tools/sdkmanager). Aceptar las licencias al configurar tu entorno; no guardar SDK/licencias en Git.
-
-### Helpers del entorno Cloud previamente preparado
-
-La revisión Cloud anterior registró helpers externos al checkout en /workspace/.maderatimber-env. Solo si existen en el entorno donde se retoma el trabajo:
-
-    cd /workspace/MaderaTimber
-    bash /workspace/.maderatimber-env/configure-trust.sh
-    source /workspace/.maderatimber-env/activate.sh
-    bash ./gradlew --version --console=plain
-    bash ./gradlew :app:assembleDebug :app:lintDebug --max-workers=4 --console=plain
-
-Estas rutas no pertenecen al repositorio ni garantizan que los helpers estén disponibles en otro entorno. Si faltan, preparar JDK/SDK conforme a la instalación anterior. Mantener el proxy, TLS y checksums del entorno. Registrar resultados reales en estado-actual.md; una tarea UP-TO-DATE reutiliza resultados.
-
-Configurar el inicio de las nuevas tareas para leer AGENTS.md desde la raíz Git. Editar estos documentos no modifica la configuración publicada del servicio.
