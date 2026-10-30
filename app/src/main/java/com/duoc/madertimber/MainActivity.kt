@@ -41,6 +41,8 @@ import com.duoc.madertimber.ui.screens.acceso.InicioSesionScreen
 import com.duoc.madertimber.ui.screens.acceso.InicioSesionViewModel
 import com.duoc.madertimber.ui.screens.acceso.RegistroScreen
 import com.duoc.madertimber.ui.screens.acceso.RegistroViewModel
+import com.duoc.madertimber.ui.screens.archivo.ArchivoScreen
+import com.duoc.madertimber.ui.screens.archivo.ArchivoViewModel
 import com.duoc.madertimber.ui.screens.camara.CamaraScreen
 import com.duoc.madertimber.ui.screens.dashboard.DashboardEvent
 import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
@@ -69,13 +71,14 @@ class MainActivity : ComponentActivity() {
     private val registroViewModel: RegistroViewModel by viewModels {
         viewModelFactory { initializer { RegistroViewModel(usuarioRepository) } }
     }
+    private val archivoViewModel: ArchivoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MaderTimberTheme {
-                AppNavigation(inicioSesionViewModel, registroViewModel, dashboardViewModel)
+                AppNavigation(inicioSesionViewModel, registroViewModel, dashboardViewModel, archivoViewModel)
             }
         }
     }
@@ -87,6 +90,7 @@ object Rutas {
     const val REGISTRO = "registro"
     const val DASHBOARD = "dashboard"
     const val CAMARA = "camara"
+    const val ARCHIVO = "archivo"
     const val LINEA = "linea/{lineaId}/{anio}"
     const val INDICADOR = "indicador/{indicadorId}/{anio}"
     const val RELACIONADOS = "relacionados/{lineaId}/{anio}?tipo={tipo}"
@@ -118,6 +122,7 @@ fun AppNavigation(
     inicioSesionViewModel: InicioSesionViewModel,
     registroViewModel: RegistroViewModel,
     dashboardViewModel: DashboardViewModel,
+    archivoViewModel: ArchivoViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -174,6 +179,16 @@ fun AppNavigation(
             }
             composable(Rutas.CAMARA) {
                 CamaraScreen(onVolverClick = ::volver)
+            }
+            composable(Rutas.ARCHIVO) {
+                ArchivoScreen(
+                    estado = archivoViewModel.uiState,
+                    onArchivoElegido = archivoViewModel::archivoElegido,
+                    onSeleccionCancelada = archivoViewModel::seleccionCancelada,
+                    onErrorDeLectura = archivoViewModel::errorDeLectura,
+                    onQuitarArchivo = archivoViewModel::quitarArchivo,
+                    onVolverClick = ::volver
+                )
             }
             composable(Rutas.LINEA, arguments = listOf(argumentoTexto("lineaId"), argumentoTexto("anio"))) { entrada ->
                 DestinoLinea(entrada, dashboardViewModel, navController, ::volver)
@@ -254,6 +269,7 @@ private fun DestinoDashboard(
         onVerInvestigadoresClick = { abrirRelacionados(TipoIndicador.INVESTIGADORES_ASOCIADOS) },
         onVerPublicacionesClick = { abrirRelacionados(TipoIndicador.PUBLICACIONES_GENERADAS) },
         onCamaraClick = { navController.navigate(Rutas.CAMARA) },
+        onArchivoClick = { navController.navigate(Rutas.ARCHIVO) },
         onCerrarSesionClick = onSalir
     )
 }

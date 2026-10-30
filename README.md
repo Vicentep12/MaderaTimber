@@ -49,6 +49,7 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android 1.10.2 | Catálogo y módulo `app` |
 | Navegación | Navigation Compose 2.10.2 | Catálogo y módulo `app` |
 | Persistencia | Room 2.8.5 y KSP 2.3.12 | Catálogo y módulo `app`; guarda la última selección del panel (T18) y el nombre y correo del usuario del login |
+| Recursos nativos | Cámara (contrato TakePicture, permiso CAMERA y FileProvider) y selector de archivos (OpenDocument, sin permisos; demostrativo) | `ui/screens/camara` y `ui/screens/archivo` |
 | Resolución de toolchains | Foojay resolver convention 1.0.0 | `settings.gradle.kts` |
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).

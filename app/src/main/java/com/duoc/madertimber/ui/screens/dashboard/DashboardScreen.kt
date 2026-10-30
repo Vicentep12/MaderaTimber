@@ -63,6 +63,7 @@ fun DashboardScreen(
     onVerInvestigadoresClick: () -> Unit = {},
     onVerPublicacionesClick: () -> Unit = {},
     onCamaraClick: () -> Unit = {},
+    onArchivoClick: () -> Unit = {},
     onCerrarSesionClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -244,6 +245,9 @@ fun DashboardScreen(
         }
         OutlinedButton(onClick = onCamaraClick, modifier = Modifier.fillMaxWidth()) {
             Text("Tomar foto de apoyo")
+        }
+        OutlinedButton(onClick = onArchivoClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Elegir archivo de apoyo")
         }
         Button(onClick = onCerrarSesionClick, modifier = Modifier.fillMaxWidth()) {
             Text("Cerrar sesión / Salir")

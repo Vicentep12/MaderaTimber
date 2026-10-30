@@ -2,6 +2,10 @@
 
 Última comprobación técnica: 2026-10-29. Los cortes anteriores y los antecedentes Windows del 2026-10-08 se conservan abajo como históricos. Comandos y herramientas requeridas en [README](../README.md); responsabilidades en [arquitectura.md](arquitectura.md); tareas abiertas en [plan-implementacion.md](plan-implementacion.md).
 
+## Recurso nativo 2: selector de archivos - 2026-10-29
+
+La rúbrica de DSY1105 exige al menos dos recursos nativos, por lo que se añadió el selector de archivos del sistema como segundo recurso, de forma demostrativa. El dashboard tiene el botón "Elegir archivo de apoyo", que abre la ruta `archivo` (`ui/screens/archivo/ArchivoScreen.kt` y `ArchivoViewModel.kt`). Usa el contrato OpenDocument, que no necesita permisos de almacenamiento, y muestra solo nombre, tamaño y tipo; el contenido no se lee, no se sube y no se guarda. Gestiona selección cancelada y error de lectura. Pendiente: compilar y probar en el emulador.
+
 ## Nombres en español en el acceso - 2026-10-29
 
 Las clases y campos del login y registro pasaron a español: `ui/screens/acceso` (`AccesoScreen.kt`, `AccesoViewModel.kt`), `AccesoUiState`, `AccesoEvento`, `AccesoValidador`, `AccesoErrores`, `InicioSesionViewModel`, `RegistroViewModel`, `InicioSesionScreen` y `RegistroScreen`. La ruta `login` pasó a `inicio_sesion`. Las menciones anteriores a los nombres en inglés en este documento y en `plan-implementacion.md` son históricas.
