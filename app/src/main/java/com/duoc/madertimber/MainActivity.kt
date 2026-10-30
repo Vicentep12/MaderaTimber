@@ -4,6 +4,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -84,6 +89,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Duración en milisegundos de las animaciones al cambiar de pantalla
+private const val DURACION_TRANSICION = 300
+
 // Nombres de las rutas y funciones para armar las que llevan datos
 object Rutas {
     const val INICIO_SESION = "inicio_sesion"
@@ -152,7 +160,11 @@ fun AppNavigation(
         NavHost(
             navController = navController,
             startDestination = Rutas.INICIO_SESION,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            enterTransition = { fadeIn(tween(DURACION_TRANSICION)) + slideInHorizontally(tween(DURACION_TRANSICION)) { it / 8 } },
+            exitTransition = { fadeOut(tween(DURACION_TRANSICION / 2)) },
+            popEnterTransition = { fadeIn(tween(DURACION_TRANSICION)) },
+            popExitTransition = { fadeOut(tween(DURACION_TRANSICION / 2)) + slideOutHorizontally(tween(DURACION_TRANSICION)) { it / 8 } }
         ) {
             composable(Rutas.INICIO_SESION) {
                 InicioSesionScreen(

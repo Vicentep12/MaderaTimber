@@ -11,10 +11,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -26,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -136,6 +143,7 @@ private fun FormularioAcceso(
                         label = { Text("Nombre completo") }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                         keyboardActions = KeyboardActions(onNext = { correoFoco.requestFocus() }),
+                        leadingIcon = { IconoCampo(Icons.Default.Person, "nombre", estado.errores.nombre) },
                         isError = estado.errores.nombre,
                         supportingText = { if (estado.errores.nombre) Text("Ingresa tu nombre.") },
                         modifier = Modifier.fillMaxWidth()
@@ -149,6 +157,7 @@ private fun FormularioAcceso(
                         imeAction = ImeAction.Next
                     ),
                     keyboardActions = KeyboardActions(onNext = { contrasenaFoco.requestFocus() }),
+                    leadingIcon = { IconoCampo(Icons.Default.Email, "correo electrónico", estado.errores.correo) },
                     isError = estado.errores.correo,
                     supportingText = { if (estado.errores.correo) Text("Ingresa un correo válido.") },
                     modifier = Modifier.fillMaxWidth().focusRequester(correoFoco)
@@ -245,6 +254,7 @@ private fun CampoContrasena(
                 onDone = { alAccionTeclado() }
             ),
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
+            leadingIcon = { IconoCampo(Icons.Default.Lock, etiqueta.lowercase(), error) },
             trailingIcon = if (controlDebajo) null else controlVisibilidad,
             isError = error,
             supportingText = {
@@ -255,6 +265,16 @@ private fun CampoContrasena(
         )
         if (controlDebajo) controlVisibilidad()
     }
+}
+
+// Ícono del campo; si hay error cambia a una advertencia en rojo
+@Composable
+private fun IconoCampo(icono: ImageVector, campo: String, error: Boolean) {
+    Icon(
+        imageVector = if (error) Icons.Default.Warning else icono,
+        contentDescription = if (error) "Error en $campo" else null,
+        tint = if (error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+    )
 }
 
 @Preview(showBackground = true)
