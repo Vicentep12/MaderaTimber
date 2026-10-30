@@ -58,7 +58,7 @@ import com.duoc.madertimber.ui.screens.lineas.DetalleIndicadorScreen
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaScreen
 import com.duoc.madertimber.ui.screens.relacionados.FichaRelacionadaScreen
 import com.duoc.madertimber.ui.screens.relacionados.RelacionadosScreen
-import com.duoc.madertimber.ui.theme.MaderTimberTheme
+import com.duoc.madertimber.ui.theme.MaderaTimberTheme
 
 class MainActivity : ComponentActivity() {
     private val baseDatos by lazy { AppDatabase.obtener(applicationContext) }
@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaderTimberTheme {
+            MaderaTimberTheme {
                 AppNavigation(inicioSesionViewModel, registroViewModel, dashboardViewModel, archivoViewModel)
             }
         }

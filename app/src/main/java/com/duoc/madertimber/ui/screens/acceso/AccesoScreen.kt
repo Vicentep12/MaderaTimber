@@ -45,7 +45,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.duoc.madertimber.ui.theme.MaderTimberTheme
+import com.duoc.madertimber.ui.theme.MaderaTimberTheme
 
 @Composable
 fun InicioSesionScreen(
@@ -280,11 +280,11 @@ private fun IconoCampo(icono: ImageVector, campo: String, error: Boolean) {
 @Preview(showBackground = true)
 @Composable
 private fun InicioSesionPreview() {
-    MaderTimberTheme { InicioSesionScreen(AccesoUiState(), onEvent = {}, onRegistro = {}, onInvitado = {}) }
+    MaderaTimberTheme { InicioSesionScreen(AccesoUiState(), onEvent = {}, onRegistro = {}, onInvitado = {}) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun RegistroPreview() {
-    MaderTimberTheme { RegistroScreen(AccesoUiState(), onEvent = {}, onInicioSesion = {}, onInvitado = {}) }
+    MaderaTimberTheme { RegistroScreen(AccesoUiState(), onEvent = {}, onInicioSesion = {}, onInvitado = {}) }
 }

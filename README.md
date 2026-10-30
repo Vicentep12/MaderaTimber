@@ -8,7 +8,7 @@ La pantalla inicial presenta un login de demostración, con acceso al registro y
 
 La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; `DashboardViewModel` entrega esos resultados a la vista y conserva la selección durante recreaciones.
 
-El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, mientras `rootProject.name`, el tema y la etiqueta Android usan **MaderTimber**. Se conservan estas identidades sin renombrar código. Paquete e identificador: `com.duoc.madertimber`.
+El nombre de la aplicación es **MaderaTimber** (etiqueta Android, tema, `rootProject.name`, repositorio y carpeta); el panel pertenece a **Cenamad**. Paquete e identificador: `com.duoc.madertimber`.
 
 ## Integrantes
 

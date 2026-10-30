@@ -49,7 +49,7 @@ import com.duoc.madertimber.R
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.nombre
 import com.duoc.madertimber.data.model.unidad
-import com.duoc.madertimber.ui.theme.MaderTimberTheme
+import com.duoc.madertimber.ui.theme.MaderaTimberTheme
 import java.util.Locale
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -355,7 +355,7 @@ private fun BarraComparativa(
 @Preview(showBackground = true)
 @Composable
 private fun DashboardPreview() {
-    MaderTimberTheme {
+    MaderaTimberTheme {
         DashboardScreen(
             state = DashboardUiState(estado = EstadoDashboard.VACIO),
             onEvent = {}

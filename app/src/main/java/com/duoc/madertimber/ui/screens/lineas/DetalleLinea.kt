@@ -28,7 +28,7 @@ import com.duoc.madertimber.data.model.LineaInvestigacion
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.nombre
 import com.duoc.madertimber.ui.components.GraficoHistorico
-import com.duoc.madertimber.ui.theme.MaderTimberTheme
+import com.duoc.madertimber.ui.theme.MaderaTimberTheme
 import java.util.Locale
 
 data class DetalleLineaUiState(
@@ -144,7 +144,7 @@ private fun valorVisible(indicador: IndicadorCalculado): String {
 @Preview(showBackground = true)
 @Composable
 private fun DetalleLineaPreview() {
-    MaderTimberTheme {
+    MaderaTimberTheme {
         DetalleLineaScreen(
             state = DetalleLineaUiState(
                 linea = LineaInvestigacion("L1", "Línea de ejemplo", "Descripción demostrativa", "#008000"),

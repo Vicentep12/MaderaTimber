@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MaderTimber"
+rootProject.name = "MaderaTimber"
 include(":app")
  
