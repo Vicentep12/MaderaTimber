@@ -12,8 +12,9 @@ El propietario usa el nombre **Cenamad**; GitHub/carpeta usan **MaderaTimber**, 
 
 ## Integrantes
 
-- Diego Roble
-- Vicente (usuario de GitHub: Vicentep12)
+- Diego Roble (usuario de GitHub: DiegoRobleM)
+- Vicente Pérez (usuario de GitHub: Vicentep12)
+- Agatha Ruiz (usuario de GitHub: VictoriaRuiz007)
 
 ## Funcionalidades implementadas
 
