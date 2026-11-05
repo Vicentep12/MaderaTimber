@@ -4,14 +4,14 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.navigation.NavHostController
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,27 +38,27 @@ import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.validarContextoRuta
 import com.duoc.madertimber.data.model.validarFichaRuta
 import com.duoc.madertimber.data.model.validarIndicadorRuta
-import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.AppDatabase
+import com.duoc.madertimber.data.repository.LocalPanelRepository
 import com.duoc.madertimber.data.repository.SeleccionRepository
 import com.duoc.madertimber.data.repository.UsuarioRepository
 import com.duoc.madertimber.ui.screens.acceso.InicioSesionScreen
-import com.duoc.madertimber.ui.screens.acceso.InicioSesionViewModel
 import com.duoc.madertimber.ui.screens.acceso.RegistroScreen
-import com.duoc.madertimber.ui.screens.acceso.RegistroViewModel
 import com.duoc.madertimber.ui.screens.archivo.ArchivoScreen
-import com.duoc.madertimber.ui.screens.archivo.ArchivoViewModel
 import com.duoc.madertimber.ui.screens.camara.CamaraScreen
-import com.duoc.madertimber.ui.screens.dashboard.DashboardEvent
 import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
-import com.duoc.madertimber.ui.screens.dashboard.DashboardUiState
-import com.duoc.madertimber.ui.screens.dashboard.DashboardViewModel
-import com.duoc.madertimber.ui.screens.dashboard.EstadoDashboard
 import com.duoc.madertimber.ui.screens.lineas.DetalleIndicadorScreen
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaScreen
 import com.duoc.madertimber.ui.screens.relacionados.FichaRelacionadaScreen
 import com.duoc.madertimber.ui.screens.relacionados.RelacionadosScreen
 import com.duoc.madertimber.ui.theme.MaderaTimberTheme
+import com.duoc.madertimber.viewmodel.ArchivoViewModel
+import com.duoc.madertimber.viewmodel.DashboardEvent
+import com.duoc.madertimber.viewmodel.DashboardUiState
+import com.duoc.madertimber.viewmodel.DashboardViewModel
+import com.duoc.madertimber.viewmodel.EstadoDashboard
+import com.duoc.madertimber.viewmodel.InicioSesionViewModel
+import com.duoc.madertimber.viewmodel.RegistroViewModel
 
 class MainActivity : ComponentActivity() {
     private val baseDatos by lazy { AppDatabase.obtener(applicationContext) }

@@ -29,17 +29,8 @@ import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.nombre
 import com.duoc.madertimber.ui.components.GraficoHistorico
 import com.duoc.madertimber.ui.theme.MaderaTimberTheme
+import com.duoc.madertimber.viewmodel.DetalleLineaUiState
 import java.util.Locale
-
-data class DetalleLineaUiState(
-    val linea: LineaInvestigacion,
-    val anio: Int,
-    val indicadores: List<IndicadorCalculado>,
-    val tipoHistorico: TipoIndicador,
-    val historico: HistoricoIndicador?,
-    val relacionados: DatosRelacionados?,
-    val mensaje: String? = null
-)
 
 @Composable
 fun DetalleLineaScreen(

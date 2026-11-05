@@ -1,4 +1,4 @@
-package com.duoc.madertimber.ui.screens.archivo
+package com.duoc.madertimber.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

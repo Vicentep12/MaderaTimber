@@ -1,4 +1,4 @@
-package com.duoc.madertimber.ui.screens.dashboard
+package com.duoc.madertimber.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +22,6 @@ import com.duoc.madertimber.data.repository.ResultadoConsultaPanel
 import com.duoc.madertimber.data.repository.ResultadoIndicadoresPanel
 import com.duoc.madertimber.data.repository.SeleccionGuardada
 import com.duoc.madertimber.data.repository.SeleccionRepository
-import com.duoc.madertimber.ui.screens.lineas.DetalleLineaUiState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

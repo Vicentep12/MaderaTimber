@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.duoc.madertimber.viewmodel.ArchivoUiState
 import java.util.Locale
 
 private data class DatosArchivo(val nombre: String, val tamanoBytes: Long?)
