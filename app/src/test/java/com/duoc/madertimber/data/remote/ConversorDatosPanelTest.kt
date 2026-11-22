@@ -4,6 +4,7 @@ import com.duoc.madertimber.data.model.EstadoProyecto
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
+//Prueba 2:
 // Prueba de la conversión de las respuestas de Xano a los modelos del panel
 class ConversorDatosPanelTest {
 

@@ -4,6 +4,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+//Prueba 1:
 // Prueba de las reglas de validación del formulario de registro
 class AccesoValidadorTest {
 
