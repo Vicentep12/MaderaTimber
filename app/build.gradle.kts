@@ -55,6 +55,11 @@ android {
     }
 }
 
+// Nombre de los APK generados: MaderaTimber-v1.0-release.apk y MaderaTimber-v1.0-debug.apk
+base {
+    archivesName = "MaderaTimber-v${android.defaultConfig.versionName}"
+}
+
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)

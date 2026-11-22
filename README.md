@@ -135,7 +135,7 @@ bash ./gradlew :app:assembleDebug :app:lintDebug --console=plain
 | Pruebas unitarias | `.\gradlew.bat :app:testDebugUnitTest` |
 | APK release firmado | `.\gradlew.bat :app:assembleRelease` |
 
-APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
+APK esperado: `app/build/outputs/apk/debug/MaderaTimber-v1.0-debug.apk`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
 
 Las pruebas unitarias también se pueden ejecutar en Android Studio con clic derecho sobre `app/src/test` → Run. Nota: en Windows, si la ruta del proyecto tiene tildes (por ejemplo «Móviles»), Gradle no encuentra las clases de prueba; abrir el proyecto desde una ruta sin tildes.
 
@@ -149,7 +149,7 @@ Las pruebas unitarias también se pueden ejecutar en Android Studio con clic der
    ```
 
 2. Copiar `keystore.properties.example` como `keystore.properties` en la raíz y completar ruta, contraseñas y alias. Ese archivo y el `.jks` están en `.gitignore`: no se suben a Git. Respaldar el `.jks`; si se pierde no se pueden publicar actualizaciones con la misma firma.
-3. Ejecutar `.\gradlew.bat :app:assembleRelease`. El APK queda en `app/build/outputs/apk/release/app-release.apk`. Sin `keystore.properties` el APK release se genera sin firmar.
+3. Ejecutar `.\gradlew.bat :app:assembleRelease`. El APK queda en `app/build/outputs/apk/release/MaderaTimber-v1.0-release.apk` (el nombre usa el `versionName` de `app/build.gradle.kts`). También se puede generar desde Android Studio: Build → Generate Signed App Bundle or APK → APK, eligiendo el mismo keystore y la variante release. Sin `keystore.properties` el APK release se genera sin firmar.
 
 **Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí.
 
