@@ -3,11 +3,12 @@ package com.duoc.madertimber.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duoc.madertimber.data.model.AccesoErrores
 import com.duoc.madertimber.data.model.AccesoValidador
+import com.duoc.madertimber.data.remote.mensajeDeError
+import com.duoc.madertimber.data.repository.SesionRepository
 import com.duoc.madertimber.data.repository.UsuarioRepository
 import kotlinx.coroutines.launch
 
@@ -19,7 +20,9 @@ data class AccesoUiState(
     val mostrarContrasena: Boolean = false,
     val mostrarConfirmacion: Boolean = false,
     val enviado: Boolean = false,
-    val mostrarAviso: Boolean = false,
+    val cargando: Boolean = false,
+    val mensajeError: String? = null,
+    val accesoExitoso: Boolean = false,
     val errores: AccesoErrores = AccesoErrores()
 )
 
@@ -31,14 +34,15 @@ sealed interface AccesoEvento {
     data object AlternarContrasena : AccesoEvento
     data object AlternarConfirmacion : AccesoEvento
     data object Enviar : AccesoEvento
-    data object CerrarAviso : AccesoEvento
+    data object CerrarError : AccesoEvento
 }
 
 abstract class AccesoViewModel(
     private val registrando: Boolean,
+    private val sesiones: SesionRepository,
     private val usuarios: UsuarioRepository
 ) : ViewModel() {
-    // Estado observable de solo lectura para la vista. No se persisten credenciales.
+    // Estado observable de solo lectura para la vista. La contraseña nunca se guarda.
     var uiState by mutableStateOf(AccesoUiState())
         private set
 
@@ -54,8 +58,9 @@ abstract class AccesoViewModel(
         }
     }
 
-    // Aplica lo que hace el usuario; al enviar valida y, si todo está bien, muestra el aviso
+    // Aplica lo que hace el usuario; al enviar valida y, si todo está bien, llama a la API
     fun onEvent(evento: AccesoEvento) {
+        if (uiState.cargando) return
         val siguiente = when (evento) {
             is AccesoEvento.NombreCambiado -> uiState.copy(nombre = evento.valor)
             is AccesoEvento.CorreoCambiado -> uiState.copy(correo = evento.valor)
@@ -64,30 +69,32 @@ abstract class AccesoViewModel(
             AccesoEvento.AlternarContrasena -> uiState.copy(mostrarContrasena = !uiState.mostrarContrasena)
             AccesoEvento.AlternarConfirmacion -> uiState.copy(mostrarConfirmacion = !uiState.mostrarConfirmacion)
             AccesoEvento.Enviar -> uiState.copy(enviado = true)
-            AccesoEvento.CerrarAviso -> uiState.copy(mostrarAviso = false)
+            AccesoEvento.CerrarError -> uiState.copy(mensajeError = null)
         }
         val errores = if (siguiente.enviado) {
             AccesoValidador.validar(registrando, siguiente.nombre, siguiente.correo, siguiente.contrasena, siguiente.confirmacion)
         } else {
             AccesoErrores()
         }
-        uiState = siguiente.copy(
-            errores = errores,
-            mostrarAviso = if (evento == AccesoEvento.Enviar) !errores.hayErrores else siguiente.mostrarAviso
-        )
-        if (evento == AccesoEvento.Enviar && !errores.hayErrores) guardarUsuario(siguiente)
+        uiState = siguiente.copy(errores = errores)
+        if (evento == AccesoEvento.Enviar && !errores.hayErrores) enviarCredenciales(siguiente)
     }
 
-    // Guarda nombre y correo en Room; en el login se conserva el nombre que ya había
-    private fun guardarUsuario(estado: AccesoUiState) {
+    // Registra la cuenta o inicia sesión en Xano; si falla deja el mensaje para mostrarlo
+    private fun enviarCredenciales(estado: AccesoUiState) {
+        uiState = uiState.copy(cargando = true, mensajeError = null)
         viewModelScope.launch {
             try {
-                val nombre = if (registrando) estado.nombre.trim() else usuarios.leer()?.nombre.orEmpty()
                 val correo = estado.correo.trim()
-                usuarios.guardar(nombre, correo)
+                if (registrando) {
+                    sesiones.registrar(estado.nombre.trim(), correo, estado.contrasena)
+                } else {
+                    sesiones.iniciarSesion(correo, estado.contrasena)
+                }
                 correoGuardado = correo
+                uiState = uiState.copy(cargando = false, accesoExitoso = true)
             } catch (error: Exception) {
-                Log.e("AccesoViewModel", "No se pudo guardar el usuario", error)
+                uiState = uiState.copy(cargando = false, mensajeError = mensajeDeError(error))
             }
         }
     }
@@ -98,6 +105,8 @@ abstract class AccesoViewModel(
     }
 }
 
-class InicioSesionViewModel(usuarios: UsuarioRepository) : AccesoViewModel(registrando = false, usuarios = usuarios)
+class InicioSesionViewModel(sesiones: SesionRepository, usuarios: UsuarioRepository) :
+    AccesoViewModel(registrando = false, sesiones = sesiones, usuarios = usuarios)
 
-class RegistroViewModel(usuarios: UsuarioRepository) : AccesoViewModel(registrando = true, usuarios = usuarios)
+class RegistroViewModel(sesiones: SesionRepository, usuarios: UsuarioRepository) :
+    AccesoViewModel(registrando = true, sesiones = sesiones, usuarios = usuarios)

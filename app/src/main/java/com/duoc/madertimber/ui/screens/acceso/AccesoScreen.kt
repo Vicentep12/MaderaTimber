@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -20,6 +21,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -55,9 +57,10 @@ fun InicioSesionScreen(
     onEvent: (AccesoEvento) -> Unit,
     onRegistro: () -> Unit,
     onInvitado: () -> Unit,
+    onAccesoExitoso: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    FormularioAcceso(false, estado, onEvent, onRegistro, onInvitado, modifier)
+    FormularioAcceso(false, estado, onEvent, onRegistro, onInvitado, onAccesoExitoso, modifier)
 }
 
 @Composable
@@ -66,9 +69,10 @@ fun RegistroScreen(
     onEvent: (AccesoEvento) -> Unit,
     onInicioSesion: () -> Unit,
     onInvitado: () -> Unit,
+    onAccesoExitoso: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    FormularioAcceso(true, estado, onEvent, onInicioSesion, onInvitado, modifier)
+    FormularioAcceso(true, estado, onEvent, onInicioSesion, onInvitado, onAccesoExitoso, modifier)
 }
 
 @Composable
@@ -78,6 +82,7 @@ private fun FormularioAcceso(
     onEvent: (AccesoEvento) -> Unit,
     onCambiarFormulario: () -> Unit,
     onInvitado: () -> Unit,
+    onAccesoExitoso: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val administradorFoco = LocalFocusManager.current
@@ -86,9 +91,9 @@ private fun FormularioAcceso(
     val contrasenaFoco = remember { FocusRequester() }
     val confirmacionFoco = remember { FocusRequester() }
 
-    LaunchedEffect(estado.mostrarAviso) {
-        administradorFoco.clearFocus(force = true)
-        controladorTeclado?.hide()
+    // Cuando la API confirma el acceso se abre el panel
+    LaunchedEffect(estado.accesoExitoso) {
+        if (estado.accesoExitoso) onAccesoExitoso()
     }
 
     fun enviar() {
@@ -134,7 +139,7 @@ private fun FormularioAcceso(
                     )
                 ) {
                     Text(
-                        "Demostración · Las cuentas aún no están habilitadas.",
+                        "Con tu cuenta puedes guardar proyectos, investigadores y publicaciones en favoritos.",
                         modifier = Modifier.padding(12.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -189,31 +194,32 @@ private fun FormularioAcceso(
                     )
                 }
                 Button(
-                    onClick = ::enviar, modifier = Modifier.fillMaxWidth()
-                ) { Text(if (registrando) "Crear cuenta" else "Iniciar sesión") }
+                    onClick = ::enviar, enabled = !estado.cargando, modifier = Modifier.fillMaxWidth()
+                ) {
+                    if (estado.cargando) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 2.dp,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    } else {
+                        Text(if (registrando) "Crear cuenta" else "Iniciar sesión")
+                    }
+                }
                 TextButton(onClick = { salirDelFormulario(onCambiarFormulario) }, modifier = Modifier.fillMaxWidth()) {
                     Text(if (registrando) "Ya tengo cuenta · Iniciar sesión" else "No tengo cuenta · Registrarme")
                 }
             }
         }
         TextButton(onClick = { salirDelFormulario(onInvitado) }) { Text("Explorar como invitado") }
-        if (!registrando) {
-            Text(
-                "Enviar datos válidos abre el aviso de demostración.",
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
     }
-    if (estado.mostrarAviso) {
+    estado.mensajeError?.let { mensaje ->
         AlertDialog(
-            onDismissRequest = { onEvent(AccesoEvento.CerrarAviso) },
-            title = { Text("Demostración") },
-            text = { Text("El acceso con cuenta todavía no está disponible. No se ha creado ninguna cuenta ni iniciado sesión. Puedes explorar el panel como invitado.") },
+            onDismissRequest = { onEvent(AccesoEvento.CerrarError) },
+            title = { Text(if (registrando) "No se pudo crear la cuenta" else "No se pudo iniciar sesión") },
+            text = { Text(mensaje) },
             confirmButton = {
-                TextButton(onClick = { onEvent(AccesoEvento.CerrarAviso); onInvitado() }) { Text("Explorar panel") }
-            },
-            dismissButton = {
-                TextButton(onClick = { onEvent(AccesoEvento.CerrarAviso) }) { Text("Volver") }
+                TextButton(onClick = { onEvent(AccesoEvento.CerrarError) }) { Text("Entendido") }
             }
         )
     }
@@ -282,11 +288,11 @@ private fun IconoCampo(icono: ImageVector, campo: String, error: Boolean) {
 @Preview(showBackground = true)
 @Composable
 private fun InicioSesionPreview() {
-    MaderaTimberTheme { InicioSesionScreen(AccesoUiState(), onEvent = {}, onRegistro = {}, onInvitado = {}) }
+    MaderaTimberTheme { InicioSesionScreen(AccesoUiState(), onEvent = {}, onRegistro = {}, onInvitado = {}, onAccesoExitoso = {}) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun RegistroPreview() {
-    MaderaTimberTheme { RegistroScreen(AccesoUiState(), onEvent = {}, onInicioSesion = {}, onInvitado = {}) }
+    MaderaTimberTheme { RegistroScreen(AccesoUiState(), onEvent = {}, onInicioSesion = {}, onInvitado = {}, onAccesoExitoso = {}) }
 }
