@@ -61,7 +61,7 @@ Para continuar en otro equipo, sincronizar el código por Git y comprobar el ent
 
 ## Tecnologías declaradas
 
-Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las versiones sean compatibles ni que se hayan resuelto.
+
 
 | Componente | Configuración | Fuente |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal
    git status --short
    ```
 
-3. Abrir **esa carpeta** en Android Studio. En Windows el usuario trabaja bajo `E:/AnalistaProgramador/Desarrollo app moviles`; la carpeta contenedora no es la raíz Git.
+3. Abrir **esa carpeta** en Android Studio. En Windows el usuario trabaja bajo `C:/dev/MaderaTimber`; la carpeta contenedora no es la raíz Git.
 4. En SDK Manager instalar Android SDK Platform 37.0 (API 37), Platform Tools y las Build Tools que requiera AGP (36.0.0 solicitadas durante esta revisión). Aceptar licencias. No usar API 24 como plataforma de compilación: es solo el mínimo para dispositivos.
 5. Configurar el JDK para Gradle y la ubicación local del SDK. Android Studio puede crear `local.properties`; debe permanecer ignorado. Alternativa de terminal (reemplazar rutas por las de tu equipo):
 
@@ -150,8 +150,6 @@ Las pruebas unitarias también se pueden ejecutar en Android Studio con clic der
 
 2. Copiar `keystore.properties.example` como `keystore.properties` en la raíz y completar ruta, contraseñas y alias. Ese archivo y el `.jks` están en `.gitignore`: no se suben a Git. Respaldar el `.jks`; si se pierde no se pueden publicar actualizaciones con la misma firma.
 3. Ejecutar `.\gradlew.bat :app:assembleRelease`. El APK queda en `app/build/outputs/apk/release/MaderaTimber-v1.0-release.apk` (el nombre usa el `versionName` de `app/build.gradle.kts`). También se puede generar desde Android Studio: Build → Generate Signed App Bundle or APK → APK, eligiendo el mismo keystore y la variante release. Sin `keystore.properties` el APK release se genera sin firmar.
-
-**Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí.
 
 ## GitHub y archivos locales
 
