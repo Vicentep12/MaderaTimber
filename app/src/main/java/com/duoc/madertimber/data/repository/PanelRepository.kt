@@ -1,6 +1,5 @@
 package com.duoc.madertimber.data.repository
 
-import android.content.Context
 import com.duoc.madertimber.data.model.CategoriaRelacionada
 import com.duoc.madertimber.data.model.DatosPanel
 import com.duoc.madertimber.data.model.DatosRelacionados
@@ -10,7 +9,9 @@ import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.calcularIndicadores
 import com.duoc.madertimber.data.model.categoriasRelacionadas
 import com.duoc.madertimber.data.model.proyectosActivos
-import java.io.Reader
+import com.duoc.madertimber.data.remote.ConversorDatosPanel
+import com.duoc.madertimber.data.remote.XanoApi
+import com.duoc.madertimber.data.remote.mensajeDeError
 
 sealed interface EstadoCargaPanel {
     data object Cargando : EstadoCargaPanel
@@ -39,22 +40,23 @@ sealed interface ResultadoIndicadoresPanel {
     data class Error(val mensaje: String) : ResultadoIndicadoresPanel
 }
 
-// Lee el JSON de assets y responde las consultas de la pantalla
-class LocalPanelRepository(private val abrirDatos: () -> Reader) {
-    constructor(context: Context) : this({
-        context.assets.open(ARCHIVO_DATOS).bufferedReader(Charsets.UTF_8)
-    })
-
+// Descarga los datos del panel desde la API y responde las consultas de la pantalla
+class PanelRepository(private val api: XanoApi) {
     private var estado: EstadoCargaPanel = EstadoCargaPanel.Cargando
 
-    // Abre el JSON y deja guardado si quedó listo, vacío o con error
-    fun cargar(): EstadoCargaPanel {
+    // Pide las cuatro listas a la API y deja guardado si quedaron listas, vacías o con error
+    suspend fun cargar(): EstadoCargaPanel {
         estado = EstadoCargaPanel.Cargando
         estado = try {
-            val datos = abrirDatos().use { LectorDatosPanel.leer(it) }
+            val datos = ConversorDatosPanel.convertir(
+                api.obtenerLineas(),
+                api.obtenerProyectos(),
+                api.obtenerInvestigadores(),
+                api.obtenerPublicaciones()
+            )
             if (datos.lineas.isEmpty()) EstadoCargaPanel.Vacio else EstadoCargaPanel.Listo(datos)
         } catch (error: Exception) {
-            EstadoCargaPanel.Error(error.message ?: "No se pudieron cargar los datos locales")
+            EstadoCargaPanel.Error(mensajeDeError(error))
         }
         return estado
     }
@@ -143,9 +145,5 @@ class LocalPanelRepository(private val abrirDatos: () -> Reader) {
         } else {
             ResultadoConsultaPanel.Disponible(filtrados)
         }
-    }
-
-    companion object {
-        const val ARCHIVO_DATOS = "cenamad_datos.json"
     }
 }

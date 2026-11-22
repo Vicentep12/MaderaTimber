@@ -17,7 +17,7 @@ import com.duoc.madertimber.data.model.LineaInvestigacion
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.prepararHistorico
 import com.duoc.madertimber.data.repository.EstadoCargaPanel
-import com.duoc.madertimber.data.repository.LocalPanelRepository
+import com.duoc.madertimber.data.repository.PanelRepository
 import com.duoc.madertimber.data.repository.ResultadoConsultaPanel
 import com.duoc.madertimber.data.repository.ResultadoIndicadoresPanel
 import com.duoc.madertimber.data.repository.SeleccionGuardada
@@ -88,7 +88,7 @@ sealed interface DashboardEvent {
 // Guarda el estado del dashboard (línea, año y filtros) y decide qué se muestra
 class DashboardViewModel(
     private val guardado: SavedStateHandle,
-    private val repositorio: LocalPanelRepository,
+    private val repositorio: PanelRepository,
     private val dispatcherCarga: CoroutineDispatcher = Dispatchers.IO,
     private val seleccionRepository: SeleccionRepository? = null
 ) : ViewModel() {
@@ -172,7 +172,7 @@ class DashboardViewModel(
         ) guardarSeleccion()
     }
 
-    // Primero lee la selección guardada en Room y después carga los datos del JSON
+    // Primero lee la selección guardada en Room y después descarga los datos desde la API
     private fun cargar() {
         carga?.cancel()
         uiState = uiState.copy(estado = EstadoDashboard.CARGANDO, mensaje = null)
@@ -355,7 +355,7 @@ class DashboardViewModel(
         private const val CLAVE_INDICADOR = "dashboard.tipoIndicador"
         private const val CLAVE_HISTORICO_LINEA = "dashboard.tipoHistoricoLinea"
 
-        fun factory(repositorio: LocalPanelRepository, seleccion: SeleccionRepository? = null): ViewModelProvider.Factory = viewModelFactory {
+        fun factory(repositorio: PanelRepository, seleccion: SeleccionRepository? = null): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 DashboardViewModel(createSavedStateHandle(), repositorio, seleccionRepository = seleccion)
             }
