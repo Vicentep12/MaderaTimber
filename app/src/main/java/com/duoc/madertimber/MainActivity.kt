@@ -38,15 +38,19 @@ import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.validarContextoRuta
 import com.duoc.madertimber.data.model.validarFichaRuta
 import com.duoc.madertimber.data.model.validarIndicadorRuta
+import com.duoc.madertimber.data.remote.ClienteApi
 import com.duoc.madertimber.data.repository.AppDatabase
-import com.duoc.madertimber.data.repository.LocalPanelRepository
+import com.duoc.madertimber.data.repository.FavoritosRepository
+import com.duoc.madertimber.data.repository.PanelRepository
 import com.duoc.madertimber.data.repository.SeleccionRepository
+import com.duoc.madertimber.data.repository.SesionRepository
 import com.duoc.madertimber.data.repository.UsuarioRepository
 import com.duoc.madertimber.ui.screens.acceso.InicioSesionScreen
 import com.duoc.madertimber.ui.screens.acceso.RegistroScreen
 import com.duoc.madertimber.ui.screens.archivo.ArchivoScreen
 import com.duoc.madertimber.ui.screens.camara.CamaraScreen
 import com.duoc.madertimber.ui.screens.dashboard.DashboardScreen
+import com.duoc.madertimber.ui.screens.favoritos.FavoritosScreen
 import com.duoc.madertimber.ui.screens.lineas.DetalleIndicadorScreen
 import com.duoc.madertimber.ui.screens.lineas.DetalleLineaScreen
 import com.duoc.madertimber.ui.screens.relacionados.FichaRelacionadaScreen
@@ -57,24 +61,31 @@ import com.duoc.madertimber.viewmodel.DashboardEvent
 import com.duoc.madertimber.viewmodel.DashboardUiState
 import com.duoc.madertimber.viewmodel.DashboardViewModel
 import com.duoc.madertimber.viewmodel.EstadoDashboard
+import com.duoc.madertimber.viewmodel.FavoritosViewModel
 import com.duoc.madertimber.viewmodel.InicioSesionViewModel
 import com.duoc.madertimber.viewmodel.RegistroViewModel
 
 class MainActivity : ComponentActivity() {
     private val baseDatos by lazy { AppDatabase.obtener(applicationContext) }
     private val usuarioRepository by lazy { UsuarioRepository(baseDatos.usuarioDao()) }
+    private val sesionRepository by lazy { SesionRepository(ClienteApi.api, usuarioRepository) }
 
     private val dashboardViewModel: DashboardViewModel by viewModels {
         DashboardViewModel.factory(
-            LocalPanelRepository(applicationContext),
+            PanelRepository(ClienteApi.api),
             SeleccionRepository(baseDatos.seleccionDao())
         )
     }
     private val inicioSesionViewModel: InicioSesionViewModel by viewModels {
-        viewModelFactory { initializer { InicioSesionViewModel(usuarioRepository) } }
+        viewModelFactory { initializer { InicioSesionViewModel(sesionRepository, usuarioRepository) } }
     }
     private val registroViewModel: RegistroViewModel by viewModels {
-        viewModelFactory { initializer { RegistroViewModel(usuarioRepository) } }
+        viewModelFactory { initializer { RegistroViewModel(sesionRepository, usuarioRepository) } }
+    }
+    private val favoritosViewModel: FavoritosViewModel by viewModels {
+        viewModelFactory {
+            initializer { FavoritosViewModel(sesionRepository, FavoritosRepository(ClienteApi.api, sesionRepository)) }
+        }
     }
     private val archivoViewModel: ArchivoViewModel by viewModels()
 
@@ -83,7 +94,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaderaTimberTheme {
-                AppNavigation(inicioSesionViewModel, registroViewModel, dashboardViewModel, archivoViewModel)
+                AppNavigation(
+                    inicioSesionViewModel, registroViewModel, dashboardViewModel, favoritosViewModel, archivoViewModel
+                )
             }
         }
     }
@@ -99,6 +112,7 @@ object Rutas {
     const val DASHBOARD = "dashboard"
     const val CAMARA = "camara"
     const val ARCHIVO = "archivo"
+    const val FAVORITOS = "favoritos"
     const val LINEA = "linea/{lineaId}/{anio}"
     const val INDICADOR = "indicador/{indicadorId}/{anio}"
     const val RELACIONADOS = "relacionados/{lineaId}/{anio}?tipo={tipo}"
@@ -130,6 +144,7 @@ fun AppNavigation(
     inicioSesionViewModel: InicioSesionViewModel,
     registroViewModel: RegistroViewModel,
     dashboardViewModel: DashboardViewModel,
+    favoritosViewModel: FavoritosViewModel,
     archivoViewModel: ArchivoViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
@@ -156,6 +171,12 @@ fun AppNavigation(
         volver()
     }
 
+    // Olvida el token y vuelve al login
+    fun cerrarSesion() {
+        favoritosViewModel.cerrarSesion()
+        salir()
+    }
+
     Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
@@ -174,20 +195,29 @@ fun AppNavigation(
                         limpiarAcceso()
                         navController.navigate(Rutas.REGISTRO)
                     },
-                    onInvitado = ::abrirDashboard
+                    onInvitado = ::abrirDashboard,
+                    onAccesoExitoso = ::abrirDashboard
                 )
             }
             composable(Rutas.REGISTRO) {
-                BackHandler(enabled = !registroViewModel.uiState.mostrarAviso, onBack = ::salir)
+                BackHandler(enabled = !registroViewModel.uiState.cargando, onBack = ::salir)
                 RegistroScreen(
                     estado = registroViewModel.uiState,
                     onEvent = registroViewModel::onEvent,
                     onInicioSesion = ::salir,
-                    onInvitado = ::abrirDashboard
+                    onInvitado = ::abrirDashboard,
+                    onAccesoExitoso = ::abrirDashboard
                 )
             }
             composable(Rutas.DASHBOARD) {
-                DestinoDashboard(dashboardViewModel, navController, ::salir)
+                DestinoDashboard(dashboardViewModel, favoritosViewModel.uiState.nombreUsuario, navController, ::cerrarSesion)
+            }
+            composable(Rutas.FAVORITOS) {
+                FavoritosScreen(
+                    estado = favoritosViewModel.uiState,
+                    onEvent = favoritosViewModel::onEvent,
+                    onVolverClick = ::volver
+                )
             }
             composable(Rutas.CAMARA) {
                 CamaraScreen(onVolverClick = ::volver)
@@ -224,7 +254,7 @@ fun AppNavigation(
                     argumentoTipo
                 )
             ) { entrada ->
-                DestinoFicha(entrada, dashboardViewModel, ::volver)
+                DestinoFicha(entrada, dashboardViewModel, favoritosViewModel, ::volver)
             }
         }
     }
@@ -252,6 +282,7 @@ private fun errorDeTipo(tipoTexto: String?, tipo: TipoIndicador?, estado: Dashbo
 @Composable
 private fun DestinoDashboard(
     dashboardViewModel: DashboardViewModel,
+    nombreUsuario: String?,
     navController: NavHostController,
     onSalir: () -> Unit
 ) {
@@ -282,7 +313,9 @@ private fun DestinoDashboard(
         onVerPublicacionesClick = { abrirRelacionados(TipoIndicador.PUBLICACIONES_GENERADAS) },
         onCamaraClick = { navController.navigate(Rutas.CAMARA) },
         onArchivoClick = { navController.navigate(Rutas.ARCHIVO) },
-        onCerrarSesionClick = onSalir
+        onFavoritosClick = { navController.navigate(Rutas.FAVORITOS) },
+        onCerrarSesionClick = onSalir,
+        nombreUsuario = nombreUsuario
     )
 }
 
@@ -386,6 +419,7 @@ private fun DestinoRelacionados(
 private fun DestinoFicha(
     entrada: NavBackStackEntry,
     dashboardViewModel: DashboardViewModel,
+    favoritosViewModel: FavoritosViewModel,
     onVolver: () -> Unit
 ) {
     val estado = dashboardViewModel.uiState
@@ -399,7 +433,14 @@ private fun DestinoFicha(
         if (error != null || datos == null || categoria == null || itemId == null) {
             ErrorRutaScreen(error ?: "El contenido solicitado no existe.", onVolver)
         } else {
-            FichaRelacionadaScreen(datos, categoria, itemId, onVolver)
+            FichaRelacionadaScreen(
+                datos = datos,
+                categoria = categoria,
+                itemId = itemId,
+                favoritos = favoritosViewModel.uiState,
+                onFavoritosEvento = favoritosViewModel::onEvent,
+                onVolverClick = onVolver
+            )
         }
     }
 }

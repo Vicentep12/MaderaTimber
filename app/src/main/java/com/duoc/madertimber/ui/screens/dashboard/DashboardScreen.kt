@@ -67,7 +67,9 @@ fun DashboardScreen(
     onVerPublicacionesClick: () -> Unit = {},
     onCamaraClick: () -> Unit = {},
     onArchivoClick: () -> Unit = {},
+    onFavoritosClick: () -> Unit = {},
     onCerrarSesionClick: () -> Unit = {},
+    nombreUsuario: String? = null,
     modifier: Modifier = Modifier
 ) {
     val tarjetasEnColumna = LocalConfiguration.current.screenWidthDp < 360 ||
@@ -95,7 +97,10 @@ fun DashboardScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text("CENAMAD", style = MaterialTheme.typography.headlineLarge)
-        Text("Explora la investigación", style = MaterialTheme.typography.titleLarge)
+        Text(
+            if (nombreUsuario.isNullOrBlank()) "Explora la investigación" else "Hola, $nombreUsuario",
+            style = MaterialTheme.typography.titleLarge
+        )
         Text("Datos demostrativos de las líneas de investigación.")
         Image(
             painter = painterResource(R.drawable.portada_investigacion_madera),
@@ -245,6 +250,9 @@ fun DashboardScreen(
                     Text("Ver línea")
                 }
             }
+        }
+        OutlinedButton(onClick = onFavoritosClick, modifier = Modifier.fillMaxWidth()) {
+            Text("Mis favoritos")
         }
         OutlinedButton(onClick = onCamaraClick, modifier = Modifier.fillMaxWidth()) {
             Text("Tomar foto de apoyo")

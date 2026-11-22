@@ -5,15 +5,22 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +34,8 @@ import com.duoc.madertimber.data.model.CategoriaRelacionada
 import com.duoc.madertimber.data.model.DatosRelacionados
 import com.duoc.madertimber.data.model.TipoIndicador
 import com.duoc.madertimber.data.model.categoriasRelacionadas
+import com.duoc.madertimber.viewmodel.FavoritosEvento
+import com.duoc.madertimber.viewmodel.FavoritosUiState
 import java.util.Locale
 
 @Composable
@@ -118,9 +127,17 @@ fun FichaRelacionadaScreen(
     datos: DatosRelacionados,
     categoria: CategoriaRelacionada,
     itemId: String,
+    favoritos: FavoritosUiState,
+    onFavoritosEvento: (FavoritosEvento) -> Unit,
     onVolverClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Nombre que se guarda junto al favorito; null si el elemento no existe en esta selección
+    val tituloElemento = when (categoria) {
+        CategoriaRelacionada.PROYECTOS -> datos.proyectos.find { it.id == itemId }?.titulo
+        CategoriaRelacionada.INVESTIGADORES -> datos.investigadores.find { it.id == itemId }?.nombre
+        CategoriaRelacionada.PUBLICACIONES -> datos.publicaciones.find { it.id == itemId }?.titulo
+    }
     Column(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -188,10 +205,42 @@ fun FichaRelacionadaScreen(
                 style = MaterialTheme.typography.bodySmall
             )
         }
+        if (tituloElemento != null) {
+            BotonFavorito(favoritos, categoria, itemId, tituloElemento, onFavoritosEvento)
+        }
         Button(onClick = onVolverClick, modifier = Modifier.fillMaxWidth()) {
             Text("Volver a la lista")
         }
     }
+}
+
+// Guarda o quita el elemento de los favoritos; los invitados ven una invitación a iniciar sesión
+@Composable
+private fun BotonFavorito(
+    favoritos: FavoritosUiState,
+    categoria: CategoriaRelacionada,
+    itemId: String,
+    titulo: String,
+    onFavoritosEvento: (FavoritosEvento) -> Unit
+) {
+    if (!favoritos.sesionIniciada) {
+        Text("Inicia sesión para guardar esta ficha en tus favoritos.", style = MaterialTheme.typography.bodyMedium)
+        return
+    }
+    val esFavorito = favoritos.buscar(categoria, itemId) != null
+    OutlinedButton(
+        onClick = { onFavoritosEvento(FavoritosEvento.Alternar(categoria, itemId, titulo)) },
+        enabled = !favoritos.cargando,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Icon(
+            imageVector = if (esFavorito) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+            contentDescription = null
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(if (esFavorito) "Quitar de favoritos" else "Guardar en favoritos")
+    }
+    favoritos.mensaje?.let { Text(it, color = MaterialTheme.colorScheme.primary) }
 }
 
 private fun CategoriaRelacionada.nombreFicha(): String = when (this) {
