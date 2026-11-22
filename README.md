@@ -4,9 +4,9 @@ Aplicación Android del panel de indicadores CENAMAD, con MVVM obligatoria para 
 
 Su público principal son estudiantes que quieren explorar líneas de investigación, comprender su evolución por años y consultar proyectos, investigadores y publicaciones relacionados. El enfoque de comprensión y las vistas de referencia están en las secciones 2.1–2.2 de la especificación.
 
-La pantalla inicial presenta un login de demostración, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AccesoValidador; validan los campos, permiten mostrar u ocultar cada contraseña y responden al teclado. Un envío válido abre un aviso modal; no autentican ni crean cuentas. El tema utiliza una paleta verde fija en modo claro y oscuro. El dashboard muestra cuatro indicadores calculados, una imagen temática y una comparación animada de las tres líneas para el año elegido. Ofrece filtros rápidos y un modal de línea/año con Aplicar y Cancelar. La navegación abre detalles, contenidos relacionados y fichas con línea/año conservados. El detalle de línea muestra cinco indicadores y un histórico seleccionable; el detalle del indicador muestra valor, variación, interpretación e histórico anual. Las listas relacionadas ofrecen categorías, totales y acceso a fichas de proyecto, investigador y publicación con datos de la selección.
+La pantalla inicial presenta el inicio de sesión, con acceso al registro y al panel como invitado. Ambos formularios separan vistas, estado/eventos en ViewModels y reglas en AccesoValidador; validan los campos, permiten mostrar u ocultar cada contraseña y responden al teclado. Las cuentas se crean y validan en la API de Xano. El tema utiliza una paleta verde fija en modo claro y oscuro. El dashboard muestra cuatro indicadores calculados, una imagen temática y una comparación animada de las tres líneas para el año elegido. Ofrece filtros rápidos y un modal de línea/año con Aplicar y Cancelar. La navegación abre detalles, contenidos relacionados y fichas con línea/año conservados. El detalle de línea muestra cinco indicadores y un histórico seleccionable; el detalle del indicador muestra valor, variación, interpretación e histórico anual. Las listas relacionadas ofrecen categorías, totales y acceso a fichas de proyecto, investigador y publicación con datos de la selección.
 
-La fuente local del panel está en `app/src/main/assets/cenamad_datos.json`. `LocalPanelRepository` la lee, valida y obtiene los cinco indicadores por línea/año; `DashboardViewModel` entrega esos resultados a la vista y conserva la selección durante recreaciones.
+Los datos del panel vienen de la API de Xano (ver «API Xano»). `PanelRepository` los descarga, valida y obtiene los cinco indicadores por línea/año; `DashboardViewModel` entrega esos resultados a la vista y conserva la selección durante recreaciones.
 
 El nombre de la aplicación es **MaderaTimber** (etiqueta Android, tema, `rootProject.name`, repositorio y carpeta); el panel pertenece a **Cenamad**. Paquete e identificador: `com.duoc.madertimber`.
 
@@ -18,14 +18,35 @@ El nombre de la aplicación es **MaderaTimber** (etiqueta Android, tema, `rootPr
 
 ## Funcionalidades implementadas
 
-- Inicio de sesión y registro de demostración con formularios validados: íconos por campo, mensajes de error y aviso modal. Guardan nombre y correo en Room; la contraseña nunca se guarda.
+- Inicio de sesión y registro reales contra Xano, con formularios validados, íconos por campo, indicador de carga y mensajes de error. Guardan nombre y correo en Room; la contraseña nunca se guarda en el teléfono.
+- Favoritos: desde la ficha de un proyecto, investigador o publicación se puede guardar o quitar; la pantalla «Mis favoritos» los lista desde la API.
 - Dashboard con imagen de portada, filtros (modal y rápidos), cuatro indicadores y comparación entre líneas.
 - Detalle de línea y de indicador, con gráfico histórico, variación respecto al año anterior y explicación.
 - Listas y fichas de proyectos, investigadores y publicaciones relacionados.
 - Persistencia local con Room de la última selección del panel (línea, año y métrica).
 - Dos recursos nativos: cámara (foto de apoyo, con permiso y FileProvider) y selector de archivos del sistema (demostrativo, no sube nada).
 - Animaciones: transiciones entre pantallas, cambio de valores en las tarjetas y barras de comparación.
-- Arquitectura MVVM: vistas Compose, ViewModels con estado y eventos, repositorios y modelo con las reglas.
+- Arquitectura MVVM: vistas Compose, ViewModels con estado y eventos, repositorios (API y Room) y modelo con las reglas.
+- Dos pruebas unitarias (JUnit) y APK release firmado con ícono propio (tronco de madera con anillos).
+
+## API Xano
+
+Backend creado en Xano. Base: `https://x8ki-letl-twmt.n7.xano.io`. Se consume con Retrofit desde `data/remote/XanoApi.kt`.
+
+| # | Método | Ruta | Uso en la app |
+| --- | --- | --- | --- |
+| 1 | POST | `/api:vZX-U2M6/auth/signup` | Crear cuenta (nombre, correo, contraseña); devuelve el token. |
+| 2 | POST | `/api:vZX-U2M6/auth/login` | Iniciar sesión; devuelve el token. |
+| 3 | GET | `/api:vZX-U2M6/auth/me` | Datos del usuario del token (nombre y correo). |
+| 4 | GET | `/api:VKaJBDOl/lineas` | Líneas de investigación con sus años de cobertura. |
+| 5 | GET | `/api:VKaJBDOl/proyectos` | Proyectos con su seguimiento anual. |
+| 6 | GET | `/api:VKaJBDOl/investigadores` | Investigadores y sus vinculaciones. |
+| 7 | GET | `/api:VKaJBDOl/publicaciones` | Publicaciones por línea y año. |
+| 8 | GET | `/api:VKaJBDOl/favoritos` | Favoritos del usuario (requiere token). |
+| 9 | POST | `/api:VKaJBDOl/favoritos` | Guardar un favorito (requiere token). |
+| 10 | DELETE | `/api:VKaJBDOl/favoritos/{favorito_id}` | Quitar un favorito propio (requiere token). |
+
+Tablas: `user` (de Xano), `linea`, `proyecto`, `investigador`, `publicacion` y `favorito`. El plan gratuito de Xano permite 10 solicitudes cada 20 segundos; si se supera, la app muestra un aviso para esperar unos segundos.
 
 Los pasos para ejecutar el proyecto están en las secciones «Instalación en otro computador» y «Compilar e instalar».
 
@@ -52,7 +73,8 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 | Compatibilidad de código Java | 11 (source/target); distinta del JDK del daemon | `app/build.gradle.kts` |
 | Compose | BOM 2026.02.01; UI, graphics, animation, preview y Material 3 | Catálogo y módulo `app` |
 | AndroidX | Core KTX 1.10.1; Lifecycle Runtime KTX 2.6.1; Activity Compose 1.8.0 | Catálogo |
-| Pruebas | No incluidas: se retiraron el 29-10-2026 junto con sus librerías porque la asignatura no las exige | — |
+| Pruebas | JUnit 4.13.2: `AccesoValidadorTest` y `ConversorDatosPanelTest` en `app/src/test` | Catálogo y módulo `app` |
+| Consumo de API | Retrofit 2.11.0 con convertidor Gson | Catálogo y módulo `app` |
 | Lectura JSON | Gson 2.14.0 | Catálogo y módulo `app` |
 | Carga asíncrona | Lifecycle ViewModel KTX 2.6.1; Kotlin coroutines Android 1.10.2 | Catálogo y módulo `app` |
 | Navegación | Navigation Compose 2.10.2 | Catálogo y módulo `app` |
@@ -62,7 +84,7 @@ Fuente de verdad: archivos Gradle; esta tabla no certifica que todas las version
 
 AGP incorpora soporte Kotlin desde la versión 9. La variable `kotlin` del catálogo configura el plugin Compose; no prueba la versión efectiva del compilador integrado. Ver [documentación oficial Android](https://developer.android.com/build/migrate-to-built-in-kotlin).
 
-Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal. Configuration Cache activada; heap Gradle configurado en 2 GB. Un único módulo `:app`. No hay backend, servicios externos ni variables `.env` requeridas por el código actual.
+Repositorios de dependencias: Google Maven, Maven Central y Gradle Plugin Portal. Configuration Cache activada; heap Gradle configurado en 2 GB. Un único módulo `:app`. El backend es la API de Xano descrita arriba; no se requieren variables `.env`.
 
 **SDK del proyecto: API 37.** API 38 no está disponible y no es un requisito de instalación. El commit `b2ea407` restableció `compileSdk` y `targetSdk` a 37; esta configuración se comprobó por lectura en `main` remoto el 22-10-2026. Gradle Wrapper permanece en 9.6.0 y `minSdk` en 24.
 
@@ -110,10 +132,23 @@ bash ./gradlew :app:assembleDebug :app:lintDebug --console=plain
 | APK debug | `.\gradlew.bat :app:assembleDebug` |
 | Análisis Android Lint | `.\gradlew.bat :app:lintDebug` |
 | Instalar en dispositivo conectado | `.\gradlew.bat :app:installDebug` |
+| Pruebas unitarias | `.\gradlew.bat :app:testDebugUnitTest` |
+| APK release firmado | `.\gradlew.bat :app:assembleRelease` |
 
 APK esperado: `app/build/outputs/apk/debug/app-debug.apk`; reportes Lint: `app/build/reports/`. Estos son resultados generados, no archivos a versionar. Para tareas Linux/macOS sustituir el ejecutor por `bash ./gradlew`.
 
-El repositorio no incluye pruebas automatizadas: se retiraron el 29-10-2026 porque la asignatura no las exige. La validación se hace compilando, con Lint y revisando la app en emulador o dispositivo.
+Las pruebas unitarias también se pueden ejecutar en Android Studio con clic derecho sobre `app/src/test` → Run. Nota: en Windows, si la ruta del proyecto tiene tildes (por ejemplo «Móviles»), Gradle no encuentra las clases de prueba; abrir el proyecto desde una ruta sin tildes.
+
+### APK firmado (release)
+
+1. Crear el keystore una sola vez, **fuera del repositorio** (Android Studio: Build → Generate Signed App Bundle or APK → APK → Create new; o por terminal):
+
+   ```powershell
+   & "C:\Program Files\Android\Android Studio\jbr\bin\keytool.exe" -genkeypair -v -keystore C:/llaves/maderatimber.jks -alias maderatimber -keyalg RSA -keysize 2048 -validity 10000
+   ```
+
+2. Copiar `keystore.properties.example` como `keystore.properties` en la raíz y completar ruta, contraseñas y alias. Ese archivo y el `.jks` están en `.gitignore`: no se suben a Git. Respaldar el `.jks`; si se pierde no se pueden publicar actualizaciones con la misma firma.
+3. Ejecutar `.\gradlew.bat :app:assembleRelease`. El APK queda en `app/build/outputs/apk/release/app-release.apk`. Sin `keystore.properties` el APK release se genera sin firmar.
 
 **Antecedentes Windows:** hubo rechazos por rutas no ASCII y fallo de inicio AAPT2; después se registró sync/assemble exitosos con `android.overridePathCheck=true`. No se repitieron pruebas Windows aquí.
 
