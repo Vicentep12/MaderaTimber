@@ -1,7 +1,15 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+}
+
+// Datos de la firma release: se leen de keystore.properties (ignorado por Git) para no versionar contraseñas
+val archivoFirma = rootProject.file("keystore.properties")
+val propiedadesFirma = Properties().apply {
+    if (archivoFirma.exists()) archivoFirma.inputStream().use { load(it) }
 }
 
 android {
@@ -18,8 +26,21 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        if (archivoFirma.exists()) {
+            create("release") {
+                storeFile = rootProject.file(propiedadesFirma.getProperty("storeFile"))
+                storePassword = propiedadesFirma.getProperty("storePassword")
+                keyAlias = propiedadesFirma.getProperty("keyAlias")
+                keyPassword = propiedadesFirma.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Sin keystore.properties el APK release queda sin firmar
+            if (archivoFirma.exists()) signingConfig = signingConfigs.getByName("release")
             optimization {
                 enable = false
             }
@@ -53,5 +74,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    testImplementation(libs.junit)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }
