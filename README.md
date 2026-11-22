@@ -144,6 +144,7 @@ Las pruebas unitarias también se pueden ejecutar en Android Studio con clic der
 1. Crear el keystore una sola vez, **fuera del repositorio** (Android Studio: Build → Generate Signed App Bundle or APK → APK → Create new; o por terminal):
 
    ```powershell
+   New-Item -ItemType Directory -Force C:/llaves
    & "C:\Program Files\Android\Android Studio\jbr\bin\keytool.exe" -genkeypair -v -keystore C:/llaves/maderatimber.jks -alias maderatimber -keyalg RSA -keysize 2048 -validity 10000
    ```
 
